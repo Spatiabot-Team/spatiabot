@@ -4,7 +4,7 @@ var minHourWaitingEvent = 5  // Temps minimum avant déclanchement event en heure
 var maxHourWaitingEvent = 48 // Temps maximum avant déclanchement event en heure
 var firstEvent = 1 // Temps avant le premier évènement en heure (fixe)
 var ChannelID = "231151508585054208" // id du salon où sera diffusé le contenu
-var prefix = "a!"
+var prefix = "!"
 
 function Joueur (id, pv) {
 	this.id = id
