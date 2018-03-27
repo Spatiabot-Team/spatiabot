@@ -1,9 +1,9 @@
-
+ï»¿
 //Configuration
-var minHourWaitingEvent = 5  // Temps minimum avant déclanchement event en heure
-var maxHourWaitingEvent = 48 // Temps maximum avant déclanchement event en heure
-var firstEvent = 1 // Temps avant le premier évènement en heure (fixe)
-var ChannelID = "231151508585054208" // id du salon où sera diffusé le contenu
+var minHourWaitingEvent = 5  // Temps minimum avant declanchement event en heure
+var maxHourWaitingEvent = 48 // Temps maximum avant declanchement event en heure
+var firstEvent = 1 // Temps avant le premier evenement en heure (fixe)
+var ChannelID = "231151508585054208" // id du salon ou sera diffuse le contenu
 var prefix = "!"
 
 function Joueur (id, pv) {
@@ -40,10 +40,17 @@ client.on('message', msg => {
 		return
 	}
 
-	// Décollage
+	// Decollage
 	if (msg.content === prefix + 'decollage') {
-		// TODO : vérifier que le joueur n'existe pas déjà
+		// TODO : verifier que le joueur n'existe pas deja
 		channel.send(" Un decollage vient d'avoir lieu, celui de " + msg.author.username + " ! Parti explorer les fins fond de l'univers, va t'il aller au bout de son periple ?");
+		var j = new Joueur (msg.author.id, 10)
+		tabJoueurs.push(j)
+	}
+	// TEST
+	if (msg.content === prefix + 'testl') {
+		// TODO : verifier que le joueur n'existe pas deja
+		channel.send("encodage : Oui " + msg.author.username + " je fonctionne super bien !");
 		var j = new Joueur (msg.author.id, 10)
 		tabJoueurs.push(j)
 	}
@@ -56,7 +63,7 @@ client.on('message', msg => {
 	// Toute cette section concerne un joueur
 	if (joueur)
 	{
-		// Vérifier si la personne a une nouvelle aventure
+		// Verifier si la personne a une nouvelle aventure
 		if (Date.now() >= joueur.time && joueur.isWaitingEvent)
 		{
 			console.log("Et la, l'aventure commencera")
