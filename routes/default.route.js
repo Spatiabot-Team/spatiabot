@@ -8,20 +8,16 @@ BotController = require('./../controllers/bot.controller');
  */
 module.exports.listen = function (channel, msg) {
 
-    var vaisseauController = new VaisseauController(channel);
-    var botController = new BotController(channel);
-
     //Routes
-
     switch (msg.content) {
         case 'decollage':
-            vaisseauController.decollage(msg);
+            VaisseauController.decollage(channel,msg);
             break;
         case 'test':
-            botController.IWork(msg);
+            BotController.IWork(channel,msg);
             break;
         default:
-            botController.notFound(msg);
+            BotController.notFound(channel,msg);
             break;
     }
 };
