@@ -5,6 +5,7 @@
   "main": "bot.js",
   "author": "ASTRO",
   "dependencies": {
+    "colors": "^1.2.1",
     "discord.io": "^2.5.3",
     "discord.js": "^11.3.2",
     "winston": "^2.4.1"
