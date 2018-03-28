@@ -20,6 +20,9 @@ module.exports.listen = function (channel, msg) {
         case 'test':
             BotController.IWork(channel,msg);
             break;
+        case 'embed':
+            BotController.embed(channel,msg);
+            break;
         default:
             BotController.notFound(channel,msg);
             break;
