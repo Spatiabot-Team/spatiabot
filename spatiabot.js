@@ -7,9 +7,7 @@ var colors = require('colors'),
 
 
 //Configuration
-const config = require('./config/config');
-JeuService.minMinutesWaitingEvent = config.minMinutesWaitingEvent;
-JeuService.maxMinutesWaitingEvent = config.maxMinutesWaitingEvent;
+JeuService.config = require('./config/config');
  
     
 
@@ -34,19 +32,19 @@ discordClient.on('ready', () => {
 discordClient.on('message', msg => {
 
     //Connexion au channel
-    var channel = discordClient.channels.find("id", config.channelID);
+    var channel = discordClient.channels.find("id", JeuService.config.channelID);
     if (channel == undefined) {
         console.log("Erreur : salon " + channelId + "introuvable");
         return false;
     }
 
-    if (msg.content.startsWith(config.prefix)) {
+    if (msg.content.startsWith(JeuService.config.prefix)) {
 
         //On retire le prefix pour ne pas avoir à le vérifier partout
-        msg.content = msg.content.replace(new RegExp("^" + config.prefix), '');
+        msg.content = msg.content.replace(new RegExp("^" + JeuService.config.prefix), '');
 
         //On convertit les arguments en tableaux
-        msg.args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
+        msg.args = msg.content.slice(JeuService.config.prefix.length).trim().split(/ +/g);
 
         //Routes : on pourrait très bien charger un fichier de route en fonction du prefix
         Routes.listen(channel, msg);
@@ -58,4 +56,4 @@ discordClient.on('message', msg => {
 
 
 //Tout est parametre on peut se connecter au discord
-discordClient.login(config.secretKey);
+discordClient.login(JeuService.config.secretKey);

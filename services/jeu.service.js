@@ -8,9 +8,10 @@ var JeuService = module.exports = {
      */
     joueurs: Array(),
 
-    minMinutesWaitingEvent : 0,
-    maxMinutesWaitingEvent : 0,
-
+    /**
+     * 
+     */
+    config : {},
 
     /**
      * User user
@@ -27,7 +28,7 @@ var JeuService = module.exports = {
             joueur = new Joueur(user.id,user.username,user.avatar,100);
 
             //Indication du prochaint evènement
-            minutes = Math.floor(Math.random() * JeuService.maxMinutesWaitingEvent + JeuService.minMinutesWaitingEvent);
+            minutes = Math.floor(Math.random() * JeuService.config.maxMinutesWaitingEvent + JeuService.config.minMinutesWaitingEvent);
             joueur.setNextEvent(Date.now() + minutes * 60 * 1000);
 
             //Ajout du joueur a la liste
