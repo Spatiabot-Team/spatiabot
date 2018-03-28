@@ -5,7 +5,7 @@
  * @param Object msg 
  */
 module.exports.IWork = function(channel,msg){
-    channel.send("Oui " + msg.author.username + " je fonctionne super bien !");
+    channel.send("Oui " + msg.author.username + " je fonctionne super bien ! ");
 };
 
 /**

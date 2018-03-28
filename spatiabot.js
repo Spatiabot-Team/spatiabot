@@ -2,9 +2,16 @@
 var colors = require('colors'),
     Discord = require("discord.js"),
     discordClient = new Discord.Client(),
-    Routes = require('./routes/default.route');
+    Routes = require('./routes/default.route'),
+    JeuService = require('./services/jeu.service');
 
+
+//Configuration
 const config = require('./config/config');
+JeuService.minMinutesWaitingEvent = config.minMinutesWaitingEvent;
+JeuService.maxMinutesWaitingEvent = config.maxMinutesWaitingEvent;
+ 
+    
 
 //Message de bienvenue
 console.log('(\\__/)  '.green);
@@ -38,9 +45,15 @@ discordClient.on('message', msg => {
         //On retire le prefix pour ne pas avoir à le vérifier partout
         msg.content = msg.content.replace(new RegExp("^" + config.prefix), '');
 
+        //On convertit les arguments en tableaux
+        msg.args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
+
         //Routes : on pourrait très bien charger un fichier de route en fonction du prefix
         Routes.listen(channel, msg);
     }
+
+    JeuService.onEventMessage(channel,msg);
+
 });
 
 
