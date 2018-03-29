@@ -1,4 +1,4 @@
-﻿
+
 //Configuration
 var minHourWaitingEvent = 5  // Temps minimum avant declanchement event en heure
 var maxHourWaitingEvent = 48 // Temps maximum avant declanchement event en heure
