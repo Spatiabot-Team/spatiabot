@@ -20,7 +20,8 @@ module.exports = class Joueur {
 		this.avatar = avatar;
 		this.pv = pv;
 		this.timeForNextEvent = Date.now() + 5000;
-		this.isWaitingEvent = false;
+		this.currentScenario = -1;
+		this.currentStep = -1;
 	};
 
 	/**
@@ -29,11 +30,10 @@ module.exports = class Joueur {
 	 */
 	setNextEvent (timeForNextEvent){
 		this.timeForNextEvent = timeForNextEvent
-		this.isWaitingEvent = true;
 	};
 
 	hasNextEventReady(){
-		return Date.now() >= this.timeForNextEvent && joueur.isWaitingEvent;
+		return Date.now() >= this.timeForNextEvent;
 	};
 
 }

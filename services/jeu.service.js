@@ -25,10 +25,11 @@ var JeuService = module.exports = {
         if(false == joueur){
 
             //Création du joueur
-            joueur = new Joueur(user.id,user.username,user.avatar,100);
+            joueur = new Joueur(user.id,user.username,user.avatar,JeuService.config.pv);
 
-            //Indication du prochaint evènement
-            minutes = Math.floor(Math.random() * JeuService.config.maxMinutesWaitingEvent + JeuService.config.minMinutesWaitingEvent);
+            //Indication du prochain evenement
+            minutes = Math.floor(Math.random() * (JeuService.config.maxMinutesWaitingEvent - JeuService.config.minMinutesWaitingEvent)
+                                                + JeuService.config.minMinutesWaitingEvent);
             joueur.setNextEvent(Date.now() + minutes * 60 * 1000);
 
             //Ajout du joueur a la liste
@@ -37,7 +38,6 @@ var JeuService = module.exports = {
         
         //on retourne le joueur
         return joueur;
-
     },
 
     /**
@@ -46,11 +46,10 @@ var JeuService = module.exports = {
      */
     getJoueur : function(id){
         res = false;
-        if(JeuService.joueurs.length > 0){
-            for(i in JeuService.joueurs){
-                if(JeuService.joueurs[i].id == id){
-                    res = JeuService.joueurs[i];
-                }
+        for(i in JeuService.joueurs){
+            if(JeuService.joueurs[i].id == id){
+                res = JeuService.joueurs[i];
+                break;
             }
         }
         return res;
@@ -65,9 +64,15 @@ var JeuService = module.exports = {
         //On détermine si c'est un joueur
         joueur = JeuService.getJoueur(msg.author.id);
         if (false != joueur && joueur.hasNextEventReady()){
-            //On lui annonce que l'aventure commence @todo lancer le scenar !
-            joueur.isWaitingEvent = false;
-            channel.send("Et la," + joueur.username + " l'aventure commencera")
+
+            if (joueur.currentScenario == -1)
+            {
+                channel.send("Et la," + joueur.username + " l'aventure commencera")
+            }
+            else 
+            {
+                 // Lire le scenario joueur.currentScenario
+            }
 		}	
     }
 
