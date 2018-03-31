@@ -28,9 +28,10 @@ var JeuService = module.exports = {
             joueur = new Joueur(user.id,user.username,user.avatar,JeuService.config.pv);
 
             //Indication du prochain evenement
-            minutes = Math.floor(Math.random() * (JeuService.config.maxMinutesWaitingEvent - JeuService.config.minMinutesWaitingEvent)
-                                                + JeuService.config.minMinutesWaitingEvent);
+            minutes = Math.random() * (JeuService.config.maxMinutesWaitingEvent - JeuService.config.minMinutesWaitingEvent)
+                                                + JeuService.config.minMinutesWaitingEvent;
             joueur.setNextEvent(Date.now() + minutes * 60 * 1000);
+            joueur.isWaitingEvent = true;
 
             //Ajout du joueur a la liste
             JeuService.joueurs.push(joueur);
@@ -64,19 +65,34 @@ var JeuService = module.exports = {
      * Des qu'un message arrive cet evenement ce declenche
      * On peut en profiter pour parcourir tous les joueurs par exemple
      */
-    onEventMessage : function(channel,msg){
+    onEventMessage : function(user){
 
         //On détermine si c'est un joueur
-        joueur = JeuService.getJoueur(msg.author.id);
-        if (false != joueur && joueur.hasNextEventReady()){
+        joueur = JeuService.getJoueur(user.id);
 
+        if (false != joueur && joueur.hasNextEventReady())
+        {
+            // Le joueur attend un nouveau scenario
+            try 
+            {
+                var scenarios = require('../data/scenario1.json');
+            }
+            catch(error)
+            {
+                console.error("Erreur lors de la lecture du fichier de scenario : " + error);
+                return;
+            }
+
+            
             if (joueur.currentScenario == -1)
             {
-                channel.send("Et la," + joueur.username + " l'aventure commencera")
+                // Nouveau scenario pour le joueur
+                joueur.isWaitingEvent = false;
+                return scenarios.etape[0].text;
             }
             else 
             {
-                 // Lire le scenario joueur.currentScenario
+                 // Poursuivre le scenario du joueur
             }
 		}	
     }
