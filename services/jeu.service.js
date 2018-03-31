@@ -94,7 +94,6 @@ var JeuService = module.exports = {
             {
                  // Poursuivre le scenario du joueur
             }
-		}	
+        }	
     }
-
 }
