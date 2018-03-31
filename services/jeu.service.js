@@ -72,28 +72,38 @@ var JeuService = module.exports = {
 
         if (false != joueur && joueur.hasNextEventReady())
         {
-            // Le joueur attend un nouveau scenario
-            try 
-            {
-                var scenarios = require('../data/scenario1.json');
-            }
-            catch(error)
-            {
-                console.error("Erreur lors de la lecture du fichier de scenario : " + error);
-                return;
-            }
-
-            
             if (joueur.currentScenario == -1)
             {
                 // Nouveau scenario pour le joueur
                 joueur.isWaitingEvent = false;
-                return scenarios.etape[0].text;
-            }
-            else 
-            {
-                 // Poursuivre le scenario du joueur
+
+                // Determiner le nouveau scenario du joueur
+                return JeuService.getScenario(joueur);
             }
         }	
-    }
+    },
+
+    getScenario : function(joueur){
+
+        // Lire la liste des scenarios
+        try 
+        {
+            var scenarios = require('../data/scenario1.json');
+        }
+        catch(error)
+        {
+            console.error("Erreur lors de la lecture du fichier de scenario : " + error);            
+            return;
+        }
+
+        if (joueur.currentScenario == -1)
+        {
+            // Determiner un nouveau scenario pour le joueur
+            joueur.currentScenario = 0; // TODO : parcourir fichier et déterminer aléatoirement
+            joueur.currentStep = 0;
+        }
+
+        // Afficher le texte associe à l'etape et au scenario du joueur
+        return scenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].text;        
+    },	
 }
