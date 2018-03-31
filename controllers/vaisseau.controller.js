@@ -8,7 +8,7 @@ JeuService = require('./../services/jeu.service');
  * @param Object msg 
  */
 module.exports.decollage = function (channel, msg) {
-    joueur = JeuService.decollage(msg.author);
+    msg = JeuService.decollage(msg.author);
     // Todo : deplacer le message dans le service ?
-    channel.send(" Un decollage vient d'avoir lieu, celui de " + joueur.username + " ! Parti explorer les fins fond de l'univers, va t'il aller au bout de son periple ?");
+    channel.send(msg);
 };

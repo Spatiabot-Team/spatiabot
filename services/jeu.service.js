@@ -20,11 +20,11 @@ var JeuService = module.exports = {
 
         //On essaie d'obtenir le joueur
         joueur = JeuService.getJoueur(user.id);
+        msg = "";
 
-        //Si on ne le trouve pas c'est que c'est un nouveau joueur
         if(false == joueur){
+            // Nouveau joueur            
 
-            //Création du joueur
             joueur = new Joueur(user.id,user.username,user.avatar,JeuService.config.pv);
 
             //Indication du prochain evenement
@@ -34,10 +34,15 @@ var JeuService = module.exports = {
 
             //Ajout du joueur a la liste
             JeuService.joueurs.push(joueur);
+            
+            msg = "Un décollage vient d'avoir lieu, celui de " + joueur.username + " ! Parti explorer les fins fond de l'univers, va t'il aller au bout de son periple ?"
         }
-        
-        //on retourne le joueur
-        return joueur;
+        else 
+        {
+            // Joueur existant
+            msg = "Oh, mais tu as déjà décollé, "+ joueur.username + " !";
+        }
+        return msg;
     },
 
     /**
