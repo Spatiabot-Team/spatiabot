@@ -10,20 +10,20 @@
 					"text": "Alors que vous étiez conformablement installé dans le cockpit à lire les cartes galactiques, un signal retentit. Un coup d'oeil à votre tableau de bord vous permet de constater un problème inquiétant : la quantité de carburant restante dans le reservoir est très faible. L'ordinateur de bord annonce une autonomie ne dépassant pas la poignée d'heures.\n L'ordinateur annonce également qu'une station de carburant se trouve dans les parages, mais malheureusement peut-être un peu lointaine. Cependant, il vous est possible d'activer le mode \"économie\" de votre vaisseau. Cela aura pour effet d'optimiser la consommation d'essence, mais au prix d'une désactivation de plusieurs fonctions du vaisseau, notamment la protection contre les débris cosmiques ou la musique à bord.",
 					"reponse": [
 						{
-							"id": 0,
+							"id": 1,
 							"text": "Activer le mode économe, c'est une urgence",
-							"suivant": {
+							"suivant": [{
 								"numEtape": 1,
 								"proba": 1
-							}
+							}]
 						},
 						{
-							"id": 1,
+							"id": 2,
 							"text": "Ne pas activer le mode économe, je peux le faire",
-							"suivant": {
+							"suivant": [{
 								"numEtape": 2,
 								"proba": 1
-							}
+							}]
 						}
 					]
 				},

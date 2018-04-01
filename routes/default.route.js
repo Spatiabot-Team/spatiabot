@@ -13,15 +13,18 @@ module.exports.listen = function (channel, msg) {
         // Si le message contient notre prefixe
 
         //On retire le prefixe pour ne pas avoir à le vérifier partout
-        msg.content = msg.content.replace(new RegExp("^" + JeuService.config.prefix), '');
+        msg.content = msg.content.slice(JeuService.config.prefix.length)
 
         //On convertit les arguments en tableaux
-        msg.args = msg.content.slice(JeuService.config.prefix.length).trim().split(/ +/g);
+        msg.args = msg.content.trim().split(/ +/g);
 
             //Routes
-        switch (msg.content) {
+        switch (msg.args[0]) {
             case 'decollage':
                 VaisseauController.decollage(channel,msg);
+                break;
+            case 'reponse':
+                VaisseauController.reponse(channel,msg);
                 break;
             case 'test':
                 BotController.IWork(channel,msg);

@@ -38,7 +38,7 @@ discordClient.on('message', msg => {
         return false;
     }
 
-    //Routes : on pourrait très bien charger un fichier de route en fonction du prefix
+    //Routes : on pourrait très bien charger un fichier de route en fonction du prefixe
     Routes.listen(channel, msg);
 });
 

@@ -14,6 +14,18 @@ module.exports.decollage = function (channel, msg) {
 };
 
 /**
+ * Traitement de la reponse du joueur
+ * 
+ * @param Object channel 
+ * @param Object msg 
+ */
+module.exports.reponse = function (channel, msg) {
+    var message = JeuService.reponse(msg.author, msg.args[1]);
+    if (message != undefined)
+        channel.send(message);
+};
+
+/**
  * Affichage du scenario
  * 
  * @param Object channel 

@@ -33,6 +33,12 @@ module.exports = class Joueur {
 		this.timeForNextEvent = timeForNextEvent
 	};
 
+	setDefaultNextEvent(){
+		var minutes = Math.random() * (JeuService.config.maxMinutesWaitingEvent - JeuService.config.minMinutesWaitingEvent)
+		+ JeuService.config.minMinutesWaitingEvent;
+		joueur.setNextEvent(Date.now() + minutes * 60 * 1000);		
+	};
+
 	hasNextEventReady(){
 		return Date.now() >= this.timeForNextEvent && this.isWaitingEvent;
 	};
