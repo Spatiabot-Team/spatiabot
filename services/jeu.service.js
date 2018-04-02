@@ -77,11 +77,11 @@ var JeuService = module.exports = {
         {
             // Le joueur avait bien une reponse en attente
             message = "Reponse incorrecte..."
-            var scenarios = JeuService.getScenarios();
-            if (scenarios == false)
+            var fileScenarios = JeuService.getScenarios();
+            if (fileScenarios == false)
                 return;
 
-            scenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.some(function(reponse)
+            fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.some(function(reponse)
             {
                 if (reponse.id == reponseId)
                 {
@@ -160,8 +160,8 @@ var JeuService = module.exports = {
      */
     getHistoireJoueur : function(joueur){
 
-        var scenarios = JeuService.getScenarios();
-        if (scenarios == false)
+        var fileScenarios = JeuService.getScenarios();
+        if (fileScenarios == false)
             return;
 
         if (joueur.currentScenario == -1)
@@ -172,10 +172,10 @@ var JeuService = module.exports = {
         }
 
         // Afficher le texte associe à l'etape et au scenario du joueur
-        var step = scenarios.scenario[joueur.currentScenario].etape[joueur.currentStep];
-        var message = step.text + "\n \n";
+        var fileStep = fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep];
+        var message = fileStep.text + "\n \n";
 
-        if (step.reponse == undefined)
+        if (fileStep.reponse == undefined)
         {
             // Aucune reponse attendue (fin du scenario). 
             joueur.setDefaultNextEvent();
@@ -185,7 +185,7 @@ var JeuService = module.exports = {
         else 
         {
             // Afficher les réponses
-            scenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.forEach(function(reponse)
+            fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.forEach(function(reponse)
             {
                 message += reponse.text + " (" + JeuService.config.prefix + "reponse " + reponse.id + ")\n";
             });
