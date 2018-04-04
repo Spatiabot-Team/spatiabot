@@ -22,7 +22,7 @@ module.exports.decollage = function (channel, msg) {
 module.exports.reponse = function (channel, msg) {
     var message = JeuService.reponse(msg.author, msg.args[1]);
     if (message != undefined)
-        channel.send(message);
+        msg.author.send(message);
 };
 
 /**
@@ -34,5 +34,5 @@ module.exports.reponse = function (channel, msg) {
 module.exports.scenarios = function (channel, msg) {
     var message = JeuService.onEventMessage(msg.author);
     if (message != undefined)
-        channel.send(message);
+        msg.author.send(message);
 };
