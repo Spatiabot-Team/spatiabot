@@ -34,7 +34,7 @@ discordClient.on('message', msg => {
     //Connexion au channel
     var channel = discordClient.channels.find("id", JeuService.config.channelID);
     if (channel == undefined) {
-        console.error("Erreur : salon " + channelId + "introuvable");
+        console.error("Erreur : salon " + JeuService.config.channelID + " introuvable");
         return false;
     }
 
