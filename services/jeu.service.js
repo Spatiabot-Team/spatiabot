@@ -1,5 +1,6 @@
 //Imports
 Joueur = require('../models/joueur');
+Message = require('../models/message');
 
 var JeuService = module.exports = {
 
@@ -20,7 +21,7 @@ var JeuService = module.exports = {
 
         //On essaie d'obtenir le joueur
         joueur = JeuService.getJoueur(user.id);
-        msg = "";
+        msg = new Message();
 
         if(false == joueur){
             // Nouveau joueur            
@@ -36,12 +37,12 @@ var JeuService = module.exports = {
             //Ajout du joueur a la liste
             JeuService.joueurs.push(joueur);
             
-            msg = "Un décollage vient d'avoir lieu, celui de " + joueur.username + " ! Parti explorer les fins fond de l'univers, va t'il aller au bout de son periple ?"
+            msg.text = "Un décollage vient d'avoir lieu, celui de " + joueur.username + " ! Parti explorer les fins fond de l'univers, va t'il aller au bout de son periple ?"
         }
         else 
         {
             // Joueur existant
-            msg = "Oh, mais tu as déjà décollé, "+ joueur.username + " !";
+            msg.text = "Oh, mais tu as déjà décollé, "+ joueur.username + " !";
         }
         return msg;
     },
