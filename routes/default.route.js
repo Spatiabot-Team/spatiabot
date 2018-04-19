@@ -32,6 +32,9 @@ module.exports.listen = function (channel, msg) {
             case 'embed':
                 BotController.embed(channel,msg);
                 break;
+            case 'embedme':
+                BotController.embedme(channel,msg);
+                break;
             default:
                 BotController.notFound(channel,msg);
                 break;

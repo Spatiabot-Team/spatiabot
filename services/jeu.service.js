@@ -1,5 +1,6 @@
 //Imports
 Joueur = require('../models/joueur');
+Message = require('../models/message');
 
 var JeuService = module.exports = {
 
@@ -11,37 +12,36 @@ var JeuService = module.exports = {
     /**
      * 
      */
-    config : {},
+    config: {},
 
     /**
      * User user
      */
-    decollage : function(user){
+    decollage: function (user) {
 
         //On essaie d'obtenir le joueur
         joueur = JeuService.getJoueur(user.id);
-        msg = "";
+        var msg = new Message();
 
-        if(false == joueur){
+        if (false == joueur) {
             // Nouveau joueur            
 
-            joueur = new Joueur(user.id,user.username,user.avatar,JeuService.config.pv);
+            joueur = new Joueur(user.id, user.username, user.avatar, JeuService.config.pv);
 
             //Indication du prochain evenement
             minutes = Math.random() * (JeuService.config.maxMinutesWaitingEvent - JeuService.config.minMinutesWaitingEvent)
-                                                + JeuService.config.minMinutesWaitingEvent;
+                + JeuService.config.minMinutesWaitingEvent;
             joueur.setDefaultNextEvent();
             joueur.isWaitingEvent = true;
 
             //Ajout du joueur a la liste
             JeuService.joueurs.push(joueur);
-            
-            msg = "Un décollage vient d'avoir lieu, celui de " + joueur.username + " ! Parti explorer les fins fond de l'univers, va t'il aller au bout de son periple ?"
+
+            msg.directtext = "Un décollage vient d'avoir lieu, celui de **" + joueur.username + "** ! Parti explorer les fins fond de l'univers, va t'il aller au bout de son periple ?"
         }
-        else 
-        {
+        else {
             // Joueur existant
-            msg = "Oh, mais tu as déjà décollé, "+ joueur.username + " !";
+            msg.directtext = "Oh, mais tu as déjà décollé, **" + joueur.username + "** !";
         }
         return msg;
     },
@@ -50,75 +50,73 @@ var JeuService = module.exports = {
      * Des qu'un message arrive cet evenement ce declenche
      * On peut en profiter pour parcourir tous les joueurs par exemple
      */
-    onEventMessage : function(user){
+    onEventMessage: function (user) {
 
         //On détermine si c'est un joueur
-        joueur = JeuService.getJoueur(user.id);        
-        if (false != joueur && joueur.hasNextEventReady())
-        {
-                // Nouveau scenario pour le joueur
-                joueur.isWaitingEvent = false;
+        joueur = JeuService.getJoueur(user.id);
+        if (false != joueur && joueur.hasNextEventReady()) {
+            // Nouveau scenario pour le joueur
+            joueur.isWaitingEvent = false;
 
-                // Determiner le nouveau scenario du joueur
-                return JeuService.getHistoireJoueur(joueur);
-        }	
+            // Determiner le nouveau scenario du joueur
+            return JeuService.getHistoireJoueur(joueur);
+        }else{
+            return false;
+        }
     },
 
     /**
-     * Met a jour le numéro d'etape du joueur selon sa reponse
+     * Met a jour le numero d'etape du joueur selon sa reponse
      */
-    reponse : function(user, reponseId){
+    reponse: function (user, reponseId) {
+        var msg = new Message();
+        msg.directtext = "Aucune réponse attendue...";
 
-        var message = "Aucune réponse attendue..."
         //On détermine si c'est un joueur
         joueur = JeuService.getJoueur(user.id);
 
-        if (joueur != false && joueur.isWaitingEvent == false)
-        {
+        if (joueur != false && joueur.isWaitingEvent == false) {
             // Le joueur avait bien une reponse en attente
-            message = "Reponse incorrecte..."
-            var fileScenarios = JeuService.getScenarios();
-            if (fileScenarios == false)
-                return;
 
-            fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.some(function(reponse)
-            {
-                if (reponse.id == reponseId)
-                {
+            msg.directtext = "Reponse incorrecte...";
+            var fileScenarios = JeuService.getScenarios();
+            if (fileScenarios == false) {
+                return false;
+            }
+
+
+            fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.some(function (reponse) {
+                if (reponse.id == reponseId) {
                     // Il s'agit de la reponse du joueur
-                    
+
                     /* Determiner un nombre aleatoire entre 0 et 1. Si ce nombre et inferieur ou egal
                      * A la somme des probas accumule jusque ici, l'evenement est choisi 
                      */
                     var random = Math.random();
                     var sommeProba = 0;
-                    reponse.suivant.some(function(suivant)
-                    {
+                    reponse.suivant.some(function (suivant) {
                         sommeProba += suivant.proba;
-                        if(random < sommeProba)
-                        {
+                        if (random < sommeProba) {
                             // C'est cet evenement qu'aura le joueur
                             joueur.currentStep = suivant.numEtape;
                             joueur.setDefaultNextEvent();
                             joueur.isWaitingEvent = true;
-                            message = "Reponse enregistrée !"
+                            msg.directtext = "Reponse enregistrée !"
                             return true;
                         }
-                        else
-                        {
+                        else {
                             return false;
                         }
                     });
                     return true;
                 }
-                else
-                {
+                else {
                     // Continuer de parourir les autres reponses
                     return false;
                 }
-            });          
+            });
         }
-        return message;
+        return msg;
     },
 
 
@@ -126,10 +124,10 @@ var JeuService = module.exports = {
      * Retourne le joueur avec l'id passe en parametre
      * Retourne false si le joueur n'est pas trouve
      */
-    getJoueur : function(id){
+    getJoueur: function (id) {
         res = false;
-        for(i in JeuService.joueurs){
-            if(JeuService.joueurs[i].id == id){
+        for (i in JeuService.joueurs) {
+            if (JeuService.joueurs[i].id == id) {
                 res = JeuService.joueurs[i];
                 break;
             }
@@ -140,15 +138,13 @@ var JeuService = module.exports = {
     /**
      * Retourne les donnees du scenario
      */
-    getScenarios(joueur){
+    getScenarios(joueur) {
         // Lire la liste des scenarios
-        try 
-        {
+        try {
             var scenarios = require('../data/scenario1.json');
         }
-        catch(error)
-        {
-            console.error("Erreur lors de la lecture du fichier de scenario : " + error);            
+        catch (error) {
+            console.error("Erreur lors de la lecture du fichier de scenario : " + error);
             return false;
         }
         return scenarios;
@@ -158,14 +154,15 @@ var JeuService = module.exports = {
      * Retourne le texte du scenario du joueur.
      * Si aucun scenario n'est associe au joueur, un nouveau lui est attribue.
      */
-    getHistoireJoueur : function(joueur){
+    getHistoireJoueur: function (joueur) {
 
         var fileScenarios = JeuService.getScenarios();
-        if (fileScenarios == false)
-            return;
+        if (fileScenarios == false){
+            return false;
+        }
+            
 
-        if (joueur.currentScenario == -1)
-        {
+        if (joueur.currentScenario == -1) {
             // Determiner un nouveau scenario pour le joueur
             joueur.currentScenario = 0; // TODO : parcourir fichier et déterminer aléatoirement le scenario à lire
             joueur.currentStep = 0; // On commence par la premiere etape
@@ -173,23 +170,24 @@ var JeuService = module.exports = {
 
         // Afficher le texte associe à l'etape et au scenario du joueur
         var fileStep = fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep];
-        var message = fileStep.text + "\n \n";
+        var msg = new Message();
+        msg.embedDiscord.setDescription(fileStep.text);
 
-        if (fileStep.reponse == undefined)
-        {
+        if (fileStep.reponse == undefined) {
             // Aucune reponse attendue (fin du scenario). 
             joueur.setDefaultNextEvent();
             joueur.currentScenario = -1;
             joueur.isWaitingEvent = true;
         }
-        else 
-        {
+        else {
+
+
             // Afficher les réponses
-            fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.forEach(function(reponse)
-            {
-                message += reponse.text + " (" + JeuService.config.prefix + "reponse " + reponse.id + ")\n";
+            fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.forEach(function (reponse) {
+                msg.embedDiscord.addField("_ _", "_ _");
+                msg.embedDiscord.addField(JeuService.config.prefix + "reponse " + reponse.id, reponse.text);
             });
         }
-        return message;
-    },	
+        return msg;
+    },
 }
