@@ -94,7 +94,7 @@ var JeuService = module.exports = {
             }
 
 
-            fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.some(function (reponse) {
+            fileScenarios.scenario[joueur.currentScenario].etapes[joueur.currentStep].reponses.some(function (reponse) {
                 if (reponse.id == reponseId) {
                     // Il s'agit de la reponse du joueur
 
@@ -178,11 +178,11 @@ var JeuService = module.exports = {
         }
 
         // Afficher le texte associe à l'etape et au scenario du joueur
-        var fileStep = fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep];
+        var fileStep = fileScenarios.scenario[joueur.currentScenario].etapes[joueur.currentStep];
         var msg = new Message();
         msg.embedDiscord.setDescription(fileStep.text);
 
-        if (fileStep.reponse == undefined) {
+        if (fileStep.reponses == undefined) {
             // Aucune reponse attendue (fin du scenario). 
             joueur.setDefaultNextEvent();
             joueur.currentScenario = -1;
@@ -190,13 +190,17 @@ var JeuService = module.exports = {
         }
         else {
             // Afficher les réponses
-            fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.forEach(function (reponse) {
+                fileStep.reponses.forEach(function (reponse) {
                 msg.embedDiscord.addField("_ _", "_ _");
                 msg.embedDiscord.addField(JeuService.config.prefix + "reponse " + reponse.id, reponse.text);
             });
         }
         
         // Appliquer les modifications au joueur 
+        if (fileStep.effetsJoueur != undefined) {
+            console.log(fileStep.effetsJoueur);
+            
+        }
 
         return msg;
     },
