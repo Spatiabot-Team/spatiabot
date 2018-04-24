@@ -34,8 +34,17 @@ var JeuService = module.exports = {
             joueur.setDefaultNextEvent();
             joueur.isWaitingEvent = true;
 
+
+            var playerFile = require('../data/joueur.json');
+            if (playerFile == false){
+                console.error("Erreur lors de la lecture du fichier joueur");
+                return;                
+            }
+            joueur.stats = playerFile;
+            console.log(joueur.stats.vie);
+
             //Ajout du joueur a la liste
-            JeuService.joueurs.push(joueur);
+            this.joueurs.push(joueur);
 
             msg.directtext = "Un décollage vient d'avoir lieu, celui de **" + joueur.username + "** ! Parti explorer les fins fond de l'univers, va t'il aller au bout de son periple ?"
         }
@@ -138,7 +147,7 @@ var JeuService = module.exports = {
     /**
      * Retourne les donnees du scenario
      */
-    getScenarios(joueur) {
+    getScenarios() {
         // Lire la liste des scenarios
         try {
             var scenarios = require('../data/scenario1.json');
@@ -180,14 +189,15 @@ var JeuService = module.exports = {
             joueur.isWaitingEvent = true;
         }
         else {
-
-
             // Afficher les réponses
             fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.forEach(function (reponse) {
                 msg.embedDiscord.addField("_ _", "_ _");
                 msg.embedDiscord.addField(JeuService.config.prefix + "reponse " + reponse.id, reponse.text);
             });
         }
+        
+        // Appliquer les modifications au joueur 
+
         return msg;
     },
 }
