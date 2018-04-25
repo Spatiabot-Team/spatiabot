@@ -198,8 +198,9 @@ var JeuService = module.exports = {
         
         // Appliquer les modifications au joueur 
         if (fileStep.effetsJoueur != undefined) {
-            console.log(fileStep.effetsJoueur);
-            
+            for (key in fileStep.effetsJoueur)
+                // TODO : appliquer modifications.
+                console.log(key + " " + fileStep.effetsJoueur[key]);            
         }
 
         return msg;
