@@ -37,7 +37,7 @@ var JeuService = module.exports = {
             //Ajout du joueur a la liste
             JeuService.joueurs.push(joueur);
 
-            msg.directtext = "Un décollage vient d'avoir lieu, celui de **" + joueur.username + "** ! Parti explorer les fins fond de l'univers, va t'il aller au bout de son periple ?"
+            msg.directtext = "Un décollage vient d'avoir lieu, celui de **" + joueur.username + "** ! Parti explorer les fins fond de l'univers, va-t'il/elle aller au bout de son périple ?"
         }
         else {
             // Joueur existant
