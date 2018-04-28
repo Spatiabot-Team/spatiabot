@@ -8,11 +8,15 @@ var JeuService = module.exports = {
      * Liste des joueurs
      */
     joueurs: Array(),
-
     /**
      * 
      */
     config: {},
+
+    /**
+     * User user
+     */    
+    worldStat: {}, 
 
     /**
      * User user
@@ -41,8 +45,7 @@ var JeuService = module.exports = {
                 return;                
             }
             joueur.stats = playerFile;
-            console.log(joueur.stats.vie);
-
+        
             //Ajout du joueur a la liste
             this.joueurs.push(joueur);
 
@@ -198,10 +201,36 @@ var JeuService = module.exports = {
         
         // Appliquer les modifications au joueur 
         if (fileStep.effetsJoueur != undefined) {
-            for (key in fileStep.effetsJoueur)
-                // TODO : appliquer modifications.
-                console.log(key + " " + fileStep.effetsJoueur[key]);            
+            for (scenarioStatKey in fileStep.effetsJoueur){
+                var scenarioStatValue = fileStep.effetsJoueur[scenarioStatKey];
+
+                // Parcourir les stats du joueur pour trouver la valeur correspondante
+                for (playerStatKey in joueur.stats){
+                    if (playerStatKey == scenarioStatKey){
+                        joueur.stats[playerStatKey] += scenarioStatValue;
+                        console.log ("nouvelle stat : " + playerStatKey + " : " + joueur.stats[playerStatKey]);
+                        break;
+                    }
+                } 
+            }
         }
+
+        // Appliquer les modifications au monde 
+        if (fileStep.effetsMonde != undefined) {
+            for (scenarioStatKey in fileStep.effetsMonde){
+                var scenarioStatValue = fileStep.effetsMonde[scenarioStatKey];
+
+                // Parcourir les stats du monde pour trouver la valeur correspondante
+                for (worldStatKey in this.worldStat){
+                    if (worldStatKey == scenarioStatKey){
+                        this.worldStat[worldStatKey] += scenarioStatValue;
+                        console.log ("nouvelle stat : " + worldStatKey + " : " + this.worldStat[worldStatKey])
+                        break;
+                    }
+                } 
+            }
+        }
+        
 
         return msg;
     },
