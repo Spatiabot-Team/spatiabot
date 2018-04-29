@@ -8,11 +8,15 @@ var JeuService = module.exports = {
      * Liste des joueurs
      */
     joueurs: Array(),
-
     /**
      * 
      */
     config: {},
+
+    /**
+     * User user
+     */    
+    worldStat: {}, 
 
     /**
      * User user
@@ -34,8 +38,16 @@ var JeuService = module.exports = {
             joueur.setDefaultNextEvent();
             joueur.isWaitingEvent = true;
 
+
+            var playerFile = require('../data/joueur.json');
+            if (playerFile == false){
+                console.error("Erreur lors de la lecture du fichier joueur");
+                return;                
+            }
+            joueur.stats = playerFile;
+        
             //Ajout du joueur a la liste
-            JeuService.joueurs.push(joueur);
+            this.joueurs.push(joueur);
 
             msg.directtext = "Un décollage vient d'avoir lieu, celui de **" + joueur.username + "** ! Parti explorer les fins fond de l'univers, va-t'il/elle aller au bout de son périple ?"
         }
@@ -85,7 +97,7 @@ var JeuService = module.exports = {
             }
 
 
-            fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.some(function (reponse) {
+            fileScenarios.scenario[joueur.currentScenario].etapes[joueur.currentStep].reponses.some(function (reponse) {
                 if (reponse.id == reponseId) {
                     // Il s'agit de la reponse du joueur
 
@@ -138,7 +150,7 @@ var JeuService = module.exports = {
     /**
      * Retourne les donnees du scenario
      */
-    getScenarios(joueur) {
+    getScenarios() {
         // Lire la liste des scenarios
         try {
             var scenarios = require('../data/scenario1.json');
@@ -169,25 +181,57 @@ var JeuService = module.exports = {
         }
 
         // Afficher le texte associe à l'etape et au scenario du joueur
-        var fileStep = fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep];
+        var fileStep = fileScenarios.scenario[joueur.currentScenario].etapes[joueur.currentStep];
         var msg = new Message();
         msg.embedDiscord.setDescription(fileStep.text);
 
-        if (fileStep.reponse == undefined) {
+        if (fileStep.reponses == undefined) {
             // Aucune reponse attendue (fin du scenario). 
             joueur.setDefaultNextEvent();
             joueur.currentScenario = -1;
             joueur.isWaitingEvent = true;
         }
         else {
-
-
             // Afficher les réponses
-            fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.forEach(function (reponse) {
+                fileStep.reponses.forEach(function (reponse) {
                 msg.embedDiscord.addField("_ _", "_ _");
                 msg.embedDiscord.addField(JeuService.config.prefix + "reponse " + reponse.id, reponse.text);
             });
         }
+        
+        // Appliquer les modifications au joueur 
+        if (fileStep.effetsJoueur != undefined) {
+            for (scenarioStatKey in fileStep.effetsJoueur){
+                var scenarioStatValue = fileStep.effetsJoueur[scenarioStatKey];
+
+                // Parcourir les stats du joueur pour trouver la valeur correspondante
+                for (playerStatKey in joueur.stats){
+                    if (playerStatKey == scenarioStatKey){
+                        joueur.stats[playerStatKey] += scenarioStatValue;
+                        console.log ("nouvelle stat : " + playerStatKey + " : " + joueur.stats[playerStatKey]);
+                        break;
+                    }
+                } 
+            }
+        }
+
+        // Appliquer les modifications au monde 
+        if (fileStep.effetsMonde != undefined) {
+            for (scenarioStatKey in fileStep.effetsMonde){
+                var scenarioStatValue = fileStep.effetsMonde[scenarioStatKey];
+
+                // Parcourir les stats du monde pour trouver la valeur correspondante
+                for (worldStatKey in this.worldStat){
+                    if (worldStatKey == scenarioStatKey){
+                        this.worldStat[worldStatKey] += scenarioStatValue;
+                        console.log ("nouvelle stat : " + worldStatKey + " : " + this.worldStat[worldStatKey])
+                        break;
+                    }
+                } 
+            }
+        }
+        
+
         return msg;
     },
 }
