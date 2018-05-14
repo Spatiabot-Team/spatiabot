@@ -19,7 +19,7 @@ console.log('/ 　 づ   '.green);
 
 //Connexion
 discordClient.on('ready', () => {
-    console.log(("Logged in as " + discordClient.user.tag + "!").blue);
+    console.log(("Spatiabot est connecté avec le tag " + discordClient.user.tag + "!").blue);
 });
 
 /**
