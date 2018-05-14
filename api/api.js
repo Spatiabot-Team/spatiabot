@@ -10,7 +10,13 @@ module.exports = class Api {
     };
 
     start (){
-        
+        //Message de bienvenue sur l'api
+        console.log(' o___o '.green);
+        console.log(' (^o^)    Bonjour, je suis l\'Api, prêt à vous servir !'.green);
+        console.log('o/( )\\o'.green);
+        console.log('O_.^._O\n'.green);
+
+
         //Le body parser permettra de récupérer les paramètre du corp de la requete
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(bodyParser.json());
@@ -32,7 +38,7 @@ module.exports = class Api {
         var app = this.app;
         server.listen( this.app.get('port'), function()
         {
-            console.log(('Express server listening on port ' + app.get('port')).green);
+            console.log(('Api écoute sur le port ' + app.get('port')).blue);
         });
 
         return this;

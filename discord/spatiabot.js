@@ -11,14 +11,14 @@ module.exports = class Spatiabot {
 
     start (){
         //Message de bienvenue
-        console.log('(\\__/)  '.green);
+        console.log('\n(\\__/)  '.green);
         console.log('(•ㅅ•)   Bonjour, je suis Spatiabot. Bienvenue dans ce monde intergalactique !'.green);
-        console.log('/ 　 づ   '.green);
+        console.log('/ 　 づ   \n'.green);
 
 
         //Connexion
         discordClient.on('ready', () => {
-            console.log(("Logged in as " + discordClient.user.tag + "!").blue);
+            console.log(("Spatiabot est connecté avec le tag " + discordClient.user.tag + "!").blue);
         });
 
         /**
