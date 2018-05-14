@@ -2,8 +2,8 @@
 var colors = require('colors'),
     Discord = require("discord.js"),
     discordClient = new Discord.Client(),
-    Routes = require('./routes/default.route'),
-    JeuService = require('./services/jeu.service');
+    Routes = require('./discord/routes/default.route'),
+    JeuService = require('./core/services/jeu.service');
 
 
 //Configuration
