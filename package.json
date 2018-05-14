@@ -9,9 +9,20 @@
   },  
   "dependencies": {
     "aws-sdk": "^2.250.1",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
     "colors": "^1.2.1",
     "discord.io": "^2.5.3",
     "discord.js": "^11.3.2",
-    "winston": "^2.4.1"
+    "express": "^4.16.3",
+    "express-jwt": "^5.3.1",
+    "express-session": "^1.15.6",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "jsonwebtoken": "^8.2.1",
+    "path": "^0.12.7",
+    "underscore": "^1.9.0",
+    "winston": "^2.4.1",
+    "xss": "^0.3.8"
   }
 }
