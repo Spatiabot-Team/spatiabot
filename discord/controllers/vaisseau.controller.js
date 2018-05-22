@@ -1,5 +1,5 @@
 //Import
-JeuService = require('./../services/jeu.service');
+JeuService = require('./../../core/services/jeu.service');
 
 /**
  * Decollage du vaisseau !

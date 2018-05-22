@@ -1,4 +1,4 @@
-Message = require('../models/message');
+Message = require('../../core/models/message');
 
 /**
  * S'assurer que le bot repond bien

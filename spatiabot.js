@@ -2,8 +2,8 @@
 var colors = require('colors'),
     Discord = require("discord.js"),
     discordClient = new Discord.Client(),
-    Routes = require('./routes/default.route'),
-    JeuService = require('./services/jeu.service');
+    Routes = require('./discord/routes/default.route'),
+    JeuService = require('./core/services/jeu.service');
 
 
 //Configuration
@@ -19,7 +19,7 @@ console.log('/ 　 づ   '.green);
 
 //Connexion
 discordClient.on('ready', () => {
-    console.log(("Logged in as " + discordClient.user.tag + "!").blue);
+    console.log(("Spatiabot est connecté avec le tag " + discordClient.user.tag + "!").blue);
 });
 
 /**
