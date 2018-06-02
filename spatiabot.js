@@ -8,6 +8,7 @@ var colors = require('colors'),
 
 //Configuration
 JeuService.config = require('./config/config');
+JeuService.configDiscord = require('./config/configDiscord');
 JeuService.worldStat = require('./data/monde.json');
     
 
@@ -32,9 +33,9 @@ discordClient.on('ready', () => {
 discordClient.on('message', msg => {
 
     //Connexion au channel
-    var channel = discordClient.channels.find("id", JeuService.config.channelID);
+    var channel = discordClient.channels.find("id", JeuService.configDiscord.channelID);
     if (channel == undefined) {
-        console.error("Erreur : salon " + JeuService.config.channelID + " introuvable");
+        console.error("Erreur : salon " + JeuService.configDiscord.channelID + " introuvable");
         return false;
     }
 
@@ -44,4 +45,4 @@ discordClient.on('message', msg => {
 
 
 //Tout est parametre on peut se connecter au discord
-discordClient.login(JeuService.config.secretKey);
+discordClient.login(JeuService.configDiscord.secretKey);
