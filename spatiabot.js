@@ -14,7 +14,7 @@ JeuService.config = require('./config/config');
 if (process.env != undefined)
 {
     // hebergement heroku
-    console.log("process: "  + process.env);
+    console.log("process: "  + process.env); // Possibilité que ça marche pas
     JeuService.configDiscord = process.env;
 }
 else
