@@ -3,23 +3,18 @@ var colors = require('colors'),
     Discord = require("discord.js"),
     discordClient = new Discord.Client(),
     Routes = require('./routes/default.route'),
-    JeuService = require('./services/jeu.service');
-
-try{
-    var aws = require('aws-sdk');
-}    
-catch (error) {
-    console.log("Mode local");
-}
+    JeuService = require('./services/jeu.service'),
+    aws = require('aws-sdk');
 
 //Configuration du jeu
 JeuService.config = require('./config/config');
 
 
 // Configuration Discord
-if (aws != undefined)
+if (process.env != undefined)
 {
     // hebergement heroku
+    console.log("process: "  + process.env);
     JeuService.configDiscord = process.env;
 }
 else
