@@ -5,6 +5,7 @@
   "main": "bot.js",
   "author": "ASTRO",
   "dependencies": {
+    "aws-sdk": "^2.250.1",
     "colors": "^1.2.1",
     "discord.io": "^2.5.3",
     "discord.js": "^11.3.2",
