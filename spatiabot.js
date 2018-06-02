@@ -5,10 +5,28 @@ var colors = require('colors'),
     Routes = require('./routes/default.route'),
     JeuService = require('./services/jeu.service');
 
+try{
+    var aws = require('aws-sdk');
+}    
+catch (error) {
+    console.log("Mode local");
+}
 
-//Configuration
+//Configuration du jeu
 JeuService.config = require('./config/config');
-JeuService.configDiscord = require('./config/configDiscord');
+
+
+// Configuration Discord
+if (aws != undefined)
+{
+    // hebergement heroku
+    JeuService.configDiscord = process.env;
+}
+else
+{
+    // Hébergement local    
+    JeuService.configDiscord = require('./config/configDiscord');
+}
 JeuService.worldStat = require('./data/monde.json');
     
 
