@@ -59,4 +59,10 @@ discordClient.on('message', msg => {
 
 
 //Tout est parametre on peut se connecter au discord
-discordClient.login(JeuService.configDiscord.secretKey);
+try {
+    discordClient.login(JeuService.configDiscord.secretKey);
+} 
+catch (error)
+{
+    console.log ("Erreur de connexion ! Message : " + error);
+}
