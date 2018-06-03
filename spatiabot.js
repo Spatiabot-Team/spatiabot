@@ -58,7 +58,8 @@ discordClient.on('message', msg => {
 
 
 //Tout est parametre on peut se connecter au discord
-try {
+try 
+{
     discordClient.login(JeuService.configDiscord.token);
 } 
 catch (error)
