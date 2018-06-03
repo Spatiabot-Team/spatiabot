@@ -11,16 +11,18 @@ JeuService.config = require('./config/config');
 
 
 // Configuration Discord
-if (process.env != undefined)
-{
-    // hebergement heroku
-    console.log("process: "  + process.env); // Possibilité que ça marche pas
-    JeuService.configDiscord = process.env;
-}
-else
+
+try 
 {
     // Hébergement local    
-    JeuService.configDiscord = require('./config/configDiscord');
+    JeuService.configDiscord = require('./config/configDiscord'); // Si inexistant, alors on est sur heroku...
+    console.log ("Hebergement local")
+}
+catch (error)
+{
+    console.log ("Hebergement Heroku")
+    console.log("process: "  + process.env); // Possibilité que ça marche pas
+    JeuService.configDiscord = process.env;
 }
 JeuService.worldStat = require('./data/monde.json');
     
