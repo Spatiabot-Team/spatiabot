@@ -21,8 +21,9 @@ try
 catch (error)
 {
     console.log ("Hebergement Heroku")
-    console.log("process: "  + process.env); // Possibilité que ça marche pas
+    console.log("channelID: "  + process.env.channelID); // Possibilité que ça marche pas
     JeuService.configDiscord = process.env;
+    console.log("channelID: "  + JeuService.configDiscord.channelID); // Possibilité que ça marche pas
 }
 JeuService.worldStat = require('./data/monde.json');
     
