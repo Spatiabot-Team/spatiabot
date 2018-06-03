@@ -20,14 +20,12 @@ try
 }
 catch (error)
 {
+    // Hébergement Heroku (dans le cas où on ne trouve pas le fichier configDiscord)
     console.log ("Hebergement Heroku")
-    console.log("channelID: "  + process.env.channelID); // Possibilité que ça marche pas
     JeuService.configDiscord = process.env;
-    console.log("channelID: "  + JeuService.configDiscord.channelID); // Possibilité que ça marche pas
 }
 JeuService.worldStat = require('./data/monde.json');
     
-
 //Message de bienvenue
 console.log('(\\__/)  '.green);
 console.log('(•ㅅ•)   Bonjour, je suis Spatiabot. Bienvenue dans ce monde intergalactique !'.green);
@@ -61,4 +59,5 @@ discordClient.on('message', msg => {
 
 
 //Tout est parametre on peut se connecter au discord
+console.log( "41" + JeuService.configDiscord.secretKey + "426");
 discordClient.login(JeuService.configDiscord.secretKey);
