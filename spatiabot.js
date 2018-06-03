@@ -59,5 +59,4 @@ discordClient.on('message', msg => {
 
 
 //Tout est parametre on peut se connecter au discord
-console.log( "41" + JeuService.configDiscord.secretKey + "426");
 discordClient.login(JeuService.configDiscord.secretKey);
