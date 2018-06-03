@@ -11,7 +11,6 @@ JeuService.config = require('./config/config');
 
 
 // Configuration Discord
-
 try 
 {
     // Hébergement local    
@@ -60,7 +59,7 @@ discordClient.on('message', msg => {
 
 //Tout est parametre on peut se connecter au discord
 try {
-    discordClient.login(JeuService.configDiscord.secretKey);
+    discordClient.login(JeuService.configDiscord.token);
 } 
 catch (error)
 {
