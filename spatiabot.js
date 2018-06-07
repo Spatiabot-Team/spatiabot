@@ -8,7 +8,7 @@ var colors = require('colors'),
 
 //Configuration
 JeuService.config = require('./config/config');
-JeuService.worldStat = require('./data/monde.json');
+ 
     
 
 //Message de bienvenue
