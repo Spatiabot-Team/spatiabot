@@ -4,7 +4,11 @@
   "description": "My own Discord bot",
   "main": "bot.js",
   "author": "ASTRO",
+  "scripts": {
+    "start": "node spatiabot"
+  },
   "dependencies": {
+    "aws-sdk": "^2.252.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "colors": "^1.2.1",
