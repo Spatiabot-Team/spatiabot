@@ -11,7 +11,7 @@ module.exports = class Spatiabot {
 
     start (){
         //Message de bienvenue
-        console.log('\n(\\__/)  '.green);
+        console.log(('\n(\\__/)  ').green);
         console.log('(•ㅅ•)   Bonjour, je suis Spatiabot. Bienvenue dans ce monde intergalactique !'.green);
         console.log('/ 　 づ   \n'.green);
 
@@ -31,18 +31,18 @@ module.exports = class Spatiabot {
         discordClient.on('message', msg => {
 
             //Connexion au channel
-            var channel = discordClient.channels.find("id", this.app.get('JeuService').config.channelID);
+            var channel = discordClient.channels.find("id", this.app.get('discordConfig').channelID);
             if (channel == undefined) {
-                console.error("Erreur : salon " + this.app.get('JeuService').config.channelID + " introuvable");
+                console.error("Erreur : salon " + this.app.get('discordConfig').channelID + " introuvable");
                 return false;
             }
 
             //Routes : on pourrait très bien charger un fichier de route en fonction du prefixe
-            Routes.listen(channel, msg);
+            Routes.listen(channel, msg, this.app.get('discordConfig').prefix);
         });
 
 
         //Tout est parametre on peut se connecter au discord
-        discordClient.login(this.app.get('JeuService').config.secretKey);
+        discordClient.login(this.app.get('discordConfig').token);
     };
 }

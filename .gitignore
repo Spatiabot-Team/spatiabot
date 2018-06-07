@@ -1,4 +1,7 @@
+.vscode
 node_modules
 config
 package-lock.json
 .history
+config/discord.config.js
+config/jeu.config.js

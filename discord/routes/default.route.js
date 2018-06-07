@@ -6,19 +6,19 @@ BotController = require('./../controllers/bot.controller');
  * 
  * @param {*} discordClient 
  */
-module.exports.listen = function (channel, msg) {
+module.exports.listen = function (channel, msg, prefix) {
 
-    if (msg.content.startsWith(JeuService.configDiscord.prefix))  
+    if (msg.content.startsWith(prefix))  
     {        
         // Si le message contient notre prefixe
 
         //On retire le prefixe pour ne pas avoir à le vérifier partout
-        msg.content = msg.content.slice(JeuService.configDiscord.prefix.length)
+        msg.content = msg.content.replace(prefix, "");
 
         //On convertit les arguments en tableaux
         msg.args = msg.content.trim().split(/ +/g);
 
-            //Routes
+        //Routes : l'argument 0 contient la clef de la route
         switch (msg.args[0]) {
             case 'decollage':
                 VaisseauController.decollage(channel,msg);
