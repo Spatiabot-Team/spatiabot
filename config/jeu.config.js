@@ -4,5 +4,4 @@ module.exports =
     "maxMinutesWaitingEvent" : 4, // Temps maximum avant declanchement event en minutes
     "firstEvent" : 1, // Temps avant le premier evenement en heure (fixe)
     "pv" : 100, // Les PV du début
-    
 }

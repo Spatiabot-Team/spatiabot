@@ -3,4 +3,8 @@ node_modules
 package-lock.json
 .history
 config/discord.config.js
+<<<<<<< HEAD
 config/app.config.js
+=======
+config/app.config.js
+>>>>>>> 107bc7e0870240132bd03f6e46484d6753e233ab
