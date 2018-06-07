@@ -29,8 +29,8 @@
     app.set('discordConfig',discordConfig);
     app.set('appConfig',appConfig);
 
-    var sessionMiddleware = session(appConfig.sessionConfig);
-    app.use(sessionMiddleware);
+    //var sessionMiddleware = session(appConfig.sessionConfig);
+    //app.use(sessionMiddleware);
     
     JeuService.config = require('./config/jeu.config');
     JeuService.config.prefix = discordConfig.prefix;//Le jeu en aura besoin pour l'afficher aux joueurs
