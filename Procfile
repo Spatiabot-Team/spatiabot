@@ -1,1 +1,1 @@
-worker: node spatiabot
+worker: node index

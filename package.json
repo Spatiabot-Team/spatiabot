@@ -5,7 +5,7 @@
   "main": "bot.js",
   "author": "ASTRO",
   "scripts": {
-    "start": "node spatiabot"
+    "start": "node index"
   },
   "dependencies": {
     "aws-sdk": "^2.252.1",
