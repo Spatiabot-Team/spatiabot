@@ -17,15 +17,16 @@
     if (fs.existsSync('./config/discord.config.js')) {
         // Hébergement local
         var discordConfig = require('./config/discord.config');
+        var appConfig = require('./config/app.config');
     }else{
         // Hébergement Heroku (dans le cas où on ne trouve pas le fichier configDiscord)
         console.log ("Hebergement Heroku")
-        JeuService.configDiscord = process.env;
+        var discordConfig = process.env;
+        var appConfig = process.env;
+        console.log("Process env : ", appConfig);
     }
 
     app.set('discordConfig',discordConfig);
-
-    var appConfig = require('./config/app.config');
     app.set('appConfig',appConfig);
 
     var sessionMiddleware = session(appConfig.sessionConfig);

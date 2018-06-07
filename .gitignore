@@ -4,4 +4,4 @@ config
 package-lock.json
 .history
 config/discord.config.js
-config/jeu.config.js
+config/app.config.js
