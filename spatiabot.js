@@ -14,7 +14,7 @@ JeuService.config = require('./config/config');
 try 
 {
     // Hébergement local    
-    JeuService.configDiscord = require('./config/configDiscord'); // Si inexistant, alors on est sur heroku...
+    JeuService.configDiscord = require('./config/discord.config'); // Si inexistant, alors on est sur heroku...
     console.log ("Hebergement local")
 }
 catch (error)
