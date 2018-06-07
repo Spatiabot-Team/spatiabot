@@ -8,12 +8,12 @@ BotController = require('./../controllers/bot.controller');
  */
 module.exports.listen = function (channel, msg) {
 
-    if (msg.content.startsWith(JeuService.config.prefix))  
+    if (msg.content.startsWith(JeuService.configDiscord.prefix))  
     {        
         // Si le message contient notre prefixe
 
         //On retire le prefixe pour ne pas avoir à le vérifier partout
-        msg.content = msg.content.slice(JeuService.config.prefix.length)
+        msg.content = msg.content.slice(JeuService.configDiscord.prefix.length)
 
         //On convertit les arguments en tableaux
         msg.args = msg.content.trim().split(/ +/g);

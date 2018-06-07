@@ -3,14 +3,28 @@ var colors = require('colors'),
     Discord = require("discord.js"),
     discordClient = new Discord.Client(),
     Routes = require('./routes/default.route'),
-    JeuService = require('./services/jeu.service');
+    JeuService = require('./services/jeu.service'),
+    aws = require('aws-sdk');
 
-
-//Configuration
+//Configuration du jeu
 JeuService.config = require('./config/config');
+
+
+// Configuration Discord
+try 
+{
+    // Hébergement local    
+    JeuService.configDiscord = require('./config/configDiscord'); // Si inexistant, alors on est sur heroku...
+    console.log ("Hebergement local")
+}
+catch (error)
+{
+    // Hébergement Heroku (dans le cas où on ne trouve pas le fichier configDiscord)
+    console.log ("Hebergement Heroku")
+    JeuService.configDiscord = process.env;
+}
 JeuService.worldStat = require('./data/monde.json');
     
-
 //Message de bienvenue
 console.log('(\\__/)  '.green);
 console.log('(•ㅅ•)   Bonjour, je suis Spatiabot. Bienvenue dans ce monde intergalactique !'.green);
@@ -32,9 +46,9 @@ discordClient.on('ready', () => {
 discordClient.on('message', msg => {
 
     //Connexion au channel
-    var channel = discordClient.channels.find("id", JeuService.config.channelID);
+    var channel = discordClient.channels.find("id", JeuService.configDiscord.channelID);
     if (channel == undefined) {
-        console.error("Erreur : salon " + JeuService.config.channelID + " introuvable");
+        console.error("Erreur : salon " + JeuService.configDiscord.channelID + " introuvable");
         return false;
     }
 
@@ -44,4 +58,11 @@ discordClient.on('message', msg => {
 
 
 //Tout est parametre on peut se connecter au discord
-discordClient.login(JeuService.config.secretKey);
+try 
+{
+    discordClient.login(JeuService.configDiscord.token);
+} 
+catch (error)
+{
+    console.log ("Erreur de connexion ! Message : " + error);
+}
