@@ -1,11 +1,11 @@
 module.exports =
-{   "port" : 3000,
-    "login" : "*********",
-    "password" : "**********",
+{   "port" : *****,
+    "login" : "*****",
+    "password" : "*****"/*,
     "sessionConfig" : {
-        "secret": '************',
+        "secret": 'keyboard cat',
         "resave": false,
         "saveUninitialized": true,
         "cookie": { "secure": true }
-    }
+    }*/
 }

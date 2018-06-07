@@ -1,0 +1,7 @@
+module.exports =
+{
+    "token" : "*******",
+    "channelID" : "**********", // id du salon ou sera diffuse le contenu
+    //"channelID" : "**********", // Prod     
+    "prefix" : "********"
+}
