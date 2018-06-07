@@ -2,14 +2,9 @@
 var colors = require('colors'),
     Discord = require("discord.js"),
     discordClient = new Discord.Client(),
-<<<<<<< 1878ed51ab5b1281faae085541b645def3a80b83
     Routes = require('./routes/default.route'),
     JeuService = require('./services/jeu.service'),
     aws = require('aws-sdk');
-=======
-    Routes = require('./discord/routes/default.route'),
-    JeuService = require('./core/services/jeu.service');
->>>>>>> L'application contient maintenant une partie api et une partie discord
 
 //Configuration du jeu
 JeuService.config = require('./config/config');
