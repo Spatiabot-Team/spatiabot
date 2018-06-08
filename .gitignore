@@ -2,5 +2,4 @@
 node_modules
 package-lock.json
 .history
-config/discord.config.js
-config/app.config.js
+config/env.config.js

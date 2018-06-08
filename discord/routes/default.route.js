@@ -19,26 +19,21 @@ module.exports.listen = function (channel, msg, prefix) {
         msg.args = msg.content.trim().split(/ +/g);
 
         //Routes : l'argument 0 contient la clef de la route
-        switch (msg.args[0]) {
-            case 'decollage':
-                VaisseauController.decollage(channel,msg);
-                break;
-            case 'reponse':
-                VaisseauController.reponse(channel,msg);
-                break;
-            case 'test':
-                BotController.IWork(channel,msg);
-                break;
-            case 'embed':
-                BotController.embed(channel,msg);
-                break;
-            case 'embedme':
-                BotController.embedme(channel,msg);
-                break;
-            default:
-                BotController.notFound(channel,msg);
-                break;
+        let routes = {
+            'decollage' : VaisseauController.decollage,
+            'reponse': VaisseauController.reponse,
+            'test': BotController.IWork,
+            'embed': BotController.embed,
+            'embedme' : BotController.embedme,
+            'test' : BotController.test
         }
+
+        if(routes[msg.args[0]]){
+            routes[msg.args[0]](channel,msg);;
+        }else{
+            BotController.notFound(channel,msg);
+        }
+        
     }
     else 
     {

@@ -16,24 +16,19 @@
 
     if (fs.existsSync('./config/discord.config.js')) {
         // Hébergement local
-        var discordConfig = require('./config/discord.config');
-        var appConfig = require('./config/app.config');
+        var envConfig = require('./config/env.config');
     }else{
         // Hébergement Heroku (dans le cas où on ne trouve pas le fichier configDiscord)
-        console.log ("Hebergement Heroku")
-        var discordConfig = process.env;
-        var appConfig = process.env;
-        console.log("Process env : ", appConfig);
+        var envConfig = process.env;
     }
 
-    app.set('discordConfig',discordConfig);
-    app.set('appConfig',appConfig);
+    app.set('envConfig',envConfig);
 
     //var sessionMiddleware = session(appConfig.sessionConfig);
     //app.use(sessionMiddleware);
     
     JeuService.config = require('./config/jeu.config');
-    JeuService.config.prefix = discordConfig.prefix;//Le jeu en aura besoin pour l'afficher aux joueurs
+    JeuService.config.prefix = envConfig.discordPrefix;//Le jeu en aura besoin pour l'afficher aux joueurs
     app.set('JeuService',JeuService);
     
 //API

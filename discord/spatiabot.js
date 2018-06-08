@@ -31,18 +31,18 @@ module.exports = class Spatiabot {
         discordClient.on('message', msg => {
 
             //Connexion au channel
-            var channel = discordClient.channels.find("id", this.app.get('discordConfig').channelID);
+            var channel = discordClient.channels.find("id", this.app.get('envConfig').discordChannelID);
             if (channel == undefined) {
-                console.error("Erreur : salon " + this.app.get('discordConfig').channelID + " introuvable");
+                console.error("Erreur : salon " + this.app.get('envConfig').discordChannelID + " introuvable");
                 return false;
             }
 
             //Routes : on pourrait très bien charger un fichier de route en fonction du prefixe
-            Routes.listen(channel, msg, this.app.get('discordConfig').prefix);
+            Routes.listen(channel, msg, this.app.get('envConfig').discordPrefix);
         });
 
 
         //Tout est parametre on peut se connecter au discord
-        discordClient.login(this.app.get('discordConfig').token);
+        discordClient.login(this.app.get('envConfig').discordToken);
     };
 }

@@ -6,7 +6,7 @@ Message = require('../../core/models/message');
  * @param Object channel 
  * @param Object msg 
  */
-module.exports.IWork = function(channel,msg){
+module.exports.test = function(channel,msg){
   var message = new Message();
   message.embedDiscord.setDescription("Oui **" + msg.author.username + "** je fonctionne super bien ! ");
   embed = message.getEmbed();

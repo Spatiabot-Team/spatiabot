@@ -33,7 +33,7 @@ module.exports = class Api {
         this.loadControllers();
 
         //Tout est pret, on peut demarrer le serveur avec le bon port
-        this.app.set('port', process.env.PORT || this.app.get('appConfig').port || 3000);
+        this.app.set('port', process.env.PORT || this.app.get('envConfig').apiPort || 3000);
         var server = http.createServer(this.app);
         var app = this.app;
         server.listen( this.app.get('port'), function()
@@ -48,7 +48,7 @@ module.exports = class Api {
         var app = this.app;
         this.app.use(function(req, res, next) 
         {   
-            res.header("Access-Control-Allow-Origin", app.get('appConfig').origin_allowed);
+            res.header("Access-Control-Allow-Origin", app.get('envConfig').apiOriginAllowed);
             res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
             res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
             //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
