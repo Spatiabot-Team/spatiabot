@@ -14,7 +14,7 @@
 
 //Configs
 
-    if (fs.existsSync('./config/discord.config.js')) {
+    if (fs.existsSync('./config/env.config.js')) {
         // Hébergement local
         var envConfig = require('./config/env.config');
     }else{
