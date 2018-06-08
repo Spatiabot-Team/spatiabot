@@ -8,16 +8,17 @@ var JeuService = module.exports = {
      * Liste des joueurs
      */
     joueurs: Array(),
+
     /**
      * 
      */
     config: {},
 
     /**
-     * User user
-     */    
+     * Stats suir le monde
+     */
     worldStat: {}, 
-
+ 
     /**
      * User user
      */
@@ -38,14 +39,13 @@ var JeuService = module.exports = {
             joueur.setDefaultNextEvent();
             joueur.isWaitingEvent = true;
 
-
-            var playerFile = require('../data/joueur.json');
+            var playerFile = require('../../data/joueur.json');
             if (playerFile == false){
                 console.error("Erreur lors de la lecture du fichier joueur");
                 return;                
             }
             joueur.stats = playerFile;
-        
+
             //Ajout du joueur a la liste
             this.joueurs.push(joueur);
 
@@ -153,7 +153,7 @@ var JeuService = module.exports = {
     getScenarios() {
         // Lire la liste des scenarios
         try {
-            var scenarios = require('../data/scenario1.json');
+            var scenarios = require('../../data/scenario1.json');
         }
         catch (error) {
             console.error("Erreur lors de la lecture du fichier de scenario : " + error);
@@ -190,12 +190,13 @@ var JeuService = module.exports = {
             joueur.setDefaultNextEvent();
             joueur.currentScenario = -1;
             joueur.isWaitingEvent = true;
-        }
-        else {
+        
+        }else {
+
             // Afficher les réponses
-                fileStep.reponses.forEach(function (reponse) {
+            fileStep.reponses.forEach(function (reponse) {
                 msg.embedDiscord.addField("_ _", "_ _");
-                msg.embedDiscord.addField(JeuService.configDiscord.prefix + "reponse " + reponse.id, reponse.text);
+                msg.embedDiscord.addField(JeuService.config.prefix + "reponse " + reponse.id, reponse.text);
             });
         }
         
@@ -203,7 +204,7 @@ var JeuService = module.exports = {
         if (fileStep.effetsJoueur != undefined) {
             for (scenarioStatKey in fileStep.effetsJoueur){
                 var scenarioStatValue = fileStep.effetsJoueur[scenarioStatKey];
-
+ 
                 // Parcourir les stats du joueur pour trouver la valeur correspondante
                 for (playerStatKey in joueur.stats){
                     if (playerStatKey == scenarioStatKey){
@@ -214,12 +215,12 @@ var JeuService = module.exports = {
                 } 
             }
         }
-
+ 
         // Appliquer les modifications au monde 
         if (fileStep.effetsMonde != undefined) {
             for (scenarioStatKey in fileStep.effetsMonde){
                 var scenarioStatValue = fileStep.effetsMonde[scenarioStatKey];
-
+ 
                 // Parcourir les stats du monde pour trouver la valeur correspondante
                 for (worldStatKey in this.worldStat){
                     if (worldStatKey == scenarioStatKey){
@@ -231,7 +232,6 @@ var JeuService = module.exports = {
             }
         }
         
-
         return msg;
     },
 }
