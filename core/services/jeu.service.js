@@ -196,7 +196,7 @@ var JeuService = module.exports = {
             // Afficher les réponses
             fileStep.reponses.forEach(function (reponse) {
                 msg.embedDiscord.addField("_ _", "_ _");
-                msg.embedDiscord.addField(JeuService.configDiscord.prefix + "reponse " + reponse.id, reponse.text);
+                msg.embedDiscord.addField(JeuService.config.prefix + "reponse " + reponse.id, reponse.text);
             });
         }
         
