@@ -34,7 +34,7 @@ var JeuService = module.exports = {
             joueur.setDefaultNextEvent();
             joueur.isWaitingEvent = true;
 
-            var playerFile = require('../data/joueur.json');
+            var playerFile = require('../../data/joueur.json');
             if (playerFile == false){
                 console.error("Erreur lors de la lecture du fichier joueur");
                 return;                
@@ -148,7 +148,7 @@ var JeuService = module.exports = {
     getScenarios() {
         // Lire la liste des scenarios
         try {
-            var scenarios = require('../data/scenario1.json');
+            var scenarios = require('../../data/scenario1.json');
         }
         catch (error) {
             console.error("Erreur lors de la lecture du fichier de scenario : " + error);
