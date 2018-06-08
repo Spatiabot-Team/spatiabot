@@ -18,11 +18,16 @@ module.exports = class Joueur {
 		this.id = id;
 		this.username = username;
 		this.avatar = avatar;
-		this.pv = pv;
 		this.timeForNextEvent = Date.now() + 5000;
 		this.currentScenario = -1;
 		this.currentStep = -1;
 		this.isWaitingEvent = false;
+		this.stats = {};
+
+		// Definition des statistiques du joueur
+		
+
+
 	};
 
 	/**
