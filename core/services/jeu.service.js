@@ -15,6 +15,11 @@ var JeuService = module.exports = {
     config: {},
 
     /**
+     * Stats suir le monde
+     */
+    worldStat: {}, 
+ 
+    /**
      * User user
      */
     decollage: function (user) {
@@ -185,12 +190,11 @@ var JeuService = module.exports = {
             joueur.setDefaultNextEvent();
             joueur.currentScenario = -1;
             joueur.isWaitingEvent = true;
-        }
-        else {
-
+        
+        }else {
 
             // Afficher les réponses
-            fileScenarios.scenario[joueur.currentScenario].etape[joueur.currentStep].reponse.forEach(function (reponse) {
+            fileStep.reponses.forEach(function (reponse) {
                 msg.embedDiscord.addField("_ _", "_ _");
                 msg.embedDiscord.addField(JeuService.configDiscord.prefix + "reponse " + reponse.id, reponse.text);
             });
