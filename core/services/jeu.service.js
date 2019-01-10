@@ -153,7 +153,7 @@ var JeuService = module.exports = {
     getScenarios() {
         // Lire la liste des scenarios
         try {
-            var scenarios = require('../../data/scenario1.json');
+            var scenarios = require('../../data/stories/scenario1.json');
         }
         catch (error) {
             console.error("Erreur lors de la lecture du fichier de scenario : " + error);

@@ -8,4 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.0.0] - YYYY-MM-DD
 ### Added
-- embed messages
+- [astrobot] embed messages
+- [websitebot] add the website module
+- [website] add story
+- [website] update story

@@ -8,7 +8,7 @@
     var colors = require('colors');
     var session = require('express-session');
     aws = require('aws-sdk');
-    Api = require('./api/api');
+    Website = require('./website/website');
     Spatiabot = require('./discord/spatiabot');
     JeuService = require('./core/services/jeu.service');
 
@@ -32,7 +32,7 @@
     app.set('JeuService',JeuService);
     
 //API
-api = new Api(app).start();
+Website = new Website(app).start();
 
 //SPATIABOT
 spatiabot = new Spatiabot(app).start();//on passe app pour avoir une instance commune avec l'api
