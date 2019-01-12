@@ -97,7 +97,7 @@ var JeuService = module.exports = {
             }
 
 
-            fileScenarios.scenario[joueur.currentScenario].etapes[joueur.currentStep].reponses.some(function (reponse) {
+            JeuService.getScenario(fileScenarios,joueur.currentScenarioId).etapes[joueur.currentStep].reponses.some(function (reponse) {
                 if (reponse.id == reponseId) {
                     // Il s'agit de la reponse du joueur
 
@@ -150,16 +150,41 @@ var JeuService = module.exports = {
     /**
      * Retourne les donnees du scenario
      */
-    getScenarios() {
+    getScenarios: function() {
         // Lire la liste des scenarios
+        const testFolder = './data/stories/';
+        const fs = require('fs');
+
+        var scenarios = [];
+        fs.readdirSync(testFolder).forEach(file => {
         try {
-            var scenarios = require('../../data/stories/scenario1.json');
+            var scenario = require("../../" + testFolder + file);
+            scenarios.push(scenario);
         }
         catch (error) {
             console.error("Erreur lors de la lecture du fichier de scenario : " + error);
             return false;
         }
+
+        })
         return scenarios;
+    },
+
+    /**
+     * Retourne un scenario selon l'id
+     */
+    getScenario: function(p_scenarios, p_id) {        
+        console.log("entree");
+        for (i in p_scenarios)
+        {
+            scenario = p_scenarios[i];
+            if (scenario.id  == p_id)
+            {
+                console.log ("ok");
+                return scenario;
+            }
+        }
+        return "";
     },
 
     /**
@@ -176,19 +201,39 @@ var JeuService = module.exports = {
 
         if (joueur.currentScenario == -1) {
             // Determiner un nouveau scenario pour le joueur
-            joueur.currentScenario = 0; // TODO : parcourir fichier et déterminer aléatoirement le scenario à lire
+
+            var listPossibleScenarioId = [];            
+            fileScenarios.forEach(function (scenario) {
+
+                // Parcourir toutes les conditions s'il y en a
+                if (scenario.condition != null)
+                {
+                    scenario.condition.forEach(function (condition) {
+                
+                    }); 
+                }
+                console.log("ajout "+scenario.id);
+                listPossibleScenarioId.push(scenario.id);
+            });
+
+             // Récupération d'un des scénarios possibles aléatoirement
+            // TODO : ne pas prendre ceux déjà faits.
+            joueur.currentScenarioId = listPossibleScenarioId[Math.floor(Math.random() * listPossibleScenarioId.length)]; 
+            console.log("scenarioId " +  joueur.currentScenarioId);
+
             joueur.currentStep = 0; // On commence par la premiere etape
         }
 
         // Afficher le texte associe à l'etape et au scenario du joueur
-        var fileStep = fileScenarios.scenario[joueur.currentScenario].etapes[joueur.currentStep];
+
+        var fileStep = JeuService.getScenario(fileScenarios, joueur.currentScenarioId).etapes[joueur.currentStep];
         var msg = new Message();
         msg.embedDiscord.setDescription(fileStep.text);
 
         if (fileStep.reponses == undefined) {
             // Aucune reponse attendue (fin du scenario). 
             joueur.setDefaultNextEvent();
-            joueur.currentScenario = -1;
+            joueur.currentScenarioId = -1;
             joueur.isWaitingEvent = true;
         
         }else {
