@@ -36,7 +36,7 @@ module.exports.controller = function (app)
     });
 
     app.post('/rest/stories', function(req, res){
-        newStory = require('./../../data/stories/init.json');
+        newStory = require('./../../data/stories/init/init.json');
         newStory.id = guid();
         newStory.name = req.body.name;
         fs.writeFile(__dirname + '/../../data/stories/'+newStory.id+'.json', JSON.stringify(newStory), function(err) {
