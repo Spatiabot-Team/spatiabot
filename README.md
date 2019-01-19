@@ -16,8 +16,8 @@ Robot vs Aliens vs Famille vs Chevalerie vs Plante vs Robot
 
 --------------------------------------------------------------------------------
 
-Megalo 
-Description rapide
+##Megalo 
+###Description rapide
  Empereur possédant une multitude de robots totalement à ses ordres. D’esprit mégalomane, ses désirs se transforment très souvent en réalité, qu’ils soient sensés ou non. Ses robots se déclinent en plusieurs catégories, du nano-robot de soin aux mastodontes de guerre, en passant par des distributeurs de boissons.
 Les robots le suivent car il a l’adn de leur créateur et il ne reste plus que lui (apparemment)  
 
@@ -25,45 +25,45 @@ Les robots le suivent car il a l’adn de leur créateur et il ne reste plus que
 Politique : Dictature
 
 
-Personnages forts
+###Personnages forts
 
-Le mégalo :
+Le mégalo
 
 Son robot perso : son assistant qui lui obéit au doigt et à l’oeil et qui lui sert à la fois de souffre-douleur et de confident.Toujours content des idées de son maître
 
 --------------------------------------------------------------------------------
  
-Ambrés
-Description rapide
+##Ambrés
+###Description rapide
 Arbres translucide et lumineux. Télépathes. Besoin de tout envahir pour se développer. Conscience collective. (on peut rester dans le flou)
-
 
 Politique : 
 Tous égaux.
 
 --------------------------------------------------------------------------------
 
-Chevalerie 
-Description rapide
+##Chevalerie 
+###Description rapide
 Ils veulent répandre le “bien” et défendre de nobles causes. Un roi, des bourgeois, des paysans. Des humains
 
 Politique : 
 Des castes bien prononcées. Grande bourgeoisie. 
-Famille 
+--------------------------------------------------------------------------------
+##Famille 
 Description rapide
 Des grosses limaces mafieuses. Très riches, ils n’hésitent pas à monnayer tous ce qu’ils peuvent s’offrir. Très axés sur le commerce de toute chose.
 
-Politique : 
+###Politique : 
 Une grande famille avec Le Parrain.
 
 
 --------------------------------------------------------------------------------
 
-Aliens 
-Description rapide
+##Aliens 
+###Description rapide
 Petits êtres très technophile qui changent de couleur en fonction de leur humeur (et ça serait pas forcément mignon)
 
-Politique : 
+###Politique : 
 Démocratie élitiste.
 
 
