@@ -8,11 +8,13 @@ Faction “Chevaleresque” : Voir avec lymke pour les détails… genre Empire 
 Faction Aliens à la technologie avancée
 Faction “Famille” : mafieux friqués (on peut imaginer des grosses limaces. Très intelligentes.)
 
-
+--------------------------------------------------------------------------------
 
 Pour la cartes des guerres en cours : 
 
 Robot vs Aliens vs Famille vs Chevalerie vs Plante vs Robot
+
+--------------------------------------------------------------------------------
 
 Megalo 
 Description rapide
@@ -29,6 +31,7 @@ Le mégalo :
 
 Son robot perso : son assistant qui lui obéit au doigt et à l’oeil et qui lui sert à la fois de souffre-douleur et de confident.Toujours content des idées de son maître
 
+--------------------------------------------------------------------------------
  
 Ambrés
 Description rapide
@@ -37,6 +40,9 @@ Arbres translucide et lumineux. Télépathes. Besoin de tout envahir pour se dé
 
 Politique : 
 Tous égaux.
+
+--------------------------------------------------------------------------------
+
 Chevalerie 
 Description rapide
 Ils veulent répandre le “bien” et défendre de nobles causes. Un roi, des bourgeois, des paysans. Des humains
@@ -49,6 +55,9 @@ Des grosses limaces mafieuses. Très riches, ils n’hésitent pas à monnayer t
 
 Politique : 
 Une grande famille avec Le Parrain.
+
+
+--------------------------------------------------------------------------------
 
 Aliens 
 Description rapide
