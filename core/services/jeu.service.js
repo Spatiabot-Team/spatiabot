@@ -157,14 +157,14 @@ var JeuService = module.exports = {
 
         var scenarios = [];
         fs.readdirSync(testFolder).forEach(file => {
-        try {
-            var scenario = require("../../" + testFolder + file);
-            scenarios.push(scenario);
-        }
-        catch (error) {
-            console.error("Erreur lors de la lecture du fichier de scenario : " + error);
-            return false;
-        }
+            try {
+                var scenario = require("../../" + testFolder + file);
+                scenarios.push(scenario);
+            }
+            catch (error) {
+                console.error("Erreur lors de la lecture du fichier de scenario : " + error);
+                return false;
+            }
 
         })
         return scenarios;
@@ -174,13 +174,11 @@ var JeuService = module.exports = {
      * Retourne un scenario selon l'id
      */
     getScenario: function(p_scenarios, p_id) {        
-        console.log("entree");
         for (i in p_scenarios)
         {
             scenario = p_scenarios[i];
             if (scenario.id  == p_id)
             {
-                console.log ("ok");
                 return scenario;
             }
         }
@@ -199,7 +197,7 @@ var JeuService = module.exports = {
         }
             
 
-        if (joueur.currentScenario == -1) {
+        if (joueur.currentScenarioId == -1) {
             // Determiner un nouveau scenario pour le joueur
 
             var listPossibleScenarioId = [];            
