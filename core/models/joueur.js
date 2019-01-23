@@ -23,7 +23,7 @@ module.exports = class Joueur {
 		this.currentStep = -1;
 		this.isWaitingEvent = false;
 		this.stats = {};
-joueur
+
 		// Definition des statistiques du joueur
 		
 
