@@ -1,3 +1,8 @@
 {
-    "pirates" : 50
+    "influence_pirates" : 50,
+    "influence_megalo" : 50,
+    "influence_chevalerie" : 50,
+    "influence_famille" : 50,
+    "influence_alien" : 50,
+    "influence_ambre" : 50
 }
