@@ -1,16 +1,16 @@
 # spatiabot
 
-5 Factions
+5 Empires se partagent l'univers : 
 
-Faction avec un mégalo, avec à sa botte uniquement des robots.
-Faction de arbres
-Faction “Chevaleresque” : Voir avec lymke pour les détails… genre Empire ?
-Faction Aliens à la technologie avancée
-Faction “Famille” : mafieux friqués (on peut imaginer des grosses limaces. Très intelligentes.)
+Empire avec un mégalo, avec à sa botte uniquement des robots.    
+Empire de arbres    
+Empire “Chevaleresque” : Voir avec lymke pour les détails… genre Empire ?    
+Empire Aliens à la technologie avancée    
+Empire “Famille” : mafieux friqués (on peut imaginer des grosses limaces. Très intelligentes.)    
 
 --------------------------------------------------------------------------------
 
-Pour la cartes des guerres en cours : 
+Pour la carte des guerres en cours : 
 
 Robot vs Aliens vs Famille vs Chevalerie vs Plante vs Robot
 
