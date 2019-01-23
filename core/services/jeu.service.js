@@ -1,6 +1,7 @@
 //Imports
 Joueur = require('../models/joueur');
 Message = require('../models/message');
+const fs = require('fs');
 
 var JeuService = module.exports = {
 
@@ -15,9 +16,9 @@ var JeuService = module.exports = {
     config: {},
 
     /**
-     * Stats suir le monde
+     * Stats sur le monde
      */
-    worldStat: {}, 
+    worldStat: require('../../data/monde.json'), 
  
     /**
      * User user
@@ -27,6 +28,8 @@ var JeuService = module.exports = {
         //On essaie d'obtenir le joueur
         joueur = JeuService.getJoueur(user.id);
         var msg = new Message();
+        const fs = require('fs');
+
 
         if (false == joueur) {
             // Nouveau joueur            
@@ -38,8 +41,8 @@ var JeuService = module.exports = {
                 + JeuService.config.minMinutesWaitingEvent;
             joueur.setDefaultNextEvent();
             joueur.isWaitingEvent = true;
-
-            var playerFile = require('../../data/joueur.json');
+            
+            playerFile = JSON.parse(fs.readFileSync('./data/joueur.json'));
             if (playerFile == false){
                 console.error("Erreur lors de la lecture du fichier joueur");
                 return;                
@@ -50,6 +53,15 @@ var JeuService = module.exports = {
             this.joueurs.push(joueur);
 
             msg.directtext = "Un décollage vient d'avoir lieu, celui de **" + joueur.username + "** ! Parti explorer les fins fond de l'univers, va-t'il/elle aller au bout de son périple ?"
+
+            // Enregister les stats du joueur
+            fs.writeFile("data/backup/" + joueur.username + ".json", JSON.stringify(joueur.stats), function(err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+
+
         }
         else {
             // Joueur existant
@@ -153,13 +165,16 @@ var JeuService = module.exports = {
     getScenarios: function() {
         // Lire la liste des scenarios
         const testFolder = './data/stories/';
-        const fs = require('fs');
 
         var scenarios = [];
         fs.readdirSync(testFolder).forEach(file => {
             try {
-                var scenario = require("../../" + testFolder + file);
-                scenarios.push(scenario);
+                // On skip le dossier init
+                if (file != "init")
+                {
+                    var scenario = require("../../" + testFolder + file);
+                    scenarios.push(scenario);
+                }
             }
             catch (error) {
                 console.error("Erreur lors de la lecture du fichier de scenario : " + error);
@@ -210,15 +225,12 @@ var JeuService = module.exports = {
                 
                     }); 
                 }
-                console.log("ajout "+scenario.id);
                 listPossibleScenarioId.push(scenario.id);
             });
 
              // Récupération d'un des scénarios possibles aléatoirement
             // TODO : ne pas prendre ceux déjà faits.
             joueur.currentScenarioId = listPossibleScenarioId[Math.floor(Math.random() * listPossibleScenarioId.length)]; 
-            console.log("scenarioId " +  joueur.currentScenarioId);
-
             joueur.currentStep = 0; // On commence par la premiere etape
         }
 
@@ -275,6 +287,22 @@ var JeuService = module.exports = {
             }
         }
         
+        // Enregister les stats du joueur
+        fs.writeFile("data/backup/" + joueur.username + ".json", JSON.stringify(joueur.stats), function(err) {
+            if (err) {
+                console.log(err);
+            }
+        });
+
+        // Enregister les stats du monde
+        fs.writeFile("data/backup/world.txt", JSON.stringify(this.worldStat), function(err) {
+            if (err) {
+                console.log(err);
+            }
+        });
+
+
+
         return msg;
     },
 }

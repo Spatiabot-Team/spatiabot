@@ -5,3 +5,4 @@ package-lock.json
 .history
 config/env.config.js
 config/discord.config.js
+/data/backup/*
