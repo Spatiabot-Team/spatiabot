@@ -238,7 +238,7 @@ var JeuService = module.exports = {
 
         var fileStep = JeuService.getScenario(fileScenarios, joueur.currentScenarioId).etapes[joueur.currentStep];
         var msg = new Message();
-        msg.embedDiscord.setDescription(fileStep.text);
+        msg.embedDiscord.setDescription("_" + fileStep.text + "_");
 
         if (fileStep.reponses == undefined) {
             // Aucune reponse attendue (fin du scenario). 
