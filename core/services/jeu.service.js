@@ -262,12 +262,20 @@ var JeuService = module.exports = {
  
                 // Parcourir les stats du joueur pour trouver la valeur correspondante
                 for (playerStatKey in joueur.stats){
+                    var found = false;
                     if (playerStatKey == scenarioStatKey){
                         joueur.stats[playerStatKey] += scenarioStatValue;
                         console.log ("nouvelle stat : " + playerStatKey + " : " + joueur.stats[playerStatKey]);
+                        found = true;
                         break;
                     }
                 } 
+                // Stat du scénario introuvable
+                if (found == false) {
+                    console.log("ERREUR : stat " + scenarioStatValue + " inconnue");
+                }
+                
+
             }
         }
  
@@ -278,12 +286,18 @@ var JeuService = module.exports = {
  
                 // Parcourir les stats du monde pour trouver la valeur correspondante
                 for (worldStatKey in this.worldStat){
+                    var found = false;
                     if (worldStatKey == scenarioStatKey){
                         this.worldStat[worldStatKey] += scenarioStatValue;
                         console.log ("nouvelle stat : " + worldStatKey + " : " + this.worldStat[worldStatKey])
+                        found = true;
                         break;
                     }
                 } 
+                // Stat du scénario introuvable
+                if (found == false) {
+                    console.log("ERREUR : stat " + scenarioStatValue + " inconnue");
+                }
             }
         }
         
