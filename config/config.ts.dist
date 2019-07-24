@@ -1,0 +1,18 @@
+export const CONFIG_ENV = {
+    port: 3000,
+    api: 'http://localhost:3000/api/',
+    discordToken: "",
+    discordChannelID: "", // id du salon ou sera diffuse le contenu
+    discordPrefix: "!",
+    minMinutesWaitingEvent : 0.01,  // Temps minimum avant declanchement event en minutes
+    maxMinutesWaitingEvent : 0.03,
+    etatEtape : {
+        aAfficher : "A_AFFICHER",
+        affiche : "AFFICHE",
+        attenteReponse : "ATTENTE_REPONSE"
+    },
+    typeEffet:{
+        joueur: "JOUEUR",
+        monde: "MONDE"
+    }
+}

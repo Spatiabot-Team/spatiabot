@@ -1,8 +1,5 @@
-.vscode
-.idea
-node_modules
-package-lock.json
-.history
-config/env.config.js
-config/discord.config.js
-/data/backup/*
+.idea/
+node_modules/
+dist/
+config/config.ts
+database.sqlite
