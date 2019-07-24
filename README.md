@@ -1,5 +1,4 @@
-# spatiabot
-
+# Spatiabot
 5 Empires se partagent l'univers : 
 
 Empire avec un mégalo, avec à sa botte uniquement des robots.    
@@ -68,16 +67,25 @@ Démocratie élitiste.
 
 
 
-Nous sommes aux alentours de l’an 3000. L’une des questions du millénaire précédent a trouvé sa réponse : non, nous ne sommes pas seuls dans l’univers, loin s’en faut. Notre galaxie est composée de milliers de planètes habitées, par une multitude de formes de vies différentes. À l’heure actuelle, cinq d’entre elles dominent la galaxie.
-	Le Megalo (lui-même se surnommant le Grand Suzerain Intergalactique Robotique) est un empereur possédant un très grand nombre de robots à ses ordres. D’esprit mégalomane, ses désirs se transforment très souvent en réalité, qu’ils soient sensés ou non. Ses robots se déclinent en plusieurs catégories, du nano-robot de soin aux mastodontes de guerre, en passant par des distributeurs de boissons. Il est secondé par un robot-conseiller obéissant et enjoué.
-	Les Ambrés sont des arbres translucides doués de raison. Pour répondre à leur besoin de développement, ils peuvent envahir des planètes entières pour s’y installer, quitte à sacrifier les autochtones. Les Ambrés sont télépathes, et certaines théories émettent l’hypothèse qu’ils partagent une conscience collective.
-	La Chevalerie est apparue à partir d’un groupe d’anciens colons Terriens envoyés explorer la galaxie il y a plus de 1000 ans. On ignore actuellement les raisons d’un développement aussi rapide, toujours est-il qu’il s’agit maintenant d’un royaume très influent. Légèrement plus grands et plus pâles que les terriens actuels, ils tentent de transmettre leur valeur à leur entourage, quitte à employer les grands moyens face aux créatures récalcitrantes. 
-	La Famille est composée de ce qu’on pourrait appeler des limaces à taille humaine et est l’une des plus anciennes races extraterrestres connues à ce jour. Il s’agit d’une espèce très riche, et ses membres sont d’excellents commerçants. La Famille est également connue pour ses ambitions d’expansion, et par sa capacité à acheter planètes et individus.
-	
+Nous sommes aux alentours de l’an 3000. L’une des questions du millénaire précédent a trouvé sa réponse : non, nous ne sommes pas seuls dans l’univers, loin s’en faut. Notre galaxie est composée de milliers de planètes habitées, par une multitude de formes de vies différentes. À l’heure actuelle, cinq d’entre elles dominent la galaxie.    
+	Le Megalo (lui-même se surnommant le Grand Suzerain Intergalactique Robotique) est un empereur possédant un très grand nombre de robots à ses ordres. D’esprit mégalomane, ses désirs se transforment très souvent en réalité, qu’ils soient sensés ou non. Ses robots se déclinent en plusieurs catégories, du nano-robot de soin aux mastodontes de guerre, en passant par des distributeurs de boissons. Il est secondé par un robot-conseiller obéissant et enjoué.    
+	Les Ambrés sont des arbres translucides doués de raison. Pour répondre à leur besoin de développement, ils peuvent envahir des planètes entières pour s’y installer, quitte à sacrifier les autochtones. Les Ambrés sont télépathes, et certaines théories émettent l’hypothèse qu’ils partagent une conscience collective.    
+	La Chevalerie est apparue à partir d’un groupe d’anciens colons Terriens envoyés explorer la galaxie il y a plus de 1000 ans. On ignore actuellement les raisons d’un développement aussi rapide, toujours est-il qu’il s’agit maintenant d’un royaume très influent. Légèrement plus grands et plus pâles que les terriens actuels, ils tentent de transmettre leur valeur à leur entourage, quitte à employer les grands moyens face aux créatures récalcitrantes.     
+	La Famille est composée de ce qu’on pourrait appeler des limaces à taille humaine et est l’une des plus anciennes races extraterrestres connues à ce jour. Il s’agit d’une espèce très riche, et ses membres sont d’excellents commerçants. La Famille est également connue pour ses ambitions d’expansion, et par sa capacité à acheter planètes et individus.    
 	Les Aliens sont un peuple de petits êtres sachant trouver du potentiel dans toute chose. On suppose que leurs changements de couleur est lié à leurs émotions.  Ils ont une capacité d’apprentissage et d’adaptation extraordinaire. 
 
 
 
 
 Pendant ce temps là, Aux fins fond de l’univers, un groupe d’explorateurs quittent la terre...
+
+#  Environnement de développement
+
+Démarrer le code en mode développement : `npm run develop`
+
+Synchroniser la base avec les entités : `typeorm schema:sync`
+
+
+## Sources
+https://github.com/typeorm/typeorm/blob/master/docs/faq.md
 

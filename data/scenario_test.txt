@@ -1,0 +1,12 @@
+POST scenario
+{
+  "titre": "Scenario A"
+}
+
+-----------
+
+POST scenario/{id}/etapes
+{
+  "titre": "Etape 1",
+  "texte": "Texte de l'étape 1",
+}
