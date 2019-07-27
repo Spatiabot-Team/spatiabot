@@ -29,8 +29,8 @@ export const ToolService = {
      * Exemple  {libelle:poids}  [ {a:3},{b:5},{c:2}]
      * poidsTotal = 10
      * nombre aléatoire entre 0 et 10 : 4.5
-     * poidsCummule = a = 3 : ne dépasse pas 4.5 donc on continue
-     * poidsCummule = a + b  : dépasse 4.5 donc on s'arrête, c'est b qui est choisi !
+     * poidsCumule = a = 3 : ne dépasse pas 4.5 donc on continue
+     * poidsCumule = a + b  : dépasse 4.5 donc on s'arrête, c'est b qui est choisi !
      *
      * @param tab <T>[]
      * @return T
@@ -38,11 +38,11 @@ export const ToolService = {
     randomItemByPoids: <T extends RandomPoidsInterface>(tab: T[]):T => {
         const poidsTotal = tab.reduce((acc, curr) => acc += curr.poids, 0);
         const nombreAlea = Math.random() * poidsTotal;
-        let poidsCummul = 0;
+        let poidsCumul = 0;
         let res = null;
         for(const item of tab){
-            poidsCummul += item.poids;
-            if (poidsCummul > nombreAlea && res === null) {
+            poidsCumul += item.poids;
+            if (poidsCumul > nombreAlea && res === null) {
                 res = item;
             }
         }
