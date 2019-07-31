@@ -33,7 +33,7 @@ export const VaisseauController = {
                     embed: EmbedService.embedMessage({
                         description: "Pardon " + msg.author.username + ", le décollage rencontre un contre temps dû à un " +
                             "séisme spatio-temporel qui vient d'avoir lieu dans le cosmos, " +
-                            "peux tu indiquer aux maitres du jeu qu'il faut colmater la brêche ?"
+                            "peux-tu indiquer aux maîtres du jeu qu'il faut colmater la brêche ?"
                     })
                 });
                 console.log(colors.red("Erreur technique lors du décollage de " + msg.author + e.message));

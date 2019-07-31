@@ -98,16 +98,20 @@ export const JeuService = {
 
             // On doit lui trouver un scénario qu'il n'a pas encore fait !
             const scenarioRepository = await getCustomRepository(ScenarioRepository);
-            const scenarios = await scenarioRepository.find({where: {id: Not(In(joueur.getScenariosEffectues()))}});
+            const scenarios = await scenarioRepository.find({where: {id: Not(In(joueur.getScenariosEffectues())), actif:true}});
 
             if (scenarios.length > 0) {
-                const etape = scenarios[Math.round(Math.random() * (scenarios.length-1))].getPremiereEtape();
+                const etape = scenarios[Math.round(Math.random() * (scenarios.length-1))].getPremiereEtape();                
                 joueur.scenariosEffectues.push(etape.scenario)
                 joueur.etapeEnCours = etape;
                 joueur.etapeDateAffichage = this.calcNextDateAffichageEtape();
                 joueur.etapeEnCoursEtat = CONFIG_ENV.etatEtape.aAfficher;
                 const joueurRepository = await getCustomRepository(JoueurRepository);
                 joueurRepository.save(joueur);
+            }
+            else
+            {
+                // Prévoir d'effacer les scénarios déjà joués                
             }
         }
         return joueur.etapeEnCours;

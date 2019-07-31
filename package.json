@@ -11,7 +11,7 @@
     "start": "node dist/src/index.js",
     "load-fixtures": "node dist/src/load-fixtures.js",
     "start-w": "nodemon dist/src/index.js",
-    "develop": "tsc -w & webpack -w & nodemon dist/src/index.js",
+    "develop": "start tsc -w & start webpack -w & start nodemon dist/src/index.js",
     "tsoa": "tsoa routes -c ./src/api/tsoa.json & tsoa swagger -c ./src/api/tsoa.json"
   },
   "keywords": [],
