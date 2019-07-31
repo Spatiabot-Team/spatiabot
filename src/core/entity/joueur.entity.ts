@@ -62,7 +62,7 @@ export class Joueur {
     initialisation?: Initialisation;
 
     /**
-     * Retourne true si l'étape est en état "A_AFFICHER" et que l'on a dépasser la date minimum d'affichage de l'étape en cours
+     * Retourne true si l'étape est en état "A_AFFICHER" et que l'on a dépassé la date minimum d'affichage de l'étape en cours
      */
     isAfficherEtape(): Boolean {
         return this.etapeEnCoursEtat == CONFIG_ENV.etatEtape.aAfficher && new Date() > this.etapeDateAffichage;
