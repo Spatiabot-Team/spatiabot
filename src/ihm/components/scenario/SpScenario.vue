@@ -2,17 +2,21 @@
     <v-container fluid grid-list-md>
         <v-layout v-if="scenario" row wrap>
             <v-flex xs12 v-if="!editScenario" @dblclick="editScenario = true">
-                <h1>{{scenario.titre}}
+                <h1>{{scenario.titre}} <span v-if="scenario.actif"> (actif) </span>
                     <v-icon @click="editScenario=true">edit</v-icon>
                 </h1>
             </v-flex>
             <v-flex xs12 v-if="editScenario">
                 <div class="col">
-                    <v-text-field @keyup.enter="updateScenarioTitre" v-model="scenario.titre" label="Titre" required
+                    <v-text-field @keyup.enter="updateScenarioAttr" v-model="scenario.titre" label="Titre" required
                                   width="100%"/>
                 </div>
+
                 <div class="col">
-                    <v-btn color="success" @click="updateScenarioTitre" type="button">Ok</v-btn>
+                    <v-switch v-model="scenario.actif" label="Scénario actif" />
+                </div>
+                <div class="col">
+                    <v-btn color="success" @click="updateScenarioAttr" type="button">Ok</v-btn>
                 </div>
             </v-flex>
             <v-flex xs12>
@@ -64,13 +68,13 @@
                 updateScenario: "updateScenario",
                 setCurrentScenarioId: "setCurrentScenarioId"
             }),
-            updateScenarioTitre(e) {
+            updateScenarioAttr(e) {
                 e.preventDefault();
 
                 // Update when Enter key is pressed but not if shift+enter is pressed
                 if (e.shiftKey) return;
                 //this.$http.put('etapes/' + this.etape.id, this.etape).then(() => this.edit = false);
-                this.updateScenario({titre: this.scenario.titre});
+                this.updateScenario({titre: this.scenario.titre, actif: this.scenario.actif});
                 this.editScenario = false;
             },
         }
