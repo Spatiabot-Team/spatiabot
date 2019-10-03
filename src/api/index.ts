@@ -56,7 +56,8 @@ export const Api = () => {
     const startServer = () => {
         app.listen(app.get("port"), () => {
             console.log(
-                colors.blue("App is running at http://localhost:%d in %s mode"),
+                colors.blue("App is running at %s:%d in %s mode"),
+                CONFIG_ENV.url,
                 app.get("port"),
                 app.get("env")
             );
