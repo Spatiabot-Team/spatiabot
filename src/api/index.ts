@@ -34,8 +34,9 @@ export const Api = () => {
         RegisterRoutes(app);
         app.use((err, req, res, next) => {
             if (err){
-                console.error("Une erreur 500 va être retournée", err)
-                res.status(err.status ? err.status : 500);
+		//console.error("Une erreur 500 va être retournée", err)
+                console.error("Une erreur 500 va être retournée", {req,err})
+		res.status(err.status ? err.status : 500);
                 res.json(err);
             }
         });
