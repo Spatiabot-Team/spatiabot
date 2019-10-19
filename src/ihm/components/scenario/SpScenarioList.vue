@@ -9,7 +9,7 @@
 
             <v-list-tile-content>
                 <v-list-tile-title>
-                    B{{ scenario.titre }}
+                    D{{ scenario.titre }}
                     <v-icon @click="removeScenario(scenario)">delete_forever</v-icon>
                 </v-list-tile-title>
             </v-list-tile-content>
