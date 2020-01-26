@@ -3,7 +3,7 @@
             @submit.prevent="submitConsequencePosible">
         <v-layout>
             <v-flex xs3>
-                <v-text-field type="number" v-model="consequencePossible.poids" label="poids" required/>
+                <v-text-field type="number" v-model="consequencePossible.poids" label="Poids" value="1" required/>
             </v-flex>
             <v-flex xs9>
                 <v-select
