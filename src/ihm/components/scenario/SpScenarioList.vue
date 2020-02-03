@@ -9,7 +9,7 @@
 
             <v-list-tile-content>
                 <v-list-tile-title>
-                    B{{ scenario.titre }}
+                    {{ scenario.titre }}
                     <v-icon @click="removeScenario(scenario)">delete_forever</v-icon>
                 </v-list-tile-title>
             </v-list-tile-content>
@@ -19,24 +19,21 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {mapActions, mapGetters} from "vuex";
+    import Scenario from "../../models/Scenario";
 
     export default Vue.extend({
+        mounted(): void {},
         computed: {
-            ...mapGetters({
-                scenarios: "getScenarios"
-            })
+            scenarios(){
+                return Scenario.all();
+            }
         },
         methods: {
             removeScenario(scenario) {
                 if (!confirm('T\'es sûr de vouloir supprimer le scenario ' + scenario.titre + " ?")) return;
-                this.$store.dispatch('removeScenario', scenario.id);
+                // this.$store.dispatch('removeScenario', scenario.id);
             },
-            ...mapActions({
-                setCurrentScenarioId: "setCurrentScenarioId"
-            }),
             selectScenario(uuid) {
-                this.setCurrentScenarioId(uuid);
                 this.$router.push({name: 'scenario', params: {uuid}});
             }
         }

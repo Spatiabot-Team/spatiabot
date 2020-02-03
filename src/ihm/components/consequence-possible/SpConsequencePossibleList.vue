@@ -1,7 +1,8 @@
 <template>
     <div class="consequence-possible-list">
         <sp-consequence-possible v-for="consequencePossible of consequencePossibles"
-                                 :key="consequencePossible.id" :consequence-possible="consequencePossible"/>
+                                 :key="'consequence-possible-'+consequencePossible.id"
+                                 :consequence-possible="consequencePossible"/>
     </div>
 </template>
 
@@ -10,19 +11,7 @@
     import SpConsequencePossible from './SpConsequencePossible.vue';
 
     export default Vue.extend({
-        props: {
-            reponseId: {required: true}
-        },
+        props: ["consequencePossibles"],
         components: {SpConsequencePossible},
-        data() {
-            return {
-                valid: false,
-            }
-        },
-        computed: {
-            consequencePossibles() {
-                return this.$store.getters.getConsequencePossibles(this.reponseId)
-            }
-        }
     });
 </script>

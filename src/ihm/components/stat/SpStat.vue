@@ -38,6 +38,7 @@
 <script lang="ts">
     import Vue from "vue";
     import {mapActions, mapGetters} from "vuex";
+    import Unite from "../../models/Unite";
 
     export default Vue.extend({
         async mounted() {
@@ -48,9 +49,9 @@
             owner: null
         },
         computed: {
-            ...mapGetters({
-                unites: "getUnites"
-            })
+            unites(){
+                return Unite.all();
+            },
         },
         methods: {
             ...mapActions({

@@ -7,54 +7,48 @@
             </v-flex>
             <v-flex xs9>
                 <v-select
-                        clearable
-                        :items="etapes"
-                        name="etape-suivante"
-                        item-value="id"
-                        item-text="titre"
-                        label="Etape suivante..."
-                        v-model="consequencePossible.etapeSuivante.id"
+                    clearable
+                    :items="etapes"
+                    name="etape-suivante"
+                    item-value="id"
+                    item-text="titre"
+                    label="Etape suivante..."
+                    v-model="consequencePossible.etapeSuivante"
+                    return-object
                 />
             </v-flex>
-            <v-btn color="success" type="submit">Valider</v-btn>
+            <v-btn type="submit">Valider</v-btn>
         </v-layout>
     </v-form>
 </template>
 
 <script lang="ts">
     import Vue from "vue";
-    import {mapActions} from "vuex";
-
-    const consequencePossibleTemplate = {
-        etapeSuivante : {
-            id : null
-        },
-        poids : null
-    };
+    import Etape from "../../models/Etape";
+    import ConsequencePossible from "../../models/ConsequencePossible";
+    import Reponse from "../../models/Reponse";
 
     export default Vue.extend({
         props: {
-            reponseId: {
+            idReponse: {
                 required: true
             }
         },
         computed: {
             etapes() {
-                return this.$store.getters.getEtapes
+                return Etape.query().where('scenarioId', this.$route.params.uuid).all();
             }
         },
         data() {
             return {
-                consequencePossible:{...consequencePossibleTemplate}
+                consequencePossible: new ConsequencePossible()
             }
         },
         methods: {
-            ...mapActions({
-                createConsequencePossible : "createConsequencePossible"
-            }),
             submitConsequencePosible() {
-                this.createConsequencePossible({idReponse : this.reponseId,consequencePossible : {...this.consequencePossible}});
-                this.consequencePossible = {...consequencePossibleTemplate};
+                Reponse.postConsequencePossibles(this.idReponse,[this.consequencePossible]);
+                this.consequencePossible = new ConsequencePossible();
+                this.$emit('created')
             }
         }
     });

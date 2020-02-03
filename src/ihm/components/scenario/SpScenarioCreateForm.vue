@@ -1,6 +1,6 @@
 <!-- src/components/Hello.ihm -->
 <template>
-    <v-form id="scenario-create-form" ref="scenarioCreateFormRef" v-model="valid" lazy-validation
+    <v-form ref="scenarioCreateFormRef" v-model="valid" lazy-validation
             @submit.prevent="createScenario">
         <v-text-field v-model="scenario.titre" label="Titre" required/>
         <v-btn :disabled="!valid" color="success" type="submit">Créer ce scénario</v-btn>
@@ -9,6 +9,7 @@
 
 <script lang="ts">
     import Vue from "vue";
+    import Scenario from "../../models/Scenario";
 
     export default Vue.extend({
         data: () => ({
@@ -20,7 +21,7 @@
         methods: {
             createScenario() {
                 //if (this.$refs.scenarioCreateFormRef.validate()) {
-                 this.$store.dispatch('createScenario', {...this.scenario});
+                Scenario.api().post('', {...this.scenario});
                 //}
             }
         }

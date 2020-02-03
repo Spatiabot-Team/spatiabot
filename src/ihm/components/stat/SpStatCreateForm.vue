@@ -27,6 +27,7 @@
 <script lang="ts">
     import Vue from "vue";
     import {mapActions, mapGetters} from "vuex";
+    import Unite from "../../models/Unite";
 
     const statTemplate = {
         unite: {
@@ -40,9 +41,9 @@
             owner: {required: true}
         },
         computed: {
-            ...mapGetters({
-                unites: "getUnites"
-            })
+            unites(){
+                return Unite.all();
+            },
         },
         data() {
             return {

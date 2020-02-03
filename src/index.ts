@@ -7,5 +7,5 @@ import {Fixture} from "./core/fixture";
 createConnection().then(async connection => {
     // await Fixture.load();
     Api().start();
-    Spatiabot().start();
+    // Spatiabot().start();
 }).catch(error => console.log(error));

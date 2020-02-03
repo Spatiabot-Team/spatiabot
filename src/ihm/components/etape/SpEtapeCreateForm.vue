@@ -22,7 +22,8 @@
                     <v-container fluid grid-list-md text-xs-center>
                         <v-layout row wrap>
                             <v-flex xs6>
-                                <v-text-field v-model="reponse.libelle" :prefix="discordPrefix" label="Libelle que doit saisir le joueur"
+                                <v-text-field v-model="reponse.libelle" :prefix="discordPrefix"
+                                              label="Libelle que doit saisir le joueur"
                                               required/>
                             </v-flex>
                             <v-flex xs6>
@@ -30,11 +31,11 @@
                             </v-flex>
                             <v-flex xs11>
                                 <v-textarea
-                                        outline
-                                        v-model="reponse.texte"
-                                        name="text"
-                                        label="Texte"
-                                        rows="3"
+                                    v-model="reponse.texte"
+                                    outline
+                                    name="text"
+                                    label="Texte"
+                                    rows="3"
                                 />
                             </v-flex>
                             <v-flex xs1>
@@ -61,16 +62,18 @@
     import Vue from "vue";
     import {mapState} from "vuex";
     import {CONFIG_ENV} from "../../../../config/config";
+    import Etape from "../../models/Etape";
+    import Scenario from "../../models/Scenario";
 
     export default Vue.extend({
+        props:{
+            idScenario : String
+        },
         data() {
             return {
                 valid: false,
                 discordPrefix: CONFIG_ENV.discordPrefix,
-                etape: {
-                    titre: "",
-                    reponses: []
-                }
+                etape: new Etape()
             }
         },
         methods: {
@@ -86,13 +89,14 @@
             deleteReponse(key: any) {
                 this.etape.reponses = this.etape.reponses.filter((reponse: any) => reponse.key !== key)
             },
-            createEtape() {
+            async createEtape() {
                 if (this.$refs.form.validate()) {
-                    this.$store.dispatch('createEtape', {...this.etape});
-                    this.etape = {
-                        titre: "",
-                        reponses: []
-                    };
+                    const {id, $id, ...e} = this.etape; // retirer id et $id
+                    await Scenario.api().post(`/${this.idScenario}/etapes`,{id : this.idScenario,etapes : [{
+                        titre : this.etape.titre,
+                        texte : this.etape.texte
+                    }]});
+                    this.etape = new Etape();
                 }
             }
         }

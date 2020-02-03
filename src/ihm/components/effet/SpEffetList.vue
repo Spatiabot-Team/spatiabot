@@ -9,18 +9,11 @@
     import SpEffet from './SpEffet.vue';
 
     export default Vue.extend({
-        props: {
-            etapeId: {required: true}
-        },
+        props:['effets'],
         components: {SpEffet},
         data() {
             return {
                 valid: false,
-            }
-        },
-        computed: {
-            effets() {
-                return this.$store.getters.getEffets(this.etapeId)
             }
         }
     });

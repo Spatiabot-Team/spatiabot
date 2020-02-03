@@ -1,5 +1,5 @@
 <template>
-    <v-app id="inspire" :dark="isDark">
+    <v-app id="inspire" :dark="!lightOn">
 
         <v-navigation-drawer v-model="showLeftPannel" fixed app>
             <v-toolbar>
@@ -13,12 +13,7 @@
         <v-toolbar fixed app>
             <v-toolbar-side-icon @click.stop="toggleLeftPannel"/>
             <v-toolbar-title>Spatiabot</v-toolbar-title>
-            <span v-if="isDark" class="pa-2 grey--text darken-2--text" @click="isDark = false" style="cursor: pointer">
-                <v-icon>toggle_on</v-icon> Allumer la lumière
-            </span>
-            <span v-if="!isDark" class="pa-2 grey--text darken-2--text" @click="isDark = true" style="cursor: pointer">
-                <v-icon>toggle_off</v-icon> Eteindre la lumière
-            </span>
+            <sp-toggle :label="{on:'Eteindre la lumière',off:'Allumer la lumière'}" v-model="lightOn" />
             <v-spacer/>
             <sp-unite-modal/>
             <router-link to="/initialisation">
@@ -52,22 +47,11 @@
     import SpScenarioCreateForm from './scenario/SpScenarioCreateForm.vue';
     import SpScenarioList from './scenario/SpScenarioList.vue';
     import SpScenario from './scenario/SpScenario.vue';
+    import SpToggle from './tools/SpToggle.vue';
     import SpUniteModal from './unite/SpUniteModal.vue';
     import SpInitialisation from './initialisation/SpInitialisation.vue';
     import SpPartie from "./partie/SpPartie.vue";
-
-    // Axios
-    import axios from 'axios';
-
-    axios.defaults.baseURL = CONFIG_ENV.api;
-    axios.defaults.headers.post['Content-Type'] = "application/json";
-    Vue.prototype.$http = axios;
-
-    // Vuex
-    import Vuex, {mapActions, mapGetters, mapState} from 'vuex';
-
-    Vue.use(Vuex);
-    import {store} from "../services/store.service";
+    import store from "../plugins/store";
 
     // VueRouter
     import VueRouter from 'vue-router';
@@ -75,6 +59,8 @@
     Vue.use(VueRouter);
 
     import "./../stylus/main.styl"
+    import Scenario from "../models/Scenario";
+    import {mapActions} from "vuex";
 
     const router = new VueRouter({
         routes: [
@@ -89,8 +75,8 @@
         store,
         router,
         async mounted() {
-            this.$store.dispatch('loadScenarios');
-            this.$store.dispatch('loadUnites');
+            Scenario.api().get('');
+            // this.$store.dispatch('loadUnites');
         },
         components: {
             SpScenarioCreateForm,
@@ -98,7 +84,8 @@
             SpScenario,
             SpUniteModal,
             SpInitialisation,
-            SpPartie
+            SpPartie,
+            SpToggle
         },
         computed: {
             showLeftPannel: {
@@ -113,11 +100,10 @@
         methods: {
             ...mapActions({
                 toggleLeftPannel: "toggleLeftPannel",
-                setCurrentScenarioId: "setCurrentScenarioId"
             })
         },
         data: () => ({
-            isDark: true
+            lightOn: false
         })
     });
 </script>

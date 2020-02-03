@@ -1,9 +1,7 @@
 import {Etape} from "./etape.entity";
 import {Entity} from "typeorm/decorator/entity/Entity";
-import {PrimaryGeneratedColumn} from "typeorm/decorator/columns/PrimaryGeneratedColumn";
+import {PrimaryGeneratedColumn, OneToMany} from "typeorm";
 import {Column} from "typeorm/decorator/columns/Column";
-import {ManyToMany, OneToMany} from "typeorm";
-import {Joueur} from "./joueur.entity";
 
 @Entity()
 export class Scenario {
@@ -21,7 +19,7 @@ export class Scenario {
      * uuid de la première étape
      */
     @Column("varchar", {nullable: true})
-    premiere_etape?: string;
+    premiereEtape?: string;
 
     @OneToMany(type => Etape, etape => etape.scenario, {
         cascade: true,
@@ -30,6 +28,6 @@ export class Scenario {
     etapes?: Etape[];
 
     getPremiereEtape(){
-        return this.etapes.find(e => e.id == this.premiere_etape);
+        return this.etapes.find(e => e.id == this.premiereEtape);
     }
 }

@@ -1,59 +1,63 @@
 <template>
     <div class="etape">
         <v-card>
-            <v-toolbar v-if="!editEtape">
-                <v-toolbar-title @dblclick="editEtape = true">
-                    {{etape.titre}}
-                    <v-icon small @click="editEtape = true">edit</v-icon>
+            <v-toolbar>
+                <v-toolbar-title v-if="!editEtape" md-toolbar-row>
+
+                    <sp-toggle icon="visibility" v-model="showContent"/>
+                    <sp-text-editable v-model="etape.titre" ref="etapeTitre" label="Titre" @save="update" solo rounded/>
+
+                    <v-icon small @click="edit">edit</v-icon>
                     <v-icon small @click="deleteEtape(etape)">delete_forever</v-icon>
-                    <v-chip v-if="etape.finScenario">
-                        Fin du scénario
-                    </v-chip>
-                    <span v-if="isPremiereEtape" class="pa-2 grey--text darken-2--text" style="cursor: pointer">
-                        <v-icon>toggle_on</v-icon> Première étape
-                    </span>
-                    <span v-if="!isPremiereEtape" @click="setPremiereEtape" class="pa-2 grey--text darken-2--text" style="cursor: pointer">
-                        <v-icon>toggle_off</v-icon> Activer comme première étape
-                    </span>
+
+                    <sp-toggle :label="{on:'Première étape',off:'Activer comme première étape'}"
+                               :value="isPremiereEtape"
+                               icon="radio"
+                               @input="setPremiereEtape"
+                               class="caption"
+                               :small="true"
+                    />
+
+                    <sp-checkbox :label="{on:'Fin du scénario',off:'Fin du scénario'}"
+                                 v-model="etape.finScenario"
+                                 @input="update"
+                                 class="caption"
+                                 :small="true"
+                    />
                 </v-toolbar-title>
             </v-toolbar>
-            <v-toolbar md-toolbar-row v-if="editEtape">
-                <v-text-field
-                        @keyup.enter="update" label="Name"
-                        v-model="etape.titre" required
-                        width="100%"/>
-                <v-checkbox v-model="etape.finScenario" label="Cette étape est la fin du scénario"/>
-            </v-toolbar>
+            <v-card-text v-if="showContent">
+                <v-flex class="pa-4">
+                    <sp-textarea-editable
+                        ref="etapeTexte"
+                        v-model="etape.texte"
+                        name="texte"
+                        label="Texte"
+                        rows="10"
+                        @save="update"
+                    />
+                </v-flex>
 
-            <v-flex v-if="!editEtape" @dblclick="editEtape = true" class="pa-4">
-                <pre class="discordFormat">{{etape.texte}}</pre>
-            </v-flex>
-            <v-flex v-if="editEtape" class="pa-4">
-                <v-textarea
-                        outline @keyup.enter="update"
-                        name="texte" label="Texte"
-                        rows="10" v-model="etape.texte"
-                />
-                <v-btn small color="success" @click="update" type="button">Enregistrer</v-btn>
-            </v-flex>
+                <v-divider></v-divider>
 
-            <v-divider></v-divider>
-            <v-flex>
-                <v-subheader>Effets
-                    <v-icon small right @click="showEffetForm=!showEffetForm">add_circle</v-icon>
-                </v-subheader>
-                <sp-effet-list :etape-id="etape.id"/>
-                <sp-effet-create-form v-if="showEffetForm" :etape-id="etape.id"/>
-            </v-flex>
-            <v-divider></v-divider>
+                <v-flex>
+                    <v-subheader>Effets
+                        <v-icon small right @click="showEffetForm=!showEffetForm">add_circle</v-icon>
+                    </v-subheader>
+                    <sp-effet-create-form v-if="showEffetForm" :id-etape="etape.id" @created="showEffetForm=false"/>
+                    <sp-effet-list :id-etape="etape.id" :effets="etape.effets"/>
+                </v-flex>
 
-            <v-flex>
-                <v-subheader>Réponses
-                    <v-icon small right @click="showCreateReponseForm=!showCreateReponseForm">add_circle</v-icon>
-                </v-subheader>
-                <sp-reponse-list v-if="etape.reponses" :etape-id="etape.id"/>
-                <sp-reponse-create-form v-if="showCreateReponseForm" :etape-id="etape.id"/>
-            </v-flex>
+                <v-divider></v-divider>
+
+                <v-flex>
+                    <v-subheader>Réponses
+                        <v-icon small right @click="showCreateReponseForm=!showCreateReponseForm">add_circle</v-icon>
+                    </v-subheader>
+                    <sp-reponse-list v-if="etape.reponses" :reponses="etape.reponses"/>
+                    <sp-reponse-create-form v-if="showCreateReponseForm" :id-etape="etape.id"/>
+                </v-flex>
+            </v-card-text>
         </v-card>
     </div>
 </template>
@@ -63,9 +67,14 @@
 
     import SpReponseList from '../reponse/SpReponseList.vue';
     import SpReponseCreateForm from '../reponse/SpReponseCreateForm.vue';
-    import {mapActions, mapGetters} from "vuex";
     import SpEffetCreateForm from '../effet/SpEffetCreateForm.vue';
     import SpEffetList from "../effet/SpEffetList.vue";
+    import Scenario from "../../models/Scenario";
+    import Etape from "../../models/Etape";
+    import SpTextareaEditable from '../tools/SpTextareaEditable.vue';
+    import SpTextEditable from '../tools/SpTextEditable.vue';
+    import SpToggle from '../tools/SpToggle.vue';
+    import SpCheckbox from '../tools/SpCheckbox.vue';
 
     export default Vue.extend({
         props: {
@@ -73,50 +82,49 @@
                 required: true
             }
         },
-        components: {SpReponseList, SpReponseCreateForm, SpEffetCreateForm, SpEffetList},
-        computed: {
-            edit() {
-                return this.currentEtapeId == this.etape.id
-            },
-            etapeTexteFormated() {
-                return '<b>' + this.etape.texte + '</b>'
-            },
-            isPremiereEtape(){
-                return this.etape.id === this.scenario.premiere_etape;
-            },
-            ...mapGetters({
-                scenario: "getCurrentScenario"
-            }),
+        components: {
+            SpReponseList,
+            SpReponseCreateForm,
+            SpEffetCreateForm,
+            SpEffetList,
+            SpTextareaEditable,
+            SpTextEditable,
+            SpToggle,
+            SpCheckbox
         },
-        data: () => ({
-            showCreateReponseForm: false,
-            showEffetForm: false,
-            editEtape: false
-        }),
-        mounted() {
+        computed: {
+            scenario() {
+                return Scenario.findDeep(this.etape.scenarioId);
+            },
+            isPremiereEtape() {
+                return this.etape.id.localeCompare(this.scenario.premiereEtape) === 0;
+            },
+        },
+        data() {
+            return {
+                showContent: true,
+                showCreateReponseForm: false,
+                showEffetForm: false,
+                editEtape: false
+            }
         },
         methods: {
-            ...mapActions({
-                updateScenario: "updateScenario",
-                updateEtape: "updateEtape",
-                removeEtape: "removeEtape"
-            }),
-            update(e) {
-                e.preventDefault();
-
-                // Update when Enter key is pressed but not if shift+enter is pressed
-                if (e.shiftKey) return;
-
-                this.updateEtape(this.etape);
-                this.editEtape = false;
+            toggleVisibilite(showContent){
+                this.showContent = showContent;
+            },
+            edit() {
+                this.$refs.etapeTitre.edit();
+                this.$refs.etapeTexte.edit();
+            },
+            update() {
+                Etape.api().put(`/${this.etape.id}`, this.etape);
             },
             deleteEtape(etape) {
                 if (!confirm('Es-tu sûr de supprimer l\'étape ' + etape.titre + " ?")) return;
-
-                this.removeEtape(etape.id);
+                Etape.remove(this.etape.id);
             },
             setPremiereEtape() {
-                this.updateScenario({premiere_etape: this.etape.id})
+                Scenario.edit(this.scenario.id, {premiereEtape: this.etape.id});
             }
 
         }

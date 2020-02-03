@@ -1,48 +1,35 @@
 <template>
     <div class="etapes">
-        <Draggable
-                v-model="etapes"
-                :disabled="!enabled"
-                class="list-group"
-                ghost-class="ghost"
-                @end="endDrag"
-        >
-            <v-flex v-if="etapes.length > 0" v-for="etape of etapes" :key="etape.id">
-                <sp-etape :etape="etape"/>
-            </v-flex>
-        </Draggable>
+        <v-flex xs12>
+            <span @click="showContent(true)"><v-icon small>visibility</v-icon> Tout déplier</span>
+            <span @click="showContent(false)"><v-icon small>visibility_off</v-icon> Tout masquer</span>
+        </v-flex>
+        <v-flex v-if="etapes.length > 0" v-for="etape of etapes" :key="'etape-'+etape.id">
+            <sp-etape :etape="etape" ref="etapes"/>
+        </v-flex>
     </div>
 </template>
 
 <script lang="ts">
     import Vue from "vue";
-    import Draggable from 'vuedraggable';
-
     import SpEtape from './SpEtape.vue';
-    import {mapGetters} from "vuex";
-    import {byAttribute} from "../../services/hof.service";
 
     export default Vue.extend({
-        components: {SpEtape, Draggable},
+        components: {SpEtape},
+        props:['etapes'],
         data() {
             return {
                 enabled: true
             };
         },
         computed: {
-            etapes: {
-                get() {
-                    return this.$store.getters.getEtapes.sort(byAttribute("order"));
-                },
-                set(etapes: any[]) {
-                    this.$store.dispatch('saveOrderEtape', etapes);
-                }
-            }
         },
         methods: {
-            endDrag(e) {
-
-            }
+            toggleVisibilite(showContent){
+                for(const spEtape of this.$refs["etapes"]){
+                    spEtape.toggleVisibilite(showContent);
+                }
+            },
         }
     });
 </script>

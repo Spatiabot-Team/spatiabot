@@ -1,6 +1,7 @@
 export const CONFIG_ENV = {
-    port: 3000,
-    api: 'http://localhost:3000/api/',
+    port: 3001,
+    url: 'http://localhost',
+    api: `http://localhost:${this.port}/api/`,,
     discordToken: "",
     discordChannelID: "", // id du salon ou sera diffuse le contenu
     discordPrefix: "!",
