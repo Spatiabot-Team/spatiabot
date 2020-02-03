@@ -34,7 +34,7 @@ export class ScenarioController extends Controller {
 
     @SuccessResponse('201', 'Created')
     @Post()
-    public async post(@Body() scenario: Scenario): Promise<Scenario>  {
+    public async post(@Body() scenario: Scenario): Promise<Scenario> {
         const scenarioRepository = await getCustomRepository(ScenarioRepository);
         return await scenarioRepository.save(scenario);
     }
@@ -42,7 +42,7 @@ export class ScenarioController extends Controller {
     @SuccessResponse('201', 'Created')
     @Response('400', 'Bad request')
     @Put('{id}')
-    public async update(id: string, @Body() scenario: Scenario) : Promise<Scenario> {
+    public async update(id: string, @Body() scenario: Scenario): Promise<Scenario> {
         ToolService.clearUndefined(scenario);
         const scenarioRepository = getCustomRepository(ScenarioRepository);
         let scenarioToUpdate = await scenarioRepository.findOne(id);
@@ -51,34 +51,30 @@ export class ScenarioController extends Controller {
             throw new Error(`Le scenario ${id} n'existe pas`);
         }
 
-        Object.assign(scenarioToUpdate,scenario);
+        Object.assign(scenarioToUpdate, scenario);
         return await scenarioRepository.save(scenarioToUpdate);
     }
 
     @Tags('Etapes')
     @SuccessResponse('201', 'Created')
     @Post('{id}/etapes')
-    public async postEtapes(id: string, @Body() etapes: Etape[]): Promise<Etape[]> {
-
+    public async postEtapes(id: string, @Body() sc: Scenario): Promise<Scenario> {
+        ToolService.clearUndefined(sc);
         const scenarioRepository = await getCustomRepository(ScenarioRepository);
-        let scenario = await scenarioRepository.findOne(id);
-
-        if(!scenario){
+        const scenario = await scenarioRepository.findOne(id);
+        if (!scenario) {
             this.setStatus(400);
             throw new Error(`Le scenario ${id} n'existe pas`);
         }
 
         const etapeRepository = await getCustomRepository(EtapeRepository);
-        const promises = etapes.map(etape => {
+        await Promise.all(sc.etapes.map(etape => {
             etape.scenario = scenario;
             return etapeRepository.save(etape);
-        });
+        }));
 
-        return Promise.all(promises).then((etapes) => {
-            etapes.forEach(etape => delete etape.scenario);
-            return Promise.resolve(etapes)
-        });
-    }
+        return await scenarioRepository.findOne(id);
+    };
 
     @Tags('Etapes')
     @SuccessResponse('201', 'Created')
@@ -88,7 +84,7 @@ export class ScenarioController extends Controller {
         const scenarioRepository = await getCustomRepository(ScenarioRepository);
         let scenario = await scenarioRepository.findOne(id);
 
-        if(!scenario){
+        if (!scenario) {
             this.setStatus(400);
             throw new Error(`Le scenario ${id} n'existe pas`);
         }
@@ -97,7 +93,7 @@ export class ScenarioController extends Controller {
 
         const promises = etapes.map(async etape => {
 
-            return await etapeRepository.save({id : etape.id,order : etape.order});
+            return await etapeRepository.save({id: etape.id, order: etape.order});
         });
 
         return Promise.all(promises);

@@ -33,7 +33,7 @@ const models: TsoaRoute.Models = {
             "id": { "dataType": "string" },
             "titre": { "dataType": "string" },
             "actif": { "dataType": "boolean" },
-            "premiere_etape": { "dataType": "string" },
+            "premiereEtape": { "dataType": "string" },
             "etapes": { "dataType": "array", "array": { "ref": "Etape" } },
         },
     },
@@ -322,7 +322,7 @@ export function RegisterRoutes(app: express.Express) {
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
-                reponses: { "in": "body", "name": "reponses", "required": true, "dataType": "array", "array": { "ref": "Reponse" } },
+                etape: { "in": "body", "name": "etape", "required": true, "ref": "Etape" },
             };
 
             let validatedArgs: any[] = [];
@@ -342,7 +342,7 @@ export function RegisterRoutes(app: express.Express) {
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
-                effets: { "in": "body", "name": "effets", "required": true, "dataType": "array", "array": { "ref": "Effet" } },
+                etape: { "in": "body", "name": "etape", "required": true, "ref": "Etape" },
             };
 
             let validatedArgs: any[] = [];
@@ -765,7 +765,7 @@ export function RegisterRoutes(app: express.Express) {
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
-                consequencePossibles: { "in": "body", "name": "consequencePossibles", "required": true, "dataType": "array", "array": { "ref": "ConsequencePossible" } },
+                reponse: { "in": "body", "name": "reponse", "required": true, "ref": "Reponse" },
             };
 
             let validatedArgs: any[] = [];
@@ -880,7 +880,7 @@ export function RegisterRoutes(app: express.Express) {
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
-                etapes: { "in": "body", "name": "etapes", "required": true, "dataType": "array", "array": { "ref": "Etape" } },
+                sc: { "in": "body", "name": "sc", "required": true, "ref": "Scenario" },
             };
 
             let validatedArgs: any[] = [];

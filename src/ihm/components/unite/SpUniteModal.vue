@@ -53,13 +53,14 @@
     import Vue from "vue";
     import {mapActions, mapGetters} from "vuex";
     import SpUniteCreateForm from './SpUniteCreateForm.vue';
+    import Unite from "../../models/Unite";
 
     export default Vue.extend({
         components: {SpUniteCreateForm},
         computed: {
-            ...mapGetters({
-                unites: "getUnites"
-            })
+            unites(){
+                return Unite.all();
+            },
         },
         data() {
             return {

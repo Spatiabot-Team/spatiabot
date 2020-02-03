@@ -1,5 +1,4 @@
 import {RandomPoidsInterface} from "../interfaces/random-poids.interface";
-import {ConsequencePossible} from "../entity/consequence-possible.entity";
 
 export const ToolService = {
 
@@ -7,13 +6,14 @@ export const ToolService = {
      * Retire toutes les clefs recursivement qui ont une valeur à undefined
      * @param obj
      */
-    clearUndefined: (obj: any) => {
+    clearUndefined: (obj: any, andNull = false) => {
+
         for (let item in obj) {
             if (typeof item === 'object') {
-                ToolService.clearUndefined(item);
-            } else if (typeof obj[item] === 'object') {
-                ToolService.clearUndefined(obj[item]);
-            } else if (obj[item] === undefined) {
+                ToolService.clearUndefined(item,andNull);
+            } else if (obj[item] !== null && typeof obj[item] === 'object') {
+                ToolService.clearUndefined(obj[item],andNull);
+            } else if (obj[item] === undefined || (andNull && obj[item] === null)) {
                 delete obj[item];
             }
         }

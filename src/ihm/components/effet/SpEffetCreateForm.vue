@@ -1,25 +1,31 @@
 <template>
     <v-form id="effet-form" class="pl-4" ref="effetFormRef" lazy-validation @submit.prevent="submitEffet">
+
         <!--quantite-->
         <v-layout row wrap>
-            <v-flex xs1 class="px-0 pa-1">
-                <v-text-field type="number" v-model="effet.quantite" label="quantite" required/>
-            </v-flex>
-            <v-flex xs1 class="px-0 pa-1">
-                <v-select
-                        :items="unites"
-                        name="unite"
-                        item-value="id"
-                        item-text="code"
-                        label="Unite..."
-                        v-model="effet.unite.id"
+            <v-flex xs3 class="px-0 pa-1">
+                <v-text-field
+                    label="Quantité"
+                    v-model.number="effet.quantite"
+                    type="number"
                 />
             </v-flex>
-<!--            <v-flex xs12>-->
-<!--                <v-textarea outline name="texte" label="Texte" rows="1" v-model="effet.texte" />-->
-<!--            </v-flex>-->
-            <v-flex xs2>
-                <v-btn color="success" type="submit">Valider</v-btn>
+            <v-flex xs9 class="px-0 pa-1">
+                <v-select
+                    :items="unites"
+                    name="unite"
+                    item-value="id"
+                    item-text="libelle"
+                    label="Unite..."
+                    v-model="effet.unite"
+                    return-object
+                />
+            </v-flex>
+            <v-flex xs8>
+                <v-textarea outline name="texte" label="Texte" rows="1" v-model="effet.texte"/>
+            </v-flex>
+            <v-flex xs4>
+                <v-btn type="submit">Valider</v-btn>
             </v-flex>
         </v-layout>
 
@@ -27,39 +33,37 @@
 </template>
 <script lang="ts">
     import Vue from "vue";
-    import {mapActions, mapGetters} from "vuex";
-
-    const effetTemplate = {
-        unite : {
-            id : null
-        }
-    };
+    import Unite from "../../models/Unite";
+    import Effet from "../../models/Effet";
+    import Etape from "../../models/Etape";
+    import SpTextEditable from "../tools/SpTextEditable";
 
     export default Vue.extend({
+        components: {SpTextEditable},
         props: {
-            etapeId: {
+            idEtape: {
                 required: true
             }
         },
+        mounted(): void {
+            Unite.api().get('');
+        },
         computed: {
-            ...mapGetters({
-                unites: "getUnites"
-            })
+            unites() {
+                return Unite.all();
+            },
         },
         data() {
             return {
-                effet: {...effetTemplate},
+                effet: new Effet(),
                 valid: false
             }
         },
         methods: {
-            ...mapActions({
-                createEffet : "createEffet"
-            }),
             submitEffet() {
-                console.log(this.etapeId)
-                this.createEffet({idEtape : this.etapeId,effet : {...this.effet}});
-                this.effet = {...effetTemplate};
+                Etape.postEffets(this.idEtape,[this.effet]);
+                this.effet = new Effet();
+                this.$emit('created');
             }
         }
     });

@@ -1,31 +1,23 @@
 <template>
     <v-container fluid grid-list-md>
         <v-layout v-if="scenario" row wrap>
-            <v-flex xs12 v-if="!editScenario" @dblclick="editScenario = true">
-                <h1>{{scenario.titre}} <span v-if="scenario.actif"> (actif) </span>
+            <v-flex xs12>
+                <h1>
+                    <span v-if="!editScenario" @dblclick="editScenario = true">{{scenario.titre}}</span>
+                    <span v-if="editScenario">
+                        <v-text-field @keyup.enter="updateScenarioAttr" v-model="scenarioEdit.titre" :value="scenario.titre" label="Titre" required/>
+                    </span>
+                    <sp-toggle :label="{on:'Actif',off:'Inactif'}" :value="scenario.actif" @input="updateScenarioActif"/>
                     <v-icon @click="editScenario=true">edit</v-icon>
                 </h1>
             </v-flex>
-            <v-flex xs12 v-if="editScenario">
-                <div class="col">
-                    <v-text-field @keyup.enter="updateScenarioAttr" v-model="scenario.titre" label="Titre" required
-                                  width="100%"/>
-                </div>
-
-                <div class="col">
-                    <v-switch v-model="scenario.actif" label="Scénario actif" />
-                </div>
-                <div class="col">
-                    <v-btn color="success" @click="updateScenarioAttr" type="button">Ok</v-btn>
-                </div>
-            </v-flex>
             <v-flex xs12>
-                <sp-etape-list/>
+                <sp-etape-list :etapes="scenario.etapes"/>
             </v-flex>
             <v-flex xs12>
                 <v-divider/>
                 <v-subheader>Ajouter une étape</v-subheader>
-                <sp-etape-create-form/>
+                <sp-etape-create-form :id-scenario="scenario.id"/>
             </v-flex>
         </v-layout>
         <v-layout v-else row wrap>
@@ -41,40 +33,41 @@
     import Vue from "vue";
     import SpEtapeCreateForm from "../etape/SpEtapeCreateForm.vue";
     import SpEtapeList from "../etape/SpEtapeList.vue";
-    import {mapActions, mapGetters} from "vuex";
+    import SpToggle from "../tools/SpToggle";
     import SpScenarioCreateForm from './SpScenarioCreateForm.vue';
+    import Scenario from "../../models/Scenario";
 
     export default Vue.extend({
-        async mounted() {
-            await this.loadScenarios();
-            this.setCurrentScenarioId(this.$route.params.uuid)
-        },
         components: {
             SpScenarioCreateForm,
             SpEtapeCreateForm,
-            SpEtapeList
+            SpEtapeList,
+            SpToggle
+        },
+        async mounted() {
+            await Scenario.api().get('/' + this.$route.params.uuid);
         },
         computed: {
-            ...mapGetters({
-                scenario: "getCurrentScenario"
-            })
+            scenario(){
+                return Scenario.findDeep(this.$route.params.uuid);
+            }
         },
-        data: () => ({
-            editScenario: false
-        }),
+        data() {
+            return {
+                editScenario: false,
+                scenarioEdit: {}
+            }
+        },
         methods: {
-            ...mapActions({
-                loadScenarios: "loadScenarios",
-                updateScenario: "updateScenario",
-                setCurrentScenarioId: "setCurrentScenarioId"
-            }),
+            updateScenarioActif(value) {
+                Scenario.edit(this.scenario.id,{actif: value});
+            },
             updateScenarioAttr(e) {
                 e.preventDefault();
-
                 // Update when Enter key is pressed but not if shift+enter is pressed
                 if (e.shiftKey) return;
-                //this.$http.put('etapes/' + this.etape.id, this.etape).then(() => this.edit = false);
-                this.updateScenario({titre: this.scenario.titre, actif: this.scenario.actif});
+
+                Scenario.api().put(`/${this.scenario.id}`, {titre: this.scenario.titre, actif: this.scenario.actif})
                 this.editScenario = false;
             },
         }

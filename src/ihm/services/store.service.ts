@@ -177,44 +177,9 @@ export const store = new Vuex.Store({
         toggleLeftPannel({commit, state, getters}) {
             commit('SET_SHOW_LEFT_PANNEL', !getters.isShowLeftPannel);
         },
-
-        // Scenarios
-        async setCurrentScenarioId({commit, getters, state,dispatch}, id) {
-            if(state.scenarios.length === 0 ){
-                await dispatch("loadScenarios");
-            }
-            commit('SET_CURRENT_SCENARIO_ID', id);
-            commit('SET_ETAPES', getters.getCurrentScenario.etapes || []);
-
-            // Inutile de continuer s'il n'y a pas d'étape, il n'y aura pas ce qu'il y a dedans :D
-            if(!getters.getCurrentScenario.etapes || getters.getCurrentScenario.etapes.length === 0) {
-                commit('SET_REPONSES',[]);
-                commit('SET_EFFETS',[]);
-                commit('SET_CONSEQUENCE_POSSIBLES',[]);
-                commit('SET_SHOW_LEFT_PANNEL',false);
-                return;
-            }
-
-            commit('SET_REPONSES', arrayToSubObject(getters.getCurrentScenario.etapes, "reponses") || []);
-            commit('SET_EFFETS', arrayToSubObject(getters.getCurrentScenario.etapes, "effets") || []);
-
-            let consequencePossibleStore = {};
-            getters.getCurrentScenario.etapes.forEach(e => e.reponses.forEach(r => consequencePossibleStore[r.id] = r.consequencePossibles));
-            commit('SET_CONSEQUENCE_POSSIBLES', consequencePossibleStore);
-
-            commit('SET_SHOW_LEFT_PANNEL', false); // On masque le panneau des scenarios quand un scenario est sélectionné
-        },
         async loadInitialisation({commit, state}, force = false) {
             if (!force && state.initialisation) return;
             return axiosGet('initialisation', commit, 'SET_INITIALISATION')
-        },
-        async loadPartie({commit, state}, force = false) {
-            if (!force && state.partie != null) return;
-            return axiosGet('parties', commit, 'SET_PARTIE')
-        },
-        async loadScenarios({commit, state}, force = false) {
-            if (!force && state.scenarios.length !== 0) return;
-            return axiosGet('scenarios', commit, 'SET_SCENARIOS')
         },
         createScenario({commit}, scenario) {
             axios.post('scenarios', scenario)
@@ -242,7 +207,6 @@ export const store = new Vuex.Store({
         createEtape({commit, state}, etape) {
             axios.post('scenarios/' + state.currentScenarioId + '/etapes', [etape])
                 .then(({data}) => {
-                    console.log(data)
                     for (const etape of data) {
                         commit('ADD_ETAPE', etape)
                     }
@@ -292,7 +256,6 @@ export const store = new Vuex.Store({
             axios.post('reponses/' + idReponse + '/consequence-possibles', [consequencePossible])
                 .then(({data}) => {
                     for (const consequencePossible of data) {
-                        console.log(consequencePossible);
                         commit('ADD_CONSEQUENCE_POSSIBLE', {idReponse, consequencePossible})
                     }
                 })

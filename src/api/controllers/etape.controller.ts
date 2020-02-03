@@ -31,7 +31,7 @@ export class EtapeController extends Controller {
     @SuccessResponse('201', 'Created')
     @Response('400', 'Bad request')
     @Put('{id}')
-    public async update(id: string, @Body() etape: Etape) : Promise<Etape> {
+    public async update(id: string, @Body() etape: Etape): Promise<Etape> {
         ToolService.clearUndefined(etape);
         delete etape.reponses;
         delete etape.consequencePossibleOrigines;
@@ -42,56 +42,56 @@ export class EtapeController extends Controller {
             throw new Error(`L'étape ${id} n'existe pas`);
         }
 
-        Object.assign(etapeToUpdate,etape);
-        console.log(etapeToUpdate.titre);
+        Object.assign(etapeToUpdate, etape);
+
         return await etapeRepository.save(etapeToUpdate);
     }
 
     @SuccessResponse('201', 'Created')
     @Post('{id}/reponses')
-    public async postReponses(id: string, @Body() reponses: Reponse[]): Promise<Reponse[]> {
-
+    public async postReponses(id: string, @Body() etape: Etape): Promise<Etape> {
+        ToolService.clearUndefined(etape);
         const etapeRepository = await getCustomRepository(EtapeRepository);
-        let etape = await etapeRepository.findOne(id);
+        let etapeInDb = await etapeRepository.findOne(id);
 
-        if(!etape){
+        if (!etape) {
             this.setStatus(400);
             throw new Error(`L'etape ${id} n'existe pas`);
         }
 
         const reponseRepository = await getCustomRepository(ReponseRepository);
-        const promises = reponses.map(reponse => {
-            reponse.etape = etape;
+        const promises = etape.reponses.map(reponse => {
+            reponse.etape = etapeInDb;
             return reponseRepository.save(reponse);
         });
 
-        return Promise.all(promises).then(reponses => {
+        await Promise.all(promises).then(reponses => {
             reponses.forEach(reponse => delete reponse.etape);
             return Promise.resolve(reponses)
         });
 
+        return await etapeRepository.findOne(id);
     }
 
     @SuccessResponse('201', 'Created')
     @Post('{id}/effets')
-    public async postEffets(id: string, @Body() effets: Effet[]): Promise<Effet[]>{
-        ToolService.clearUndefined(effets);
+    public async postEffets(id: string, @Body() etape: Etape): Promise<Etape> {
+        ToolService.clearUndefined(etape);
 
         const etapeRepository = await getCustomRepository(EtapeRepository);
-        let etape = await etapeRepository.findOne(id);
+        let etapeInDb = await etapeRepository.findOne(id);
 
-        if(!etape){
+        if (!etapeInDb) {
             this.setStatus(400);
             throw new Error(`L'étape ${id} n'existe pas`);
         }
 
         const effetRepository = await getCustomRepository(EffetRepository);
-        const promises = effets.map(effet => {
-            effet.etapeOrigine = etape;
+        await Promise.all(etape.effets.map(effet => {
+            effet.etapeOrigine = etapeInDb;
             return effetRepository.save(effet);
-        });
-
-        return Promise.all(promises);
+        }));
+        return await etapeRepository.findOne(id);
 
     }
 }

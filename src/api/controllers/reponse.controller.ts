@@ -30,7 +30,7 @@ export class ReponseController extends Controller {
     @SuccessResponse('201', 'Created')
     @Response('400', 'Bad request')
     @Put('{id}')
-    public async update(id: string, @Body() reponse: Reponse) : Promise<Reponse> {
+    public async update(id: string, @Body() reponse: Reponse): Promise<Reponse> {
         ToolService.clearUndefined(reponse);
         const reponseRepository = getCustomRepository(ReponseRepository);
         let reponseToUpdate = await reponseRepository.findOne(id);
@@ -39,30 +39,28 @@ export class ReponseController extends Controller {
             throw new Error(`Le reponse ${id} n'existe pas`);
         }
 
-        Object.assign(reponseToUpdate,reponse);
+        Object.assign(reponseToUpdate, reponse);
         return await reponseRepository.save(reponseToUpdate);
     }
 
     @SuccessResponse('201', 'Created')
     @Post('{id}/consequence-possibles')
-    public async postConsequencePossibles(id: string, @Body() consequencePossibles: ConsequencePossible[]): Promise<ConsequencePossible[]> {
-
+    public async postConsequencePossibles(id: string, @Body() reponse: Reponse): Promise<Reponse> {
+        ToolService.clearUndefined(reponse);
         const reponseRepository = await getCustomRepository(ReponseRepository);
-        let reponse = await reponseRepository.findOne(id);
+        let reponseInDb = await reponseRepository.findOne(id);
 
-        if(!reponse){
+        if (!reponseInDb) {
             this.setStatus(400);
             throw new Error(`La réponse ${id} n'existe pas`);
         }
 
         const consequencePossibleRepository = await getCustomRepository(ConsequencePossibleRepository);
-        const etapeRepository = await getCustomRepository(EtapeRepository);
-        const promises = consequencePossibles.map(consequencePossible => {
-            consequencePossible.reponseOrigine = reponse;
-            const eee = etapeRepository.findOne(consequencePossible.etapeSuivante);
+        await Promise.all(reponse.consequencePossibles.map(consequencePossible => {
+            consequencePossible.reponseOrigine = reponseInDb;
             return consequencePossibleRepository.save(consequencePossible);
-        });
+        }));
 
-        return Promise.all(promises);
+        return await reponseRepository.findOne(id);
     }
 }
