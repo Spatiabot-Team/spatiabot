@@ -8,6 +8,7 @@
                     v-bind="$attrs"
                     @input="$emit('input',$event)"
                     outline @keypress.enter="update"
+                    @blur="updateBlur"
                     :value="value"
                 />
 
@@ -26,6 +27,10 @@
             update(e) {
                 if (!e.ctrlKey) return;
                 e.preventDefault();
+                this.isEditing = false;
+                this.$emit('save');
+            },
+            updateBlur(){
                 this.isEditing = false;
                 this.$emit('save');
             },
