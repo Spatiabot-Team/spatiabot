@@ -3,4 +3,4 @@ node_modules/
 dist/
 config/config.ts
 database.sqlite
-./ormconfig.json
+ormconfig.json
