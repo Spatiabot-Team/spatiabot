@@ -1,10 +1,7 @@
 <template>
     <span class="toggle">
-        <span v-if="value" @click="turn" class="pa-2 grey--text darken-2--text" style="cursor: pointer">
-            <v-icon small>{{iconSelected.on}}</v-icon> {{label.on}}
-        </span>
-        <span v-if="!value" @click="turn" class="pa-2 grey--text darken-2--text" style="cursor: pointer">
-            <v-icon small>{{iconSelected.off}}</v-icon> {{label.off}}
+        <span @click="turn" class="pa-2 grey--text darken-2--text" style="cursor: pointer">
+            <v-icon small>{{ value ? iconSelected.on : iconSelected.off}}</v-icon> {{value ? label.on : label.off}}
         </span>
     </span>
 </template>

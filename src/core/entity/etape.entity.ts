@@ -44,7 +44,6 @@ export class Etape {
     effets?: Effet[];
 
     @OneToMany(type => ConsequencePossible, consequencePossible => consequencePossible.etapeSuivante,{
-        cascade: true,
         eager: true
     })
     consequencePossibleOrigines?: ConsequencePossible[];
