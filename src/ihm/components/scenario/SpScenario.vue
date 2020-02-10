@@ -3,12 +3,9 @@
         <v-layout v-if="scenario" row wrap>
             <v-flex xs12>
                 <h1>
-                    <span v-if="!editScenario" @dblclick="editScenario = true">{{scenario.titre}}</span>
-                    <span v-if="editScenario">
-                        <v-text-field @keyup.enter="updateScenarioAttr" v-model="scenarioEdit.titre" :value="scenario.titre" label="Titre" required/>
-                    </span>
+                    <sp-text-editable v-model="scenario.titre" ref="scenarioTitre" label="Titre" @save="updateScenarioAttr" solo rounded/>
                     <sp-toggle :label="{on:'Actif',off:'Inactif'}" :value="scenario.actif" @input="updateScenarioActif"/>
-                    <v-icon @click="editScenario=true">edit</v-icon>
+                    <v-icon @click="$refs.scenarioTitre.edit()">edit</v-icon>
                 </h1>
             </v-flex>
             <v-flex xs12>
@@ -36,13 +33,15 @@
     import SpToggle from "../tools/SpToggle";
     import SpScenarioCreateForm from './SpScenarioCreateForm.vue';
     import Scenario from "../../models/Scenario";
+    import SpTextEditable from "../tools/SpTextEditable";
 
     export default Vue.extend({
         components: {
             SpScenarioCreateForm,
             SpEtapeCreateForm,
             SpEtapeList,
-            SpToggle
+            SpToggle,
+            SpTextEditable
         },
         async mounted() {
             await Scenario.api().get('/' + this.$route.params.uuid);
@@ -63,12 +62,7 @@
                 Scenario.edit(this.scenario.id,{actif: value});
             },
             updateScenarioAttr(e) {
-                e.preventDefault();
-                // Update when Enter key is pressed but not if shift+enter is pressed
-                if (e.shiftKey) return;
-
                 Scenario.api().put(`/${this.scenario.id}`, {titre: this.scenario.titre, actif: this.scenario.actif})
-                this.editScenario = false;
             },
         }
     });

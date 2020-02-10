@@ -1,18 +1,16 @@
 <template>
     <span class="text-editable">
-
         <span v-if="!isEditing" @dblclick="edit(true)">{{value}}</span>
-
         <v-text-field
             v-if="isEditing"
             ref="textField"
-            dense
             :value="value"
             v-bind="$attrs"
+            v-on="$listeners"
+            dense
             @input="$emit('input',$event)"
             @keypress.enter="update"
         />
-
     </span>
 </template>
 
@@ -37,6 +35,9 @@
              */
             edit(isEditing = true) {
                 this.isEditing = isEditing;
+                this.$nextTick(() => {
+                    this.$refs.textField.focus();
+                });
             }
         },
         data() {
