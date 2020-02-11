@@ -18,7 +18,10 @@ export class ConsequencePossible implements RandomPoidsInterface {
     @Column()
     poids?: number;
 
-    @ManyToOne(type => Etape, etape => etape.consequencePossibleOrigines)
+    @ManyToOne(type => Etape, etape => etape.consequencePossibleOrigines,{
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    })
     @JoinColumn({name: "etapeSuivanteId"})
     etapeSuivante?: Etape;
 

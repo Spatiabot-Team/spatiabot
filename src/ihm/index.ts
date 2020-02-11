@@ -1,11 +1,12 @@
 import Vue from "vue";
 import Vuetify from 'vuetify';
-var VueForm = require('vue-form');
+// const VueForm = require('vue-form');
 import 'vuetify/dist/vuetify.min.css';
+// @ts-ignore
 import AppComponent from './components/AppComponent.vue';
 
 Vue.use(Vuetify);
-Vue.use(VueForm);
+// Vue.use(VueForm);
 new Vue({
     el: "#app",
     template: `

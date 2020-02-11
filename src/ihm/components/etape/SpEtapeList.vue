@@ -1,8 +1,7 @@
 <template>
     <div class="etapes">
         <v-flex xs12>
-            <span @click="showContent(true)"><v-icon small>visibility</v-icon> Tout déplier</span>
-            <span @click="showContent(false)"><v-icon small>visibility_off</v-icon> Tout masquer</span>
+            <sp-toggle icon="visibility" v-model="showContent" @input="toggleVisibilite" :label="{on:'Tout masquer',off:'Tout déplier'}"/>
         </v-flex>
         <v-flex v-if="etapes.length > 0" v-for="etape of etapes" :key="'etape-'+etape.id">
             <sp-etape :etape="etape" ref="etapes"/>
@@ -13,21 +12,22 @@
 <script lang="ts">
     import Vue from "vue";
     import SpEtape from './SpEtape.vue';
+    import SpToggle from "./../tools/SpToggle";
 
     export default Vue.extend({
-        components: {SpEtape},
-        props:['etapes'],
+        components: {SpEtape, SpToggle},
+        props: ['etapes'],
         data() {
             return {
+                showContent: true,
                 enabled: true
             };
         },
-        computed: {
-        },
+        computed: {},
         methods: {
-            toggleVisibilite(showContent){
-                for(const spEtape of this.$refs["etapes"]){
-                    spEtape.toggleVisibilite(showContent);
+            toggleVisibilite() {
+                for (const spEtape of this.$refs["etapes"]) {
+                    spEtape.toggleVisibilite(this.showContent);
                 }
             },
         }

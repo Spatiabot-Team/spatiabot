@@ -31,7 +31,7 @@
         methods: {
             removeScenario(scenario) {
                 if (!confirm('T\'es sûr de vouloir supprimer le scenario ' + scenario.titre + " ?")) return;
-                // this.$store.dispatch('removeScenario', scenario.id);
+                Scenario.remove(scenario.id);
             },
             selectScenario(uuid) {
                 this.$router.push({name: 'scenario', params: {uuid}});

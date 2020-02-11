@@ -42,4 +42,9 @@ export default class Scenario extends Model {
         // @ts-ignore
         return Scenario.api().put(`/${id}`, {id, ...fields});
     }
+
+    static remove(id) {
+        // @ts-ignore
+        Scenario.api().delete(`/${id}`, {delete: id});
+    }
 }

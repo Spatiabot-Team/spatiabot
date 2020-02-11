@@ -1,15 +1,17 @@
 <template>
     <span class="textarea-editable">
-
-                <pre v-if="!isEditing" class="discordFormat" @dblclick="isEditing = true">{{value}}</pre>
-
+                <pre v-if="!isEditing" class="discordFormat" @dblclick="edit">{{value}}</pre>
                 <v-textarea
                     v-if="isEditing"
-                    v-bind="$attrs"
-                    @input="$emit('input',$event)"
-                    outline @keypress.enter="update"
-                    @blur="updateBlur"
+                    ref="textField"
                     :value="value"
+                    v-bind="$attrs"
+                    v-on="$listeners"
+                    @input="$emit('input',$event)"
+                    @blur="updateBlur"
+                    @keypress.enter="update"
+                    outline
+                    auto-grow="true"
                 />
 
     </span>
@@ -36,6 +38,9 @@
             },
             edit(isEditing = true){
                 this.isEditing = isEditing;
+                this.$nextTick(() => {
+                    this.$refs.textField.focus();
+                });
             }
         },
         data() {
