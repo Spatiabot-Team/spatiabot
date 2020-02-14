@@ -1,6 +1,7 @@
 <template>
     <span class="text-editable">
         <span v-if="!isEditing" @dblclick="edit(true)">{{value}}</span>
+        <v-btn v-if="!isEditing && value===''" @click="edit(true)">Editer</v-btn>
         <v-text-field
             v-if="isEditing"
             ref="textField"
@@ -19,7 +20,7 @@
     import PropsType from "../../services/props-types.service";
 
     export default Vue.extend({
-        props: ["value","label"],
+        props: ["value", "label"],
         methods: {
             /**
              * Indique au composant parent la nouvelle valeur

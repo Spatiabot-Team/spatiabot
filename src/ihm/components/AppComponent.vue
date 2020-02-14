@@ -58,7 +58,7 @@
 
     Vue.use(VueRouter);
 
-    // import "./../stylus/main.styl"
+    import "./../stylus/main.styl";
     import Scenario from "../models/Scenario";
     import {mapActions} from "vuex";
 
