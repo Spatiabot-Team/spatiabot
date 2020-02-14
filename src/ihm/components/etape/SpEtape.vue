@@ -33,7 +33,6 @@
                         v-model="etape.texte"
                         name="texte"
                         label="Texte"
-                        rows="10"
                         @save="update"
                     />
                 </v-flex>
@@ -109,7 +108,7 @@
             }
         },
         methods: {
-            toggleVisibilite(showContent){
+            toggleVisibilite(showContent) {
                 this.showContent = showContent;
             },
             edit() {
