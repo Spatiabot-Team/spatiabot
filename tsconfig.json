@@ -1,32 +1,19 @@
 {
   "compilerOptions": {
+    "target": "es2017",
     "module": "commonjs",
-    "esModuleInterop": true,
-    "target": "es6",
-    "allowJs": true,
+    "declaration": true,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "noImplicitAny": false,
-    "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist",
-    "baseUrl": ".",
-    "strict": false,
-    "types": ["vuetify","node"],
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "allowSyntheticDefaultImports": true,
     "typeRoots": [
-      "./@types",
       "node_modules/@types"
-    ],
-    "paths": {
-      "*": [
-        "node_modules/*"
-      ]
-    }
+    ]
   },
-  "include": [
-    "src/api/**/*",
-    "src/index.ts",
-    "src/load-fixtures.ts",
-    "config.ts"
-  ]
+  "exclude": ["node_modules", "dist"]
 }
