@@ -31,7 +31,7 @@ export class EmbedService{
 
         // Réponses
         if(!etape.finScenario){
-            etape.reponses.forEach(r => msgs[msgs.length-1].addField(`__${process.env.BOT_PREFIX} reponse ${r.libelle}__ : ${r.titre}`, r.texte ));
+            etape.reponses.forEach(r => msgs[msgs.length-1].addField(`__${process.env.BOT_PREFIX}reponse ${r.libelle}__ : ${r.titre}`, r.texte ));
         }
 
         return msgs;

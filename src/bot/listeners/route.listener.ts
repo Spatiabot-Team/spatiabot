@@ -51,16 +51,16 @@ export class RouteListener {
     async handler(message) {
 
         let curentDiscordGuild = null;
-        if(message.channel.type === "dm"){
+        if (message.channel.type === "dm") {
             const discordGuilds = await this.discordGuildRepository.findByDiscordUserJoueur(message.author.id);
 
-            if(discordGuilds.length === 0){
+            if (discordGuilds.length === 0) {
                 return;
             }
             // On prend la première partie par facilité
             // @todo pousser l'analyse pour savoir à quelle partie/serveur fait référence l'author
             curentDiscordGuild = discordGuilds[0];
-        } else{
+        } else {
             curentDiscordGuild = await this.fetchCurrentDiscordGuild(message);
         }
 
@@ -103,7 +103,7 @@ export class RouteListener {
         // Le message ne commence pas par le prefix, on fait diverses actions du jeu (affectation de scenario, suite des étapes...)
         const currentPartie = curentDiscordGuild.parties.find((p: Partie) => p.actif);
         if (currentPartie) {
-            await this.partieService.fixNext(message,currentPartie);
+            await this.partieService.fixNext(message, currentPartie);
         }
         return;
     }
