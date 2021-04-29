@@ -1,5 +1,5 @@
 import {Controller, Get, Param} from '@nestjs/common';
-import {FixtureService} from "../../database/service/fixture.service";
+import {FixtureService} from "../../users/core/service/fixture.service";
 
 @Controller()
 export class AppController {

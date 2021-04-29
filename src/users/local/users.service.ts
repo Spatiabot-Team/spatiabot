@@ -1,11 +1,13 @@
 import {Injectable} from '@nestjs/common';
 import {JwtService} from "@nestjs/jwt";
 import {InjectRepository} from "@nestjs/typeorm";
-import {UserRepository} from "../../database/repository/user.repository";
-import {UserDto} from "../../database/dto/user.dto";
-import {User} from "../../database/entity/user.entity";
-import {RoleRepository} from "../../database/repository/role.repository";
+import {UserRepository} from "../core/repository/user.repository";
+import {UserDto} from "../core/dto/user.dto";
+import {User} from "../core/entity/user.entity";
+import {RoleRepository} from "../core/repository/role.repository";
 import {EncrDecrService} from "./enc-decr.service";
+import {SocialDiscord} from "../core/entity/social-discord.entity";
+import {RolesEnum} from "../core/enum/roles.enum";
 
 @Injectable()
 export class UsersService {
@@ -19,12 +21,6 @@ export class UsersService {
     }
 
     async validateUser(username, password): Promise<User | null> {//: Promise<UserDto> {
-
-        //avoid empty passwords as ex google account
-        if (password.length <= 3) {
-            return null;
-        }
-
         const passwordCrypted = this.encrDecrService.encrypt(process.env.salt, password);
         const user = await this.userRepository.findBySocialAuth(username, passwordCrypted);
         return user || null;
@@ -44,6 +40,10 @@ export class UsersService {
             payload.socialDiscord = {discordId: user.socialDiscord.discordId}
         }
 
+        if (user.socialGoogle) {
+            payload.socialGoogle = {googleId: user.socialGoogle.googleId}
+        }
+
         return {
             token: this.jwtService.sign(payload),
         };
@@ -52,4 +52,30 @@ export class UsersService {
     async findAll(): Promise<User[]> {
         return this.userRepository.find();
     }
+
+    async validateGeneratedUser(generatedId:string){
+        return "validateGeneratedUser";
+    }
+
+
+    findByDiscordOrCreate = async (socialDiscord: SocialDiscord): Promise<User> => {
+        let user = await this.userRepository.findByDiscordId(socialDiscord.discordId);
+
+        if (!user) {
+            const roleDefault = await this.roleRepository.getDefaultRole();
+            user = await this.userRepository.save({
+                username: socialDiscord.username,
+                email: socialDiscord.email,
+                avatar: socialDiscord.avatar,
+                roles : [roleDefault],
+            socialDiscord
+        });
+        } else {
+            await this.userRepository.update(user.id,{
+                avatar: socialDiscord.avatar
+            });
+        }
+
+        return user;
+    };
 }

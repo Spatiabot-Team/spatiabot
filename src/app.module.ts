@@ -4,38 +4,16 @@ import {Connection} from 'typeorm';
 import {ConfigModule} from '@nestjs/config';
 import {AppGateway} from './app.gateway';
 import {UsersModule} from "./users/users.module";
-import {BotModule} from "./bot/bot.module";
-import {InitController} from "./app/controller/InitController";
 import {AppController} from "./app/controller/app.controller";
-import {FixtureService} from "./database/service/fixture.service";
-import {User} from "./database/entity/user.entity";
-import {UserRepository} from "./database/repository/user.repository";
-import {RoleRepository} from "./database/repository/role.repository";
-import {DiscordRoleRepository} from "./database/repository/discord-role.repository";
-import {DiscordRole} from "./database/entity/discord-role.entity";
-import {Role} from "./database/entity/role.entity";
-import {SocialLocalRepository} from "./database/repository/social-local.repository";
-import {SocialLocal} from "./database/entity/social-local.entity";
-import {Scenario} from "./database/entity/scenario.entity";
-import {ScenarioRepository} from "./database/repository/scenario.repository";
-import {Etape} from "./database/entity/etape.entity";
-import {EtapeRepository} from "./database/repository/etape.repository";
-import {Reponse} from "./database/entity/reponse.entity";
-import {ReponseRepository} from "./database/repository/reponse.repository";
-import {ConsequencePossible} from "./database/entity/consequence-possible.entity";
-import {ConsequencePossibleRepository} from "./database/repository/consequence-possible.repository";
-import {Effet} from "./database/entity/effet.entity";
-import {EffetRepository} from "./database/repository/effet.repository";
-import {Joueur} from "./database/entity/joueur.entity";
-import {JoueurRepository} from "./database/repository/joueur.repository";
-import {Monde} from "./database/entity/monde.entity";
-import {MondeRepository} from "./database/repository/monde.repository";
-import {Partie} from "./database/entity/partie.entity";
-import {PartieRepository} from "./database/repository/partie.repository";
-import {Stat} from "./database/entity/stat.entity";
-import {StatRepository} from "./database/repository/stat.repository";
-import {ScenarioEffectue} from "./database/entity/scenario-effectue.entity";
-import {ScenarioEffectueRepository} from "./database/repository/scenario-effectue.repository";
+import {FixtureService} from "./users/core/service/fixture.service";
+import {UserRepository} from "./users/core/repository/user.repository";
+import {User} from "./users/core/entity/user.entity";
+import {Role} from "./users/core/entity/role.entity";
+import {SocialLocal} from "./users/core/entity/social-local.entity";
+import {RoleRepository} from "./users/core/repository/role.repository";
+import {SocialLocalRepository} from "./users/core/repository/social-local.repository";
+import { DiscordModule } from './discord/discord.module';
+import { BotModule } from './bot/bot.module';
 
 @Module({
     imports: [
@@ -48,7 +26,7 @@ import {ScenarioEffectueRepository} from "./database/repository/scenario-effectu
             password: process.env.DB_PASSWORD,
             database: process.env.DB_DATABASE_NAME,
             entities: [
-                "dist/entity/**/*.js"
+                "dist/**/entity/**/*.js"
             ],
             migrations: [
                 "dist/migration/**/*.js"
@@ -56,30 +34,22 @@ import {ScenarioEffectueRepository} from "./database/repository/scenario-effectu
             subscribers: [
                 "dist/subscriber/**/*.js"
             ],
-            synchronize: true,
+            cache: true,
+            synchronize: false,
             logging: false,
             autoLoadEntities: true
         }),
+
         TypeOrmModule.forFeature([
             User, UserRepository,
             Role, RoleRepository,
-            DiscordRole, DiscordRoleRepository,
-            SocialLocal, SocialLocalRepository,
-            Scenario, ScenarioRepository,
-            ScenarioEffectue, ScenarioEffectueRepository,
-            Etape, EtapeRepository,
-            Reponse, ReponseRepository,
-            ConsequencePossible, ConsequencePossibleRepository,
-            Effet, EffetRepository,
-            Joueur, JoueurRepository,
-            Monde, MondeRepository,
-            Partie, PartieRepository,
-            Stat, StatRepository,
+            SocialLocal, SocialLocalRepository
         ]),
         UsersModule,
-        BotModule
+        DiscordModule,
+        BotModule,
     ],
-    controllers: [AppController,InitController],
+    controllers: [AppController],
     providers: [AppGateway, FixtureService],
 })
 export class AppModule {

@@ -1,8 +1,8 @@
-import {DiscordService} from "../service/discord.service";
-import {EmbedService} from "../service/embed.service";
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
-import {JoueurRepository} from "../../database/repository/joueur.repository";
+import {EmbedService} from "../../discord/core/service/embed.service";
+import {DiscordService} from "../../discord/core/service/discord.service";
+import {JoueurRepository} from "../core/repository/joueur.repository";
 
 @Injectable()
 export class BotController {

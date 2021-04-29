@@ -1,17 +1,17 @@
 import {Body, Controller, Delete, Get, Param, Post, Put, Query, Request, UseGuards} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
-import {UserRepository} from "../../database/repository/user.repository";
+import {UserRepository} from "../core/repository/user.repository";
 import {JwtService} from "@nestjs/jwt";
 import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 import {ApiBearerAuth, ApiQuery, ApiTags} from "@nestjs/swagger";
-import {RolesEnum} from "../../database/enums/roles.enum";
-import {RoleRepository} from "../../database/repository/role.repository";
-import {User} from "../../database/entity/user.entity";
+import {RolesEnum} from "../core/enum/roles.enum";
+import {RoleRepository} from "../core/repository/role.repository";
 import {Roles} from "../auth/roles.decorator";
-import {PreferencesDto} from "../../database/dto/preferences.dto";
+import {PreferencesDto} from "../core/dto/preferences.dto";
 import {EncrDecrService} from "./enc-decr.service";
 import {LocalAuthGuard} from "../auth/local-auth.guard";
 import {UsersService} from "./users.service";
+import {Like} from "typeorm";
 
 @ApiTags('Users')
 @ApiBearerAuth()
@@ -41,6 +41,22 @@ export class UserController {
         user.roles = [await this.roleRepository.findOne({where: {label: role}})];
         await this.userRepository.save(user);
         return '{success:true}';
+    }
+
+    @Post('/find')
+    async find(@Request() req, @Body() query: { username: string }) {
+
+        const users = await this.userRepository.find({
+            where: {
+                username: Like(query.username + '%')
+            }
+        });
+
+        return users.map(u => ({
+            id: u.id,
+            username: u.username,
+            avatar: u.avatar
+        }));
     }
 
     @UseGuards(LocalAuthGuard)

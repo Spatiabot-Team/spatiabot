@@ -25,7 +25,6 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
 
     async validate(accessToken: string, refreshToken: string, profile: any, done: any): Promise<any> {
         const socialDiscord = await this.discordService.createOrUpdateSocialDiscord(profile);
-        await this.discordService.createOrUpdateDiscordGuilds(socialDiscord,profile);
         done(null, {socialDiscord});
     }
 }
