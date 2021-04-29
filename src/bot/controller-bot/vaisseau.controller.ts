@@ -1,12 +1,12 @@
-import {DiscordService} from "../service/discord.service";
 import {Injectable} from "@nestjs/common";
 import {DejaDecolleException} from "../exception/deja-decolle.exception";
-import {EmbedService} from "../service/embed.service";
 import color from "colorts";
-import {Partie} from "../../database/entity/partie.entity";
-import {PartieService} from "../../database/service/partie.service";
+import {DiscordService} from "../../discord/core/service/discord.service";
+import {EmbedService} from "../../discord/core/service/embed.service";
+import {PartieService} from "../core/service/partie.service";
+import {EtapeRepository} from "../core/repository/etape.repository";
 import {InjectRepository} from "@nestjs/typeorm";
-import {EtapeRepository} from "../../database/repository/etape.repository";
+import {Partie} from "../core/entity/partie.entity";
 
 @Injectable()
 export class VaisseauController {

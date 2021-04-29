@@ -1,9 +1,9 @@
 import {Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, Request} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
 import {InjectRepository} from "@nestjs/typeorm";
-import {ConsequencePossibleRepository} from "../../database/repository/consequence-possible.repository";
-import {ConsequencePossible} from "../../database/entity/consequence-possible.entity";
-import {ConsequencePossibleDto} from "../../database/dto/consequence-possible.dto";
+import {ConsequencePossibleRepository} from "../core/repository/consequence-possible.repository";
+import {ConsequencePossible} from "../core/entity/consequence-possible.entity";
+import {ConsequencePossibleDto} from "../core/dto/consequence-possible.dto";
 
 // @ApiBearerAuth()
 @ApiTags('ConsequencePossible')

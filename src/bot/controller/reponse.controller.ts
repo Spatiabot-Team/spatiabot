@@ -1,10 +1,10 @@
 import {Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, Request} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
 import {InjectRepository} from "@nestjs/typeorm";
-import {ReponseRepository} from "../../database/repository/reponse.repository";
-import {ReponseDto} from "../../database/dto/reponse.dto";
-import {Reponse} from "../../database/entity/reponse.entity";
-import {ScenarioRepository} from "../../database/repository/scenario.repository";
+import {ReponseRepository} from "../core/repository/reponse.repository";
+import {ScenarioRepository} from "../core/repository/scenario.repository";
+import {Reponse} from "../core/entity/reponse.entity";
+import {ReponseDto} from "../core/dto/reponse.dto";
 
 // @ApiBearerAuth()
 @ApiTags('Reponses')

@@ -1,14 +1,15 @@
 import {Injectable} from "@nestjs/common";
-import {DiscordService} from "../service/discord.service";
-import {EmbedService} from "../service/embed.service";
 import {VaisseauController} from "../controller-bot/vaisseau.controller";
 import {BotController} from "../controller-bot/bot.controller";
 import {AdminController} from "../controller-bot/admin.controller";
 import {RouteTypeEnum} from "../enums/route-type.enum";
 import {InjectRepository} from "@nestjs/typeorm";
-import {DiscordGuildRepository} from "../../database/repository/discord-guild.repository";
-import {Partie} from "../../database/entity/partie.entity";
-import {PartieService} from "../../database/service/partie.service";
+import {DiscordService} from "../../discord/core/service/discord.service";
+import {PartieService} from "../core/service/partie.service";
+import {Partie} from "../core/entity/partie.entity";
+import {EmbedService} from "../../discord/core/service/embed.service";
+import {DiscordGuildRepository} from "../../discord/core/repository/discord-guild.repository";
+import {JoueurRepository} from "../core/repository/joueur.repository";
 
 @Injectable()
 export class RouteListener {
@@ -41,7 +42,8 @@ export class RouteListener {
         private readonly adminController: AdminController,
         private readonly vaisseauController: VaisseauController,
         private readonly botController: BotController,
-        @InjectRepository(DiscordGuildRepository) private readonly discordGuildRepository: DiscordGuildRepository
+        @InjectRepository(DiscordGuildRepository) private readonly discordGuildRepository: DiscordGuildRepository,
+        @InjectRepository(JoueurRepository) private readonly joueurRepository: JoueurRepository
     ) {
         this.prefix = process.env.BOT_PREFIX || "!";
         this.discordService.addEvent("message", (message) => this.handler(message));
@@ -49,17 +51,20 @@ export class RouteListener {
     }
 
     async handler(message) {
-
         let curentDiscordGuild = null;
-        if (message.channel.type === "dm") {
-            const discordGuilds = await this.discordGuildRepository.findByDiscordUserJoueur(message.author.id);
 
-            if (discordGuilds.length === 0) {
+        if (message.channel.type === "dm") {
+
+            // Trouver dans quelle partie il est joueur
+            const joueurs = await this.joueurRepository.findByDiscordUserId(message.author.id)
+            if (joueurs.length === 0) {
+                console.log('Joueur non trouvé en dm');
                 return;
             }
             // On prend la première partie par facilité
             // @todo pousser l'analyse pour savoir à quelle partie/serveur fait référence l'author
-            curentDiscordGuild = discordGuilds[0];
+            // pour l'instant on joue sur le fait qu'un user n'utilise le bot que sur un serveur
+            curentDiscordGuild = joueurs[0].partie.discordGuild;
         } else {
             curentDiscordGuild = await this.fetchCurrentDiscordGuild(message);
         }
@@ -86,7 +91,8 @@ export class RouteListener {
                 }
 
                 // Pour une commande de type partie, on vérifie qu'il y ait une partie en cours
-                const currentPartie = curentDiscordGuild.parties.find((p: Partie) => p.actif);
+                const currentPartie = await this.partieService.findCurrentOfDiscordGuild(curentDiscordGuild.id);
+
                 if (!currentPartie) {
                     // dsl mais il n'y a pas de partie en cours :( (demande à ton admin ! :p)
                     return this.botController.noGameInProgress(message);
@@ -101,7 +107,7 @@ export class RouteListener {
         }
 
         // Le message ne commence pas par le prefix, on fait diverses actions du jeu (affectation de scenario, suite des étapes...)
-        const currentPartie = curentDiscordGuild.parties.find((p: Partie) => p.actif);
+        const currentPartie = await this.partieService.findCurrentOfDiscordGuild(curentDiscordGuild.id);
         if (currentPartie) {
             await this.partieService.fixNext(message, currentPartie);
         }

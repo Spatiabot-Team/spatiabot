@@ -1,4 +1,5 @@
-import {Joueur} from "../../database/entity/joueur.entity";
+import {Joueur} from "../core/entity/joueur.entity";
+
 
 export class DejaDecolleException {
 

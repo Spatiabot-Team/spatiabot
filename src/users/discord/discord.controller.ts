@@ -1,6 +1,6 @@
 import {Body, Controller, Get, Post, Req, Request, UseGuards} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
-import {UserRepository} from "../../database/repository/user.repository";
+import {UserRepository} from "../core/repository/user.repository";
 import {JwtService} from "@nestjs/jwt";
 import {DiscordUserService} from "./discord-user.service";
 import {AppGateway} from "../../app.gateway";
@@ -44,7 +44,7 @@ export class DiscordController {
     async register(@Request() req, @Body() body: any) {
         const socialToken = this.jwtService.verify(body.socialToken);
         const socialDiscord = await this.discordService.socialDiscordRepository.findOne({where: {discordId: socialToken.discordId}});
-        const user = await this.usersService.userRepository.findByDiscordOrCreate(socialDiscord);
+        const user = await this.usersService.findByDiscordOrCreate(socialDiscord);
         return this.usersService.generateToken(user);
     }
 

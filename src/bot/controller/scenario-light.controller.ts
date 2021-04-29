@@ -1,7 +1,7 @@
 import {Controller, Get} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
 import {InjectRepository} from "@nestjs/typeorm";
-import {ScenarioRepository} from "../../database/repository/scenario.repository";
+import {ScenarioRepository} from "../core/repository/scenario.repository";
 
 // @ApiBearerAuth()
 @ApiTags('ScenariosLight')
