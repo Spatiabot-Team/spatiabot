@@ -32,7 +32,10 @@ export class RouteListener {
             type: RouteTypeEnum.PARTIE,
             route: (message, partie) => this.vaisseauController.reponse(message, partie)
         },
-        'r': {type: RouteTypeEnum.PARTIE, route: (message, partie) => this.vaisseauController.reponse(message, partie)}
+        'r': {
+            type: RouteTypeEnum.PARTIE,
+            route: (message, partie) => this.vaisseauController.reponse(message, partie)
+        }
     }
 
     constructor(
@@ -51,67 +54,71 @@ export class RouteListener {
     }
 
     async handler(message) {
-        let curentDiscordGuild = null;
+        try {
+            let curentDiscordGuild = null;
 
-        if (message.channel.type === "dm") {
+            if (message.channel.type === "dm") {
 
-            // Trouver dans quelle partie il est joueur
-            const joueurs = await this.joueurRepository.findByDiscordUserId(message.author.id)
-            if (joueurs.length === 0) {
-                console.log('Joueur non trouvé en dm');
+                // Trouver dans quelle partie il est joueur
+                const joueurs = await this.joueurRepository.findByDiscordUserId(message.author.id)
+                if (joueurs.length === 0) {
+                    console.log('Joueur non trouvé en dm');
+                    return;
+                }
+                // On prend la première partie par facilité
+                // @todo pousser l'analyse pour savoir à quelle partie/serveur fait référence l'author
+                // pour l'instant on joue sur le fait qu'un user n'utilise le bot que sur un serveur
+                curentDiscordGuild = joueurs[0].partie.discordGuild;
+            } else {
+                curentDiscordGuild = await this.fetchCurrentDiscordGuild(message);
+            }
+
+            if (!curentDiscordGuild) {
+                // Pas de serveur trouvé, on ne fait rien !
                 return;
             }
-            // On prend la première partie par facilité
-            // @todo pousser l'analyse pour savoir à quelle partie/serveur fait référence l'author
-            // pour l'instant on joue sur le fait qu'un user n'utilise le bot que sur un serveur
-            curentDiscordGuild = joueurs[0].partie.discordGuild;
-        } else {
-            curentDiscordGuild = await this.fetchCurrentDiscordGuild(message);
-        }
 
-        if (!curentDiscordGuild) {
-            // Pas de serveur trouvé, on ne fait rien !
-            return;
-        }
+            // Ca commence par le préfix ?
+            if (message.content.startsWith(curentDiscordGuild.prefix)) {
 
-        // Ca commence par le préfix ?
-        if (message.content.startsWith(curentDiscordGuild.prefix)) {
+                // On récupère la commande et les arguments (ce qui suit derière le préfixe)
+                //@todo améliorer le trim split pour gérer des guillements (groupe de mots)
+                message.content = message.content.replace(this.prefix, "");
+                message.args = message.content.trim().split(/ +/g); // [0:commande, 1:argument1 2: argument2]
 
-            // On récupère la commande et les arguments (ce qui suit derière le préfixe)
-            //@todo améliorer le trim split pour gérer des guillements (groupe de mots)
-            message.content = message.content.replace(this.prefix, "");
-            message.args = message.content.trim().split(/ +/g); // [0:commande, 1:argument1 2: argument2]
+                // La commande existe ?
+                if (this.ROUTES[message.args[0]] !== undefined) {
 
-            // La commande existe ?
-            if (this.ROUTES[message.args[0]] !== undefined) {
+                    // Commande Admin ?
+                    if (this.ROUTES[message.args[0]].type === RouteTypeEnum.ADMIN) {
+                        return this.ROUTES[message.args[0]].route(message);
+                    }
 
-                // Commande Admin ?
-                if (this.ROUTES[message.args[0]].type === RouteTypeEnum.ADMIN) {
-                    return this.ROUTES[message.args[0]].route(message);
+                    // Pour une commande de type partie, on vérifie qu'il y ait une partie en cours
+                    const currentPartie = await this.partieService.findCurrentOfDiscordGuild(curentDiscordGuild.id);
+
+                    if (!currentPartie) {
+                        // dsl mais il n'y a pas de partie en cours :( (demande à ton admin ! :p)
+                        return this.botController.noGameInProgress(message);
+                    }
+
+                    return this.ROUTES[message.args[0]].route(message, currentPartie);
                 }
 
-                // Pour une commande de type partie, on vérifie qu'il y ait une partie en cours
-                const currentPartie = await this.partieService.findCurrentOfDiscordGuild(curentDiscordGuild.id);
+                // snif, on a le bon prefix mais aucune commande ne correspond :'(
+                return this.botController.notFound(message);
 
-                if (!currentPartie) {
-                    // dsl mais il n'y a pas de partie en cours :( (demande à ton admin ! :p)
-                    return this.botController.noGameInProgress(message);
-                }
-
-                return this.ROUTES[message.args[0]].route(message, currentPartie);
             }
 
-            // snif, on a le bon prefix mais aucune commande ne correspond :'(
-            return this.botController.notFound(message);
-
+            // Le message ne commence pas par le prefix, on fait diverses actions du jeu (affectation de scenario, suite des étapes...)
+            const currentPartie = await this.partieService.findCurrentOfDiscordGuild(curentDiscordGuild.id);
+            if (currentPartie) {
+                await this.partieService.fixNext(message, currentPartie);
+            }
+            return;
+        } catch (e) {
+            console.error('Route handler, une erreur a eu lieu : ', e);
         }
-
-        // Le message ne commence pas par le prefix, on fait diverses actions du jeu (affectation de scenario, suite des étapes...)
-        const currentPartie = await this.partieService.findCurrentOfDiscordGuild(curentDiscordGuild.id);
-        if (currentPartie) {
-            await this.partieService.fixNext(message, currentPartie);
-        }
-        return;
     }
 
 

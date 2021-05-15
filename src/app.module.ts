@@ -35,7 +35,7 @@ import { BotModule } from './bot/bot.module';
                 "dist/subscriber/**/*.js"
             ],
             cache: true,
-            synchronize: false,
+            synchronize: true,
             logging: false,
             autoLoadEntities: true
         }),
