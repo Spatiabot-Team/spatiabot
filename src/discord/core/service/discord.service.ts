@@ -11,28 +11,31 @@ export class DiscordService {
     constructor(
         private embedService: EmbedService,
     ) {
+        try {
+            this.clientDiscord = new Client();
 
-        this.clientDiscord = new Client();
+            const timeout = setTimeout(
+                () => {
+                    throw 'Connection cannot be made, is discord API down?'
+                },
+                30000,
+            );
+            this.clientDiscord.login(process.env.DISCORD_TOKEN).catch((error) => {
+                throw new Error(error.message + '. Are the rate limits good?');
+            });
 
-        const timeout = setTimeout(
-            () => {
-                throw 'Connection cannot be made, is discord API down?'
-            },
-            30000,
-        );
-        this.clientDiscord.login(process.env.DISCORD_TOKEN).catch((error) => {
-            throw new Error(error.message + '. Are the rate limits good?');
-        });
-
-        this.clientDiscord.on('ready', () => {
-            clearTimeout(timeout);
-            // this.clientDiscord.on("message", message => {
-            //     if (message.content.startsWith('!')) {
-            //         console.log('Hey ils ont écrit !!', message)
-            //         message.reply("Stop spaming here!");
-            //     }
-            // });
-        });
+            this.clientDiscord.on('ready', () => {
+                clearTimeout(timeout);
+                // this.clientDiscord.on("message", message => {
+                //     if (message.content.startsWith('!')) {
+                //         console.log('Hey ils ont écrit !!', message)
+                //         message.reply("Stop spaming here!");
+                //     }
+                // });
+            });
+        } catch (e) {
+            console.log("Err discord js", e);
+        }
     }
 
     addEvent(eventName, cb) {
@@ -51,8 +54,8 @@ export class DiscordService {
         return false;
     }
 
-    async sendMessages(channel,msgs : MessageEmbed[]) {
-            msgs.forEach(m => channel.send(m));
+    async sendMessages(channel, msgs: MessageEmbed[]) {
+        msgs.forEach(m => channel.send(m));
     }
 
     async findServer(id) {
