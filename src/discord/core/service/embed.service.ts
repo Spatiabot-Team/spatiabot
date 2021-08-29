@@ -1,6 +1,5 @@
 import {MessageEmbed} from "discord.js";
 import {Injectable} from "@nestjs/common";
-import {Etape} from "../../../bot/core/entity/etape.entity";
 
 @Injectable()
 export class EmbedService {

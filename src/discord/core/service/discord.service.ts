@@ -1,7 +1,6 @@
 import {Injectable} from '@nestjs/common';
-import {Channel, Client, Message, MessageEmbed, TextChannel} from "discord.js";
+import {Client, Intents, Message, MessageEmbed, TextChannel} from "discord.js";
 import {EmbedService} from "./embed.service";
-import {Etape} from "../../../bot/core/entity/etape.entity";
 
 @Injectable()
 export class DiscordService {
@@ -12,7 +11,7 @@ export class DiscordService {
         private embedService: EmbedService,
     ) {
         try {
-            this.clientDiscord = new Client();
+            this.clientDiscord = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
             const timeout = setTimeout(
                 () => {
@@ -24,7 +23,7 @@ export class DiscordService {
                 throw new Error(error.message + '. Are the rate limits good?');
             });
 
-            this.clientDiscord.on('ready', () => {
+            this.clientDiscord.once('ready', () => {
                 clearTimeout(timeout);
                 // this.clientDiscord.on("message", message => {
                 //     if (message.content.startsWith('!')) {

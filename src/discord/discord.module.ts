@@ -32,13 +32,13 @@ import {EmbedService} from "./core/service/embed.service";
             }),
         }),
         TypeOrmModule.forFeature([
-            User, UserRepository,
-            Role, RoleRepository,
-            SocialDiscord, SocialDiscordRepository,
-            DiscordGuild, DiscordGuildRepository,
-            DiscordGuild, DiscordGuildRepository,
-            DiscordGuildUser, DiscordGuildUserRepository,
-            SocialLocal, SocialLocalRepository
+            UserRepository,
+            RoleRepository,
+            SocialDiscordRepository,
+            DiscordGuildRepository,
+            DiscordGuildRepository,
+            DiscordGuildUserRepository,
+            SocialLocalRepository
         ])
     ],
     controllers: [
