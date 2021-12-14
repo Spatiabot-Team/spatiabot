@@ -11,11 +11,11 @@ import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/mond
 import {MondeHasNotThisAuteurError} from "../../errors/monde/monde-has-not-this-auteur.error";
 import {MondeAlreadyExistsError} from "../../errors/monde/monde-already-exists.error";
 import {UniteDeleteCommand} from "../../../../application/commands/impl/unite/unite.delete.command";
-import {UniteDoesntExistException} from "../../../../domain/exceptions/unite/unite-doesnt-exist.exception";
-import {UniteDoesntExistError} from "../../errors/unite/unite-doesnt-exist.error";
+import {UniteNotFoundException} from "../../../../domain/exceptions/unite/unite-not-found.exception";
+import {UniteNotFoundError} from "../../errors/unite/unite-not-found.error";
 
 @ApiBearerAuth()
-@ApiTags('Unites')
+@ApiTags('Unite')
 @Controller('unites')
 export class UniteDeleteController {
 
@@ -37,8 +37,8 @@ export class UniteDeleteController {
     }
 
     parseError(e): AppError {
-        if (e instanceof UniteDoesntExistException) {
-            return new UniteDoesntExistError();
+        if (e instanceof UniteNotFoundException) {
+            return new UniteNotFoundError();
         }
         if (e instanceof MondeHasNotThisAuteurException) {
             return new MondeHasNotThisAuteurError();

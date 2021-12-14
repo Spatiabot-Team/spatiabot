@@ -1,9 +1,5 @@
 import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
 import {InjectRepository} from "@nestjs/typeorm";
-import { MondeFindQuery } from '../../impl/monde/monde.find.query';
-import {MondeRepository} from "../../../../infrastructure/database/repositories/monde.repository";
-import {MondeRepositoryInterface} from "../../../repositories/monde.repository.interface";
-import {Monde} from "../../../../domain/entities/monde";
 import {AuteurFindQuery} from "../../impl/auteur/auteur.find.query";
 import {UserRepository} from "../../../../../USER/infrastructure/database/repositories/user.repository";
 import {UserRepositoryInterface} from "../../../../../USER/application/repositories/user.repository.interface";
@@ -20,7 +16,7 @@ export class AuteurFindHandler implements IQueryHandler<AuteurFindQuery> {
     }
 
     async execute(query: AuteurFindQuery): Promise<Auteur[] | null> {
-console.log(query)
+        console.log(query)
         const users = await this.repository.find({
             where: {
                 username: Like(query.username + '%')

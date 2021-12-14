@@ -1,5 +1,6 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {PartieInterface} from "../../../domain/interfaces/partie.interface";
+import {MondeEntity} from "./monde.entity";
 
 @Entity('partie')
 export class PartieEntity implements PartieInterface {
@@ -7,6 +8,7 @@ export class PartieEntity implements PartieInterface {
     @PrimaryGeneratedColumn('uuid')
     id?: string;
 
+    @Index()
     @Column()
     discordGuildUuid?: string;
 
@@ -16,4 +18,14 @@ export class PartieEntity implements PartieInterface {
     @Column({default: true})
     actif?: boolean;
 
+    @ManyToOne(type => MondeEntity, monde => monde.parties, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    })
+    @JoinColumn({name: "mondeId"})
+    monde?: MondeEntity;
+
+    @Index()
+    @Column()
+    mondeId?: string;
 }

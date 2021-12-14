@@ -4,7 +4,6 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {SpatiabotModule} from "./SPATIABOT/spatiabot.module";
 import {DiscordModule} from "./DISCORD/discord.module";
 import {LoggerModule} from './LOGGER/logger.module';
-import {AppGateway} from "./app.gateway";
 import {UserModule} from "./USER/user.module";
 import {ConfigModule} from "@nestjs/config";
 import {FixturesController} from "./APP/controllers/fixtures.controller";
@@ -58,7 +57,7 @@ import {HttpModule} from "@nestjs/axios";
         LoggerModule,
     ],
     controllers: [FixturesController, HealthController],
-    providers: [AppGateway],
+    providers: [],
     exports: []
 })
 export class AppModule {

@@ -27,10 +27,10 @@ export class DiscordDecollageInfraHandler implements IQueryHandler<DiscordDecoll
     async execute(query: DiscordDecollageInfraCommand) {
 
         try{
-
+            // On hydrate un objet SocialDiscord à partir de l'objet message de la lib discord
             const socialDiscord = this.extractSocialDiscord(query.messageFromDiscord.message);
 
-            // Si la partie n'est pas trouvé on emet un event partie non trouvée
+            // Si la partie n'est pas trouvé cela emet une exception partie non trouvée
             const [partie,user] = await Promise.all([
                 this.partieService.findPartie(query.messageFromDiscord.discordGuild),
                 this.socialDiscordService.findOrCreateUser(socialDiscord)

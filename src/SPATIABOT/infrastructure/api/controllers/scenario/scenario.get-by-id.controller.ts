@@ -4,10 +4,10 @@ import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";
 import {ScenarioGetByIdQuery} from "../../../../application/queries/impl/scenario/scenario.get-by-id.query";
-import {ParamId} from "../../dtos/generic/param-id";
+import {ParamId} from "../../dtos/generic/param.id";
 
 @ApiBearerAuth()
-@ApiTags('Scenarios')
+@ApiTags('Scenario')
 @Controller('scenarios')
 export class ScenarioGetByIdController {
 

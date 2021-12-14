@@ -3,7 +3,7 @@ import {Controller, Get, Request} from "@nestjs/common";
 import {CommandBus, QueryBus} from "@nestjs/cqrs";
 import {ScenarioGetQuery} from "../../../../application/queries/impl/scenario/scenario.get.query";
 
-@ApiTags('Scenarios')
+@ApiTags('Scenario')
 @Controller('scenarios')
 export class ScenarioGetController {
 

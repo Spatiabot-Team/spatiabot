@@ -3,7 +3,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {MondeRepository} from "../../../../infrastructure/database/repositories/monde.repository";
 import {MondeRepositoryInterface} from "../../../repositories/monde.repository.interface";
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
-import {MondeDoesntExistException} from "../../../../domain/exceptions/monde/monde-doesnt-exist.exception";
+import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
 import {MondeGetByIdQuery} from "../../../queries/impl/monde/monde.get-by-id.query";
 import {MondeDeleteAuteurCommand} from "../../impl/monde/monde.delete-auteur.command";
@@ -22,7 +22,7 @@ export class MondeDeleteAuteurHandler implements IQueryHandler<MondeDeleteAuteur
     /**
      * Supprime un monde s'il existe et si l'auteur est bien un auteur de ce monde
      * @param query MondeDeleteCommand
-     * @throws MondeDoesntExistException
+     * @throws MondeNotFoundException
      * @throws MondeHasNotThisAuteurException
      */
     async execute(query: MondeDeleteAuteurCommand): Promise<MondeInterface> {
@@ -30,7 +30,7 @@ export class MondeDeleteAuteurHandler implements IQueryHandler<MondeDeleteAuteur
         const mondeFound = await this.queryBus.execute(new MondeGetByIdQuery(query.mondeId));
 
         if (!mondeFound) {
-            throw new MondeDoesntExistException();
+            throw new MondeNotFoundException();
         }
 
         if (!mondeFound.hasAuteur(query.auteurId) || !mondeFound.hasAuteur(query.auteurToRemoveId)) {

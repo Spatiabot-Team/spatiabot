@@ -23,11 +23,16 @@ export class SocialDiscordEntity implements SocialDiscordInterface {
     @Column({nullable: true})
     accessToken ?: string | null = null;
 
-    @OneToOne(type => UserEntity, {
+    @OneToOne(type => UserEntity, user => user.socialDiscord,{
         eager: true,
         nullable: true,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
     })
-    @JoinColumn()
+    @JoinColumn({name : 'userId'})
     user: UserEntity | null = null;
+
+    @Column()
+    userId: string;
 
 }

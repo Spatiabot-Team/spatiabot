@@ -2,7 +2,7 @@ import {Controller} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
 
 // @ApiBearerAuth()
-@ApiTags('Parties')
+@ApiTags('Partie')
 @Controller('parties')
 export class PartieController {
 

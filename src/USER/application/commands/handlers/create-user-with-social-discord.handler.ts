@@ -27,7 +27,7 @@ export class CreateUserWithSocialDiscordHandler implements IQueryHandler<CreateU
             avatar: query.socialDiscord.avatarFullLink
         })
 
-        await this.socialDiscordRepository.createSocialDiscord({
+        userEntity.socialDiscord = await this.socialDiscordRepository.createSocialDiscord({
             ...query.socialDiscord,
             user : userEntity
         });

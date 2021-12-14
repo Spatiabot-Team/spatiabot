@@ -9,7 +9,7 @@ export class MondeFindQuery {
     /**
      * {id, code}
      */
-    monde: { id?: string, code?: string };
+    monde: { id?: string, code?: string, slug?: string };
 
     constructor(monde: MondeInterface) {
 
@@ -21,6 +21,10 @@ export class MondeFindQuery {
 
         if (monde.code && monde.code.length > 0) {
             m.code = monde.code;
+        }
+
+        if (m.slug && monde.slug.length > 0) {
+            m.slug = monde.slug;
         }
 
         this.monde = m;

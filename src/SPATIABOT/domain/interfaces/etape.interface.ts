@@ -9,6 +9,7 @@ export interface EtapeInterface {
     titre?: string;
     texte?: string;
     order?: number;
+    premiereEtape?: boolean;
     finScenario?: boolean;
 
     // Parents

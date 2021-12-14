@@ -6,8 +6,8 @@ export class Scenario implements ScenarioInterface {
     actif: boolean;
     etapes: EtapeInterface[];
     id: string;
-    premiereEtape: string | null;
     titre: string;
+    slug: string;
     mondeId : string;
     auteurIds?: string[];
     auteurs?: AuteurInterface[];

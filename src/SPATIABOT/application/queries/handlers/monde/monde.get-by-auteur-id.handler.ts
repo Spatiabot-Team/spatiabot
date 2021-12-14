@@ -3,6 +3,7 @@ import {MondeGetByAuteurIdQuery} from "../../impl/monde/monde.get-by-auteur-id.q
 import {InjectRepository} from "@nestjs/typeorm";
 import {MondeRepository} from "../../../../infrastructure/database/repositories/monde.repository";
 import {MondeRepositoryInterface} from "../../../repositories/monde.repository.interface";
+import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 
 @QueryHandler(MondeGetByAuteurIdQuery)
 export class MondeGetByAuteurIdHandler implements IQueryHandler<MondeGetByAuteurIdQuery> {
@@ -11,7 +12,7 @@ export class MondeGetByAuteurIdHandler implements IQueryHandler<MondeGetByAuteur
         this.repository = repository;
     }
 
-    async execute(query: MondeGetByAuteurIdQuery) {
-        return this.repository.findAllByAuteurId(query.authorId);
+    async execute(query: MondeGetByAuteurIdQuery):  Promise<MondeInterface[]> {
+        return await this.repository.findAllByAuteurId(query.authorId);
     }
 }

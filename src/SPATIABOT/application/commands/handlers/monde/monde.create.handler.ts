@@ -6,6 +6,7 @@ import {MondeRepository} from "../../../../infrastructure/database/repositories/
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 import {MondeAlreadyExistsException} from "../../../../domain/exceptions/monde/monde-already-exists.exception";
 import {MondeFindQuery} from "../../../queries/impl/monde/monde.find.query";
+import slugify from "slugify";
 
 
 @CommandHandler(MondeCreateCommand)
@@ -31,6 +32,6 @@ export class MondeCreateHandler implements IQueryHandler<MondeCreateCommand> {
             throw new MondeAlreadyExistsException();
         }
 
-        return this.repository.save(query.monde);
+        return this.repository.save({...query.monde, slug : slugify(query.monde.nom,{lower:true})});
     }
 }

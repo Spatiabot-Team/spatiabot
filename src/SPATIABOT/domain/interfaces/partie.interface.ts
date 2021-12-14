@@ -10,6 +10,7 @@ export interface PartieInterface {
     actif?: boolean;
     stats?: StatInterface[];
     monde?: MondeInterface;
+    mondeId?: string;
     /** id of the discordGuild **/
     discordGuildUuid?: string;
     joueurs?: JoueurInterface[];

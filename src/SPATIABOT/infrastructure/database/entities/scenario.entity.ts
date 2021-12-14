@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {ScenarioInterface} from "../../../domain/interfaces/scenario.interface";
 import {MondeEntity} from "./monde.entity";
 import {EtapeEntity} from "./etape.entity";
@@ -12,18 +12,15 @@ export class ScenarioEntity implements ScenarioInterface {
     @Column()
     titre: string;
 
+    @Index()
+    @Column()
+    slug: string;
+
     @Column({nullable: true, default: false})
     actif?: boolean;
 
     @Column('simple-array')
     auteurIds?: string[] = [];
-
-    /**
-     * uuid de la première étape
-     */
-    @Column("varchar", {nullable: true})
-    premiereEtape?: string | null;
-
 
     @ManyToOne(type => MondeEntity, monde => monde.scenarios, {
         onDelete: 'CASCADE',
@@ -32,6 +29,7 @@ export class ScenarioEntity implements ScenarioInterface {
     @JoinColumn({name: "mondeId"})
     monde?: MondeEntity;
 
+    @Index()
     @Column()
     mondeId: string;
 

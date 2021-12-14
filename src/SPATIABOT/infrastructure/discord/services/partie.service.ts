@@ -47,7 +47,7 @@ export class PartieService {
     private async findPartiesInDb(discordGuild: DiscordGuild): Promise<Partie> {
 
         let partie = await this.queryBus.execute(new PartieGetByDiscordGuildQuery(discordGuild.id));
-        console.log(partie);
+
         if (!partie) {
             throw new PartieNotFoundException()
         }

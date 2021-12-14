@@ -5,7 +5,7 @@ import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-
 import {MondeGetByAuteurIdQuery} from "../../../../application/queries/impl/monde/monde.get-by-auteur-id.query";
 
 @ApiBearerAuth()
-@ApiTags('Mondes')
+@ApiTags('Monde')
 @Controller('mondes')
 export class MondeByConnectedUserController {
 

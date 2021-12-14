@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {MondeEntity} from "./monde.entity";
 import {UniteInterface} from "../../../domain/interfaces/unite.interface";
 
@@ -8,6 +8,7 @@ export class UniteEntity implements UniteInterface {
     @PrimaryGeneratedColumn('uuid')
     id?: string;
 
+    @Index()
     @Column()
     code: string;
 
@@ -23,4 +24,8 @@ export class UniteEntity implements UniteInterface {
     })
     @JoinColumn({name: "mondeId"})
     monde?: MondeEntity;
+
+    @Index()
+    @Column()
+    mondeId: string;
 }

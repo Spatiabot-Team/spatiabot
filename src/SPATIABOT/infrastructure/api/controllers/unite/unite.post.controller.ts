@@ -13,7 +13,7 @@ import {UniteAlreadyExistsException} from "../../../../domain/exceptions/unite/u
 import {UnitePost} from "../../dtos/unite/unite-post";
 
 @ApiBearerAuth()
-@ApiTags('Unites')
+@ApiTags('Unite')
 @Controller('unites')
 export class UnitePostController {
 

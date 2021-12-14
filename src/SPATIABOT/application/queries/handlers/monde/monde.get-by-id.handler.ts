@@ -4,7 +4,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {MondeRepository} from "../../../../infrastructure/database/repositories/monde.repository";
 import {MondeRepositoryInterface} from "../../../repositories/monde.repository.interface";
 import {Monde} from "../../../../domain/entities/monde";
-import {MondeDoesntExistException} from "../../../../domain/exceptions/monde/monde-doesnt-exist.exception";
+import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
 import {UserRepository} from "../../../../../USER/infrastructure/database/repositories/user.repository";
 import {UserRepositoryInterface} from "../../../../../USER/application/repositories/user.repository.interface";
@@ -26,7 +26,7 @@ export class MondeGetByIdHandler implements IQueryHandler<MondeGetByIdQuery> {
         const mondeFound = await this.repository.findOne(query.mondeId);
 
         if (!mondeFound) {
-            throw new MondeDoesntExistException();
+            throw new MondeNotFoundException();
         }
 
         const monde = new Monde(mondeFound);

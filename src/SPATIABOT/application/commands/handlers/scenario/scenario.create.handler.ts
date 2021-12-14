@@ -6,8 +6,9 @@ import {ScenarioRepositoryInterface} from "../../../repositories/scenario.reposi
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";
 import {Monde} from "../../../../domain/entities/monde";
 import {MondeFindQuery} from "../../../queries/impl/monde/monde.find.query";
-import {MondeDoesntExistException} from "../../../../domain/exceptions/monde/monde-doesnt-exist.exception";
+import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
+import slugify from "slugify";
 
 
 @CommandHandler(ScenarioCreateCommand)
@@ -33,6 +34,7 @@ export class ScenarioCreateHandler implements IQueryHandler<ScenarioCreateComman
 
         return this.repository.save({
             ...query.scenario,
+            slug : slugify(query.scenario.titre,{lower:true}),
             auteurIds : [query.auteurId],
             monde: {id: query.scenario.mondeId}}
         );
@@ -40,7 +42,7 @@ export class ScenarioCreateHandler implements IQueryHandler<ScenarioCreateComman
 
     verifyOrThrow(mondeFound: Monde | null, query: ScenarioCreateCommand) {
         if (!mondeFound) {
-            throw new MondeDoesntExistException();
+            throw new MondeNotFoundException();
         }
 
         if (!mondeFound.hasAuteur(query.auteurId)) {

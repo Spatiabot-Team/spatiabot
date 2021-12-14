@@ -2,6 +2,8 @@ import {Column, Entity, Index, JoinColumn, JoinTable, ManyToMany, OneToOne, Prim
 import {UserInterface} from "../../../domain/interfaces/user.interface";
 import {SocialGeneratedEntity} from "./social-generated.entity";
 import {RoleEntity} from "./role.entity";
+import {SocialLocalEntity} from "./social-local.entity";
+import {SocialDiscordEntity} from "./social-discord.entity";
 
 @Entity('user')
 export class UserEntity implements UserInterface {
@@ -19,12 +21,18 @@ export class UserEntity implements UserInterface {
     @Column("simple-json", {nullable: true})
     preferences?: any;
 
-    // @OneToOne(type => SocialLocalEntity, {
-    //     eager: true,
-    //     nullable: true
-    // })
-    // @JoinColumn()
-    // socialLocal?: SocialLocalEntity;
+    @OneToOne(type => SocialLocalEntity, {
+        eager: false,
+        nullable: true
+    })
+    socialLocal?: SocialLocalEntity;
+
+    @OneToOne(type => SocialDiscordEntity,socialDiscord => socialDiscord.user, {
+        eager: false,
+        cascade: true,
+        nullable: true
+    })
+    socialDiscord?: SocialDiscordEntity;
 
     @OneToOne(type => SocialGeneratedEntity, {
         eager: true,
@@ -32,13 +40,6 @@ export class UserEntity implements UserInterface {
     })
     @JoinColumn()
     socialGenerated?: SocialGeneratedEntity;
-
-    // @OneToOne(type => SocialGoogleEntity,socialDiscord => socialDiscord.user, {
-    //     eager: true,
-    //     nullable: true
-    // })
-    // @JoinColumn()
-    // socialGoogle?: SocialGoogleEntity;
 
     @ManyToMany(type => RoleEntity, role => role.users, {
         // cascade: true,

@@ -6,8 +6,9 @@ import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 import {Monde} from "../../../../domain/entities/monde";
 import {MondeRepository} from "../../../../infrastructure/database/repositories/monde.repository";
 import {MondeGetByIdQuery} from "../../../queries/impl/monde/monde.get-by-id.query";
-import {MondeDoesntExistException} from "../../../../domain/exceptions/monde/monde-doesnt-exist.exception";
+import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
+import slugify from "slugify";
 
 
 @CommandHandler(MondeUpdateCommand)
@@ -20,13 +21,12 @@ export class MondeUpdateHandler implements IQueryHandler<MondeUpdateCommand> {
         @InjectRepository(MondeRepository) repository: MondeRepositoryInterface
     ) {
         this.repository = repository;
-        this.repository = repository;
     }
 
     /**
      *
      * @param query MondeUpdateCommand
-     * @throws MondeDoesntExistException
+     * @throws MondeNotFoundException
      * @throws MondeHasNotThisAuteurException
      */
     async execute(query: MondeUpdateCommand): Promise<MondeInterface> {
@@ -35,12 +35,12 @@ export class MondeUpdateHandler implements IQueryHandler<MondeUpdateCommand> {
 
         this.verifyOrThrow(mondeFound, query);
 
-        return this.repository.save(query.monde);
+        return this.repository.save({...query.monde, slug : slugify(query.monde.nom,{lower:true})});
     }
 
     verifyOrThrow(mondeFound: Monde | null, query: MondeUpdateCommand) {
         if (!mondeFound) {
-            throw new MondeDoesntExistException();
+            throw new MondeNotFoundException();
         }
 
         if (!mondeFound.hasAuteur(query.auteurId)) {

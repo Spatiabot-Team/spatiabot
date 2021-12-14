@@ -5,7 +5,7 @@ import {UniteUpdateCommand} from "../../impl/unite/unite.update.command";
 import {UniteInterface} from "../../../../domain/interfaces/unite.interface";
 import {UniteRepository} from "../../../../infrastructure/database/repositories/unite.repository";
 import {UniteGetByIdQuery} from "../../../queries/impl/unite/unite.get-by-id.query";
-import {UniteDoesntExistException} from "../../../../domain/exceptions/unite/unite-doesnt-exist.exception";
+import {UniteNotFoundException} from "../../../../domain/exceptions/unite/unite-not-found.exception";
 import {MondeGetByIdQuery} from "../../../queries/impl/monde/monde.get-by-id.query";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
 
@@ -26,7 +26,7 @@ export class UniteUpdateHandler implements IQueryHandler<UniteUpdateCommand> {
     /**
      *
      * @param query UniteUpdateCommand
-     * @throws UniteDoesntExistException
+     * @throws UniteNotFoundException
      * @throws MondeHasNotThisAuteurException
      */
     async execute(query: UniteUpdateCommand): Promise<UniteInterface> {
@@ -34,7 +34,7 @@ export class UniteUpdateHandler implements IQueryHandler<UniteUpdateCommand> {
         const uniteFound = await this.queryBus.execute(new UniteGetByIdQuery(query.unite.id));
 
         if (!uniteFound) {
-            throw new UniteDoesntExistException();
+            throw new UniteNotFoundException();
         }
 
         // On vérifie que l'auteur de la requête est un auteur de ce monde

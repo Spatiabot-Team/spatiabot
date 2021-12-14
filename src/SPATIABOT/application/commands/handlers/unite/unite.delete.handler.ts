@@ -7,7 +7,7 @@ import {UniteRepository} from "../../../../infrastructure/database/repositories/
 import {UniteRepositoryInterface} from "../../../repositories/unite.repository.interface";
 import {MondeGetByIdQuery} from "../../../queries/impl/monde/monde.get-by-id.query";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
-import {UniteDoesntExistException} from "../../../../domain/exceptions/unite/unite-doesnt-exist.exception";
+import {UniteNotFoundException} from "../../../../domain/exceptions/unite/unite-not-found.exception";
 
 @CommandHandler(UniteDeleteCommand)
 export class UniteDeleteHandler implements IQueryHandler<UniteDeleteCommand> {
@@ -22,7 +22,7 @@ export class UniteDeleteHandler implements IQueryHandler<UniteDeleteCommand> {
     /**
      * Supprime un unite s'il existe et si l'auteur est bien un auteur de ce unite
      * @param query UniteDeleteCommand
-     * @throws UniteDoesntExistException
+     * @throws UniteNotFoundException
      * @throws UniteHasNotThisAuteurException
      */
     async execute(query: UniteDeleteCommand): Promise<UniteInterface> {
@@ -30,7 +30,7 @@ export class UniteDeleteHandler implements IQueryHandler<UniteDeleteCommand> {
         const uniteFound = await this.queryBus.execute(new UniteGetByIdQuery(query.uniteId));
 
         if (!uniteFound) {
-            throw new UniteDoesntExistException();
+            throw new UniteNotFoundException();
         }
 
         // On vérifie que l'auteur de la requête est un auteur de ce monde

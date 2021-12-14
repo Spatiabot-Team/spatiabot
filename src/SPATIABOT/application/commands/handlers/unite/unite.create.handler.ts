@@ -4,7 +4,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {UniteInterface} from "../../../../domain/interfaces/unite.interface";
 import {Monde} from "../../../../domain/entities/monde";
 import {MondeFindQuery} from "../../../queries/impl/monde/monde.find.query";
-import {MondeDoesntExistException} from "../../../../domain/exceptions/monde/monde-doesnt-exist.exception";
+import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
 import {UniteRepositoryInterface} from "../../../repositories/unite.repository.interface";
 import {UniteRepository} from "../../../../infrastructure/database/repositories/unite.repository";
@@ -37,7 +37,7 @@ export class UniteCreateHandler implements IQueryHandler<UniteCreateCommand> {
 
     verifyOrThrow(mondeFound: Monde | null, query: UniteCreateCommand) {
         if (!mondeFound) {
-            throw new MondeDoesntExistException();
+            throw new MondeNotFoundException();
         }
 
         if (!mondeFound.hasAuteur(query.auteurId)) {

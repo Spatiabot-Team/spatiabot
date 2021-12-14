@@ -6,7 +6,7 @@ import {EtapeRepositoryInterface} from "../../../repositories/etape.repository.i
 import {ScenarioGetByIdQuery} from "../../../queries/impl/scenario/scenario.get-by-id.query";
 import {ScenarioHasNotThisAuteurException} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
 import {EtapeInterface} from "../../../../domain/interfaces/etape.interface";
-import {EtapeDoesntExistException} from "../../../../domain/exceptions/etape/etape-doesnt-exist.exception";
+import {EtapeNotFoundException} from "../../../../domain/exceptions/etape/etape-not-found.exception";
 import {EtapeGetByIdQuery} from "../../../queries/impl/etape/etape.get-by-id.query";
 
 @CommandHandler(EtapeDeleteCommand)
@@ -22,7 +22,7 @@ export class EtapeDeleteHandler implements IQueryHandler<EtapeDeleteCommand> {
     /**
      * Supprime un etape s'il existe et si l'auteur est bien un auteur de ce etape
      * @param query EtapeDeleteCommand
-     * @throws EtapeDoesntExistException
+     * @throws EtapeNotFoundException
      * @throws EtapeHasNotThisAuteurException
      */
     async execute(query: EtapeDeleteCommand): Promise<EtapeInterface> {
@@ -30,7 +30,7 @@ export class EtapeDeleteHandler implements IQueryHandler<EtapeDeleteCommand> {
         const etapeFound = await this.queryBus.execute(new EtapeGetByIdQuery(query.etapeId));
 
         if (!etapeFound) {
-            throw new EtapeDoesntExistException();
+            throw new EtapeNotFoundException();
         }
 
         const scenarioFound = await this.queryBus.execute(new ScenarioGetByIdQuery(etapeFound.scenarioId));

@@ -1,7 +1,6 @@
 import {CacheModule, Module} from '@nestjs/common';
 import {CqrsModule} from '@nestjs/cqrs';
 import {CommandHandlers} from "./application/commands/handlers";
-import {EventHandlers} from "./application/events/handlers";
 import {QueryHandlers} from "./application/queries/handlers";
 import {Controllers} from "./infrastructure/api/controllers";
 import {TypeOrmModule} from "@nestjs/typeorm";
@@ -15,6 +14,7 @@ import {PartieService} from "./infrastructure/discord/services/partie.service";
 import {UserModule} from "../USER/user.module";
 import {CommandHandlersDiscordInfra} from "./infrastructure/discord/commands/handlers";
 import {UserRepository} from "../USER/infrastructure/database/repositories/user.repository";
+import {EventHandlers} from "./application/events/handlers";
 
 @Module({
     imports: [

@@ -9,10 +9,10 @@ import {UniteAlreadyExistsError} from "../../errors/unite/unite-already-exists.e
 import {AppError} from "../../errors/app.error";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {UniteUpdateCommand} from "../../../../application/commands/impl/unite/unite.update.command";
-import {UniteDoesntExistException} from "../../../../domain/exceptions/unite/unite-doesnt-exist.exception";
+import {UniteNotFoundException} from "../../../../domain/exceptions/unite/unite-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
 import {MondeHasNotThisAuteurError} from "../../errors/monde/monde-has-not-this-auteur.error";
-import {UniteDoesntExistError} from "../../errors/unite/unite-doesnt-exist.error";
+import {UniteNotFoundError} from "../../errors/unite/unite-not-found.error";
 import {UnitePut} from "../../dtos/unite/unite-put";
 
 @ApiBearerAuth()
@@ -40,8 +40,8 @@ export class UnitePutController {
 
     parseError(e): AppError {
 
-        if (e instanceof UniteDoesntExistException) {
-            return new UniteDoesntExistError();
+        if (e instanceof UniteNotFoundException) {
+            return new UniteNotFoundError();
         }
 
         if (e instanceof MondeHasNotThisAuteurException) {

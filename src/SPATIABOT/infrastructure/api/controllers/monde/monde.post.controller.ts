@@ -8,12 +8,12 @@ import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
 import {MondeAlreadyExistsError} from "../../errors/monde/monde-already-exists.error";
 import {AppError} from "../../errors/app.error";
 import {MondeCreateCommand} from "../../../../application/commands/impl/monde/monde.create.command";
-import {MondePost} from "../../dtos/monde/monde-post";
+import {MondePost} from "../../dtos/monde/monde.post";
 import {MondeAlreadyExistsException} from "../../../../domain/exceptions/monde/monde-already-exists.exception";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 
 @ApiBearerAuth()
-@ApiTags('Mondes')
+@ApiTags('Monde')
 @Controller('mondes')
 export class MondePostController {
 

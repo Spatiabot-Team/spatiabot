@@ -1,1 +1,2 @@
-export const EventHandlersDiscord = [];
+
+export const EventHandlers = [];

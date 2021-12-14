@@ -14,9 +14,11 @@ export class SocialLocalEntity implements SocialLocalInterface {
     @Column({nullable: true})
     password?: string;
 
-    @OneToOne(type => UserEntity, {
+    @OneToOne(type => UserEntity, user => user.socialLocal,{
         eager: true,
         nullable: true,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
     })
     @JoinColumn()
     user?: UserEntity;

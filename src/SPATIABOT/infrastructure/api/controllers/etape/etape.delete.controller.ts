@@ -8,14 +8,14 @@ import {AppError} from "../../errors/app.error";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {EtapeInterface} from "../../../../domain/interfaces/etape.interface";
 import {EtapeDeleteCommand} from "../../../../application/commands/impl/etape/etape.delete.command";
-import {EtapeDoesntExistError} from "../../errors/etape/etape-doesnt-exist.error";
-import {EtapeDoesntExistException} from "../../../../domain/exceptions/etape/etape-doesnt-exist.exception";
+import {EtapeNotFoundError} from "../../errors/etape/etape-not-found.error";
+import {EtapeNotFoundException} from "../../../../domain/exceptions/etape/etape-not-found.exception";
 import {ScenarioHasNotThisAuteurException} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
 import {ScenarioHasNotThisAuteurError} from "../../errors/scenario/scenario-has-not-this-auteur.error";
 
 @ApiBearerAuth()
 @ApiTags('Etape')
-@Controller('etape')
+@Controller('etapes')
 export class EtapeDeleteController {
 
     constructor(
@@ -37,8 +37,8 @@ export class EtapeDeleteController {
     }
 
     parseError(e): AppError {
-        if (e instanceof EtapeDoesntExistException) {
-            return new EtapeDoesntExistError();
+        if (e instanceof EtapeNotFoundException) {
+            return new EtapeNotFoundError();
         }
         if (e instanceof ScenarioHasNotThisAuteurException) {
             return new ScenarioHasNotThisAuteurError();

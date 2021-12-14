@@ -9,6 +9,7 @@ export class Etape implements EtapeInterface {
     texte: string;
     consequencePossibleOrigines?: ConsequencePossibleInterface[];
     effets?: EffetInterface[];
+    premiereEtape:boolean = false;
     finScenario: boolean = false;
     order: number;
     reponses: ReponseInterface[];

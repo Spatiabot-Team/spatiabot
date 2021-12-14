@@ -22,8 +22,8 @@ export class SocialLocalAuthService {
      * @param pass
      */
     async validateUser(username: string, pass: string): Promise<UserInterface | undefined> {
-        const socialLocal = await this.socialLocalRepository.findByUsername(username);
 
+        const socialLocal = await this.socialLocalRepository.findByUsername(username);
         if (socialLocal && socialLocal.password === this.encrDecrService.encrypt(process.env.salt,pass)) {
             const {password, ...result} = socialLocal;
             return socialLocal.user;

@@ -1,19 +1,17 @@
 import {IQueryHandler, QueryBus, QueryHandler} from "@nestjs/cqrs";
-import {ScenarioGetByIdQuery} from "../../impl/scenario/scenario.get-by-id.query";
 import {ScenarioRepository} from "../../../../infrastructure/database/repositories/scenario.repository";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Scenario} from "../../../../domain/entities/scenario";
 import {ScenarioRepositoryInterface} from "../../../repositories/scenario.repository.interface";
 import {ScenarioLightByMondeIdQuery} from "../../impl/scenario/scenario.light-by-monde-id.query";
 import {ScenarioLightInterface} from "../../../../domain/interfaces/scenario-light.interface";
 import {MondeGetByIdQuery} from "../../impl/monde/monde.get-by-id.query";
-import {MondeDoesntExistException} from "../../../../domain/exceptions/monde/monde-doesnt-exist.exception";
+import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 
 /**
  * Retourne une version light de tous les scenarios d'un monde
  */
 @QueryHandler(ScenarioLightByMondeIdQuery)
-export class ScenarioLightByMoneIdHandler implements IQueryHandler<ScenarioLightByMondeIdQuery> {
+export class ScenarioLightByMondeIdHandler implements IQueryHandler<ScenarioLightByMondeIdQuery> {
 
     constructor(
         @InjectRepository(ScenarioRepository) private readonly repository: ScenarioRepositoryInterface,
@@ -27,7 +25,7 @@ export class ScenarioLightByMoneIdHandler implements IQueryHandler<ScenarioLight
         const mondeFound = await this.queryBus.execute(new MondeGetByIdQuery(query.mondeId));
 
         if (!mondeFound) {
-            throw new MondeDoesntExistException();
+            throw new MondeNotFoundException();
         }
 
         return this.repository.findLightOfMonde(query.mondeId);

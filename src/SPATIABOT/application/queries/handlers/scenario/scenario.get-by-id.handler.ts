@@ -13,10 +13,13 @@ export class ScenarioGetByIdHandler implements IQueryHandler<ScenarioGetByIdQuer
     }
 
     async execute(query: ScenarioGetByIdQuery): Promise<Scenario | null> {
-        const scenarioFound = await this.repository.findOne(query.id);
+        const scenarioFound = await this.repository.findOneById(query.id);
         if (!scenarioFound) {
             return null;
         }
-        return Object.assign(new Scenario(), scenarioFound);
+        let scenario = Object.assign(new Scenario(), scenarioFound);
+        // scenario.etapes = await scenarioFound.etapes;
+
+        return scenario;
     }
 }

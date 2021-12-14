@@ -6,5 +6,4 @@ export class Unite implements UniteInterface {
     code?: string;
     libelle?: string;
     description?: string;
-    effets?: EffetInterface
 }

@@ -3,7 +3,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {MondeRepository} from "../../../../infrastructure/database/repositories/monde.repository";
 import {MondeRepositoryInterface} from "../../../repositories/monde.repository.interface";
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
-import {MondeDoesntExistException} from "../../../../domain/exceptions/monde/monde-doesnt-exist.exception";
+import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
 import {MondeGetByIdQuery} from "../../../queries/impl/monde/monde.get-by-id.query";
 import {UserRepository} from "../../../../../USER/infrastructure/database/repositories/user.repository";
@@ -28,7 +28,7 @@ export class MondeAddAuteurHandler implements IQueryHandler<MondeAddAuteurComman
     /**
      *
      * @param query MondeAddAuteurCommand
-     * @throws MondeDoesntExistException
+     * @throws MondeNotFoundException
      * @throws MondeHasNotThisAuteurException
      * @throws MondeHasAlreadyThisAuteurException
      */
@@ -49,7 +49,7 @@ export class MondeAddAuteurHandler implements IQueryHandler<MondeAddAuteurComman
 
     verify(mondeFound : Monde,query: MondeAddAuteurCommand){
         if (!mondeFound) {
-            throw new MondeDoesntExistException();
+            throw new MondeNotFoundException();
         }
 
         /** L'auteur qui veut ajouter un auteur doit être auteur de ce monde */

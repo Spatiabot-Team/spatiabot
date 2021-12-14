@@ -1,11 +1,15 @@
-import {SocialLocalRegisterController} from "./social-local-register.controller";
-import {SocialLocalLoginController} from "./social-local-login.controller";
-import {ProfilController} from "./profil.controller";
-import {UpdatePreferencesController} from "./update-preferences.controller";
+import {SocialLocalRegisterController} from "./social-local/social-local.register.controller";
+import {SocialLocalLoginController} from "./social-local/social-local.login.controller";
+import {SocialDiscordLoginController} from "./social-discord/social-discord.login.controller";
+import {SocialDiscordConnectController} from "./social-discord/social-discord.connect.controller";
+import {UserProfileController} from "./user/user.profile.controller";
+import {UserUpdatePreferencesController} from "./user/user.update-preferences.controller";
 
 export const ControllersUser = [
     SocialLocalRegisterController,
     SocialLocalLoginController,
-    ProfilController,
-    UpdatePreferencesController
+    UserProfileController,
+    UserUpdatePreferencesController,
+    SocialDiscordLoginController,
+    SocialDiscordConnectController
 ];

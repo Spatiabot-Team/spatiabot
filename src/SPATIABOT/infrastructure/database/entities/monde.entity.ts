@@ -1,7 +1,9 @@
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, Index, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {MondeInterface} from "../../../domain/interfaces/monde.interface";
 import {ScenarioEntity} from "./scenario.entity";
 import {UniteEntity} from "./unite.entity";
+import {EtapeEntity} from "./etape.entity";
+import {PartieEntity} from "./partie.entity";
 
 @Entity('monde')
 export class MondeEntity implements MondeInterface {
@@ -11,6 +13,10 @@ export class MondeEntity implements MondeInterface {
 
     @Column()
     nom: string;
+
+    @Index()
+    @Column({nullable:true})
+    slug?: string;
 
     @Column()
     code: string;
@@ -33,7 +39,11 @@ export class MondeEntity implements MondeInterface {
     })
     unites?: UniteEntity[];
 
-    // parties: PartieInterface[];
+    @OneToMany(type => PartieEntity, partie => partie.monde, {
+        cascade: true,
+        //eager: true
+    })
+    parties?: PartieEntity[];
     // scenarios: ScenarioInterface[];
     // statDefaults: StatInterface[];
     // unites: UniteInterface[];

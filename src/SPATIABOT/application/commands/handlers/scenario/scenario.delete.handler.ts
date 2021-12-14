@@ -1,7 +1,7 @@
 import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ScenarioHasNotThisAuteurException} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
-import {ScenarioDoesntExistException} from "../../../../domain/exceptions/scenario/scenario-doesnt-exist.exception";
+import {ScenarioNotFoundException} from "../../../../domain/exceptions/scenario/scenario-not-found.exception";
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";
 import {ScenarioGetByIdQuery} from "../../../queries/impl/scenario/scenario.get-by-id.query";
 import {ScenarioRepository} from "../../../../infrastructure/database/repositories/scenario.repository";
@@ -21,7 +21,7 @@ export class ScenarioDeleteHandler implements IQueryHandler<ScenarioDeleteComman
     /**
      * Supprime un scenario s'il existe et si l'auteur est bien un auteur de ce scenario
      * @param query ScenarioDeleteCommand
-     * @throws ScenarioDoesntExistException
+     * @throws ScenarioNotFoundException
      * @throws ScenarioHasNotThisAuteurException
      */
     async execute(query: ScenarioDeleteCommand): Promise<ScenarioInterface> {
@@ -29,7 +29,7 @@ export class ScenarioDeleteHandler implements IQueryHandler<ScenarioDeleteComman
         const scenarioFound = await this.queryBus.execute(new ScenarioGetByIdQuery(query.scenarioId));
 
         if (!scenarioFound) {
-            throw new ScenarioDoesntExistException();
+            throw new ScenarioNotFoundException();
         }
 
         if (!scenarioFound.hasAuteur(query.auteurId)) {

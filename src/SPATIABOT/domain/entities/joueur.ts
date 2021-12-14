@@ -54,15 +54,15 @@ export class Joueur implements JoueurInterface {
         // return stat;
     }
 
-    findReponse(params: any): ReponseInterface {
-        return this.etapeEnCours.reponses.find(r => r.libelle == params.libelle);
-    }
-
-    changerEtape(etape: EtapeInterface, dateAffichage: Date) {
-        this.etapeEnCours = etape;
-        this.etapeEnCoursEtat = EtapeEtatEnum.A_AFFICHER;
-        this.etapeDateAffichage = dateAffichage;
-        return this;
-    }
+    // findReponse(params: any): ReponseInterface {
+    //     return this.etapeEnCours.reponses.find(r => r.libelle == params.libelle);
+    // }
+    //
+    // changerEtape(etape: EtapeInterface, dateAffichage: Date) {
+    //     this.etapeEnCours = etape;
+    //     this.etapeEnCoursEtat = EtapeEtatEnum.A_AFFICHER;
+    //     this.etapeDateAffichage = dateAffichage;
+    //     return this;
+    // }
 
 }
