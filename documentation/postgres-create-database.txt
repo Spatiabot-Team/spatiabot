@@ -1,0 +1,6 @@
+sudo -u postgres psql
+create database <mydb>;
+create user <myuser> with encrypted password 'mypass';
+grant all privileges on database <mydb> to <myuser>;
+\c <mydb>
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

@@ -1,56 +1,66 @@
-import {Module} from '@nestjs/common';
-import {TypeOrmModule} from '@nestjs/typeorm';
+import {CacheModule, Module} from '@nestjs/common';
 import {Connection} from 'typeorm';
-import {ConfigModule} from '@nestjs/config';
-import {AppGateway} from './app.gateway';
-import {UsersModule} from "./users/users.module";
-import {AppController} from "./app/controller/app.controller";
-import {FixtureService} from "./users/core/service/fixture.service";
-import {UserRepository} from "./users/core/repository/user.repository";
-import {User} from "./users/core/entity/user.entity";
-import {Role} from "./users/core/entity/role.entity";
-import {SocialLocal} from "./users/core/entity/social-local.entity";
-import {RoleRepository} from "./users/core/repository/role.repository";
-import {SocialLocalRepository} from "./users/core/repository/social-local.repository";
-import { DiscordModule } from './discord/discord.module';
-import { BotModule } from './bot/bot.module';
+import {TypeOrmModule} from "@nestjs/typeorm";
+import {SpatiabotModule} from "./SPATIABOT/spatiabot.module";
+import {DiscordModule} from "./DISCORD/discord.module";
+import {LoggerModule} from './LOGGER/logger.module';
+import {UserModule} from "./USER/user.module";
+import {ConfigModule} from "@nestjs/config";
+import {FixturesController} from "./APP/controllers/fixtures.controller";
+import {TerminusModule} from "@nestjs/terminus";
+import { HealthController } from './HEALTH/health.controller';
+import {HttpModule} from "@nestjs/axios";
+import {ScheduleModule} from "@nestjs/schedule";
 
 @Module({
     imports: [
-        ConfigModule.forRoot(),
+        HttpModule,
+        TerminusModule,
+        CacheModule.register(),
+        ConfigModule.forRoot({
+            isGlobal: true,
+        }),
         TypeOrmModule.forRoot({
             type: "postgres",
             host: process.env.DB_HOST,
-            port: parseInt(process.env.DB_PORT),
+            port: parseInt(process.env.DB_PORT || ''),
             username: process.env.DB_USERNAME,
             password: process.env.DB_PASSWORD,
             database: process.env.DB_DATABASE_NAME,
+            entityPrefix: 'sp_',
             entities: [
-                "dist/**/entity/**/*.js"
+                "dist/**/database/entities/*.entity{.ts,.js}"
             ],
-            migrations: [
-                "dist/migration/**/*.js"
-            ],
-            subscribers: [
-                "dist/subscriber/**/*.js"
-            ],
-            cache: true,
+            // migrations: [
+            //     "dist/migration/**/*.js"
+            // ],
+            // subscribers: [
+            //     "dist/subscriber/**/*.js"
+            // ],
+            cache: false,
             synchronize: true,
-            logging: false,
-            autoLoadEntities: true
+            //https://github.com/typeorm/typeorm/blob/master/docs/logging.md
+            logging: ["error"],
+            maxQueryExecutionTime: 1000, //This code will log all queries which run more then 1 second.
+            logger: "file",
+            autoLoadEntities: true,
         }),
-
-        TypeOrmModule.forFeature([
-            User, UserRepository,
-            Role, RoleRepository,
-            SocialLocal, SocialLocalRepository
-        ]),
-        UsersModule,
+        //
+        // TypeOrmModule.forFeature([
+        //     UserRepository,
+        //     RoleRepository,
+        //     SocialLocalRepository
+        // ]),
+        UserModule,
         DiscordModule,
-        BotModule,
+        // BotModule,
+        SpatiabotModule,
+        LoggerModule,
+        ScheduleModule.forRoot()
     ],
-    controllers: [AppController],
-    providers: [AppGateway, FixtureService],
+    controllers: [FixturesController, HealthController],
+    providers: [],
+    exports: []
 })
 export class AppModule {
     constructor(private connection: Connection) {
