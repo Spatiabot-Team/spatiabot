@@ -8,7 +8,7 @@ export interface PartieInterface {
     id?: string;
     created?: Date;
     actif?: boolean;
-    stats?: StatInterface[];
+    statsMonde?: StatInterface[];
     monde?: MondeInterface;
     mondeId?: string;
     /** id of the discordGuild **/

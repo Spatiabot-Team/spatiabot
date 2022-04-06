@@ -1,7 +1,8 @@
 import {ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Request} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
-import {EffetGetQuery} from "../../../../application/queries/impl/effet/effet.get.query";
+import {CommandBus} from "@nestjs/cqrs";
+import {EffetGetHandler} from "../../../../application/services/effet/effet.get.handler";
+import {EffetGetQuery} from "../../../../application/services/effet/effet.get.query";
 
 @ApiTags('Effet')
 @Controller('Effets')
@@ -9,12 +10,13 @@ export class EffetGetController {
 
     constructor(
         private readonly commandBus: CommandBus,
-        private readonly queryBus: QueryBus,
-    ) {}
+        private readonly effetGetHandler: EffetGetHandler,
+    ) {
+    }
 
     @Get()
     async index(@Request() req) {
-        return this.queryBus.execute(new EffetGetQuery());
+        return this.effetGetHandler.execute(new EffetGetQuery());
     }
 
 }

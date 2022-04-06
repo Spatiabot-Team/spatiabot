@@ -4,9 +4,11 @@ import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 import {AuteurFind} from "../../dtos/auteur/auteur.find";
-import {AuteurFindQuery} from "../../../../application/queries/impl/auteur/auteur.find.query";
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
 import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
+import {AuteurFindHandler} from "../../../../application/services/auteur/auteur.find.handler";
+import {AuteurFindQuery} from "../../../../application/services/auteur/auteur.find.query";
+import {AuteurInterface} from "../../../../domain/interfaces/aueur.interface";
 
 @ApiBearerAuth()
 @ApiTags('Auteur')
@@ -14,15 +16,15 @@ import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
 export class AuteurFindController {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly auteurFindHandler: AuteurFindHandler,
     ) {
     }
 
     @Post('/find')
     @UseGuards(JwtAuthGuard)
     @Roles(RolesEnum.ADMIN)
-    async index(@Request() req, @Body() auteurFind: AuteurFind): Promise<MondeInterface> {
-        return this.queryBus.execute(new AuteurFindQuery(auteurFind.username));
+    async index(@Request() req, @Body() auteurFind: AuteurFind): Promise<AuteurInterface[]> {
+        return this.auteurFindHandler.execute(new AuteurFindQuery(auteurFind.username));
     }
 
 }

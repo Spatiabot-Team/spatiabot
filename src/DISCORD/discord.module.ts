@@ -1,4 +1,4 @@
-import {Module} from '@nestjs/common';
+import {CacheModule, Module} from '@nestjs/common';
 import {CqrsModule} from "@nestjs/cqrs";
 import {QueryHandlers} from "./application/queries/handlers";
 import {DiscordService} from "./application/services/discord.service";
@@ -13,9 +13,13 @@ import {LoggerModule} from "../LOGGER/logger.module";
 import {HttpModule} from "@nestjs/axios";
 import {CommandHandlers} from "./application/commands/handlers";
 import {EventHandlers} from "./application/events/handlers";
+import {
+    DiscordGuildFindByDiscordGuildIdService
+} from "./application/services/discord-guild/discord-guild.find-by-discord-guild-id.service";
 
 @Module({
     imports: [
+        CacheModule.register(),
         HttpModule,
         CqrsModule,
         TypeOrmModule.forFeature([...entitiesDiscord, ...repositoriesDiscord]),
@@ -29,7 +33,7 @@ import {EventHandlers} from "./application/events/handlers";
         DiscordToDbAdapter,
         DiscordMessageAdapter
     ],
-    exports: [DiscordService,DiscordMessageAdapter],
+    exports: [DiscordService,DiscordMessageAdapter, DiscordGuildFindByDiscordGuildIdService],
     controllers: [...ControllersDiscord]
 })
 export class DiscordModule {

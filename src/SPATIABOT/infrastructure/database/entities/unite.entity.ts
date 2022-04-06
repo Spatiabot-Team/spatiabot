@@ -15,7 +15,7 @@ export class UniteEntity implements UniteInterface {
     @Column()
     libelle: string;
 
-    @Column()
+    @Column({nullable:true})
     description: string;
 
     @ManyToOne(type => MondeEntity, monde => monde.unites, {

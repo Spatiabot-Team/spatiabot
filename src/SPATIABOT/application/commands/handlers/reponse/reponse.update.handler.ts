@@ -4,9 +4,10 @@ import {ReponseRepositoryInterface} from "src/SPATIABOT/application/repositories
 import {ReponseInterface} from "../../../../domain/interfaces/reponse.interface";
 import {Reponse} from "../../../../domain/entities/reponse";
 import {ReponseRepository} from "../../../../infrastructure/database/repositories/reponse.repository";
-import {ReponseGetByIdQuery} from "../../../queries/impl/reponse/reponse.get-by-id.query";
 import {ReponseNotFoundException} from "../../../../domain/exceptions/reponse/reponse.not-found.exception";
 import {ReponseUpdateCommand} from "../../impl/reponse/reponse.update.command";
+import {ReponseGetByIdHandler} from "../../../services/reponse/reponse.get-by-id.handler";
+import {ReponseGetByIdQuery} from "../../../services/reponse/reponse.get-by-id.query";
 
 
 @CommandHandler(ReponseUpdateCommand)
@@ -15,7 +16,7 @@ export class ReponseUpdateHandler implements IQueryHandler<ReponseUpdateCommand>
     @InjectRepository(ReponseRepository) private readonly repository: ReponseRepositoryInterface;
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly reponseGetByIdHandler: ReponseGetByIdHandler,
         @InjectRepository(ReponseRepository) repository: ReponseRepositoryInterface
     ) {
         this.repository = repository;
@@ -28,7 +29,7 @@ export class ReponseUpdateHandler implements IQueryHandler<ReponseUpdateCommand>
      */
     async execute(query: ReponseUpdateCommand): Promise<ReponseInterface> {
 
-        const reponseFound = await this.queryBus.execute(new ReponseGetByIdQuery(query.reponse.id));
+        const reponseFound = await this.reponseGetByIdHandler.execute(new ReponseGetByIdQuery(query.reponse.id));
 
         this.verifyOrThrow(reponseFound, query);
 

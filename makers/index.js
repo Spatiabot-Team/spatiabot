@@ -9,74 +9,74 @@ const dicoGenerate = {
     'r': [
         {
             createEntityFolder: false,
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/r/`,
             fileOrigin: `entity.repository.interface.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/application/repositories/`,
         },
         {
             createEntityFolder: false,
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/r/`,
             fileOrigin: `entity.repository.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/database/repositories/`,
         },
     ],
     'c': [
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/c/`,
             fileOrigin: `entity.create.handler.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/handlers/`,
         },
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/c/`,
             fileOrigin: `entity.create.command.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/impl/`,
         },
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/c/`,
             fileOrigin: `entity.post.controller.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/controllers/`,
         },
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/c/`,
             fileOrigin: `entity.post.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/dtos/`,
         }
     ],
     'u': [
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/u/`,
             fileOrigin: `entity.update.handler.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/handlers/`,
         },
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/u/`,
             fileOrigin: `entity.update.command.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/impl/`,
         },
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/u/`,
             fileOrigin: `entity.put.controller.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/controllers/`,
         },
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/u/`,
             fileOrigin: `entity.put.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/dtos/`,
         }
     ],
     'd': [
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/d/`,
             fileOrigin: `entity.delete.handler.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/handlers/`,
         },
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/d/`,
             fileOrigin: `entity.delete.command.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/impl/`,
         },
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/d/`,
             fileOrigin: `entity.delete.controller.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/controllers/`,
         },
@@ -88,34 +88,34 @@ const dicoGenerate = {
     ],
     'g': [
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/g/`,
             fileOrigin: `entity.get.controller.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/controllers/`,
         },
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/g/`,
             fileOrigin: `entity.get.handler.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/application/queries/handlers/`,
         },
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/g/`,
             fileOrigin: `entity.get.query.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/application/queries/impl/`,
         },
     ],
     'gbi': [
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/gbi/`,
             fileOrigin: `entity.get-by-id.controller.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/controllers/`,
         },
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/gbi/`,
             fileOrigin: `entity.get-by-id.handler.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/application/queries/handlers/`,
         },
         {
-            folderOrigin: `${ __dirname }/templates/`,
+            folderOrigin: `${ __dirname }/templates/gbi/`,
             fileOrigin: `entity.get-by-id.query.ts`,
             folderDestination: `${ __dirname }/../src/###MODULE###/application/queries/impl/`,
         }

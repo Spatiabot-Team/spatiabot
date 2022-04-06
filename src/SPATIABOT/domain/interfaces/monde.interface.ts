@@ -1,5 +1,6 @@
 import {ScenarioInterface} from "./scenario.interface";
 import {UniteInterface} from "./unite.interface";
+import {StatInterface} from "./stat.interface";
 
 export interface MondeInterface {
 
@@ -11,7 +12,7 @@ export interface MondeInterface {
     /** Ids User of the authors **/
     auteurIds?: string[];
     scenarios?: ScenarioInterface[];
-    // statDefaults?: StatInterface[];
+    stats?: StatInterface[];
     unites?: UniteInterface[];
     // scenarios?: ScenarioInterface[];
     // parties?: PartieInterface[];

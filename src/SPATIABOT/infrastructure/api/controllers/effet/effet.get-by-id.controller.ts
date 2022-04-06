@@ -3,8 +3,9 @@ import {Controller, Get, Param, Request, UseGuards} from "@nestjs/common";
 import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {EffetInterface} from "../../../../domain/interfaces/effet.interface";
-import {EffetGetByIdQuery} from "../../../../application/queries/impl/effet/effet.get-by-id.query";
 import {ParamId} from "../../dtos/generic/param.id";
+import {EffetGetByIdHandler} from "../../../../application/services/effet/effet.get-by-id.handler";
+import {EffetGetByIdQuery} from "../../../../application/services/effet/effet.get-by-id.query";
 
 @ApiBearerAuth()
 @ApiTags('Effet')
@@ -12,13 +13,13 @@ import {ParamId} from "../../dtos/generic/param.id";
 export class EffetGetByIdController {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly effetGetByIdHandler: EffetGetByIdHandler,
     ) {}
 
     @Get('/:id')
     @UseGuards(JwtAuthGuard)
     async index(@Request() req, @Param() paramId: ParamId) : Promise<EffetInterface>{
-        return this.queryBus.execute(new EffetGetByIdQuery(paramId.id));
+        return this.effetGetByIdHandler.execute(new EffetGetByIdQuery(paramId.id));
     }
 
 }

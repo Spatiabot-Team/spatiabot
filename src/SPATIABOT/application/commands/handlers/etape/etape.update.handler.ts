@@ -4,21 +4,19 @@ import {EtapeRepositoryInterface} from "src/SPATIABOT/application/repositories/e
 import {EtapeInterface} from "../../../../domain/interfaces/etape.interface";
 import {Etape} from "../../../../domain/entities/etape";
 import {EtapeRepository} from "../../../../infrastructure/database/repositories/etape.repository";
-import {EtapeGetByIdQuery} from "../../../queries/impl/etape/etape.get-by-id.query";
 import {EtapeNotFoundException} from "../../../../domain/exceptions/etape/etape-not-found.exception";
 import {EtapeUpdateCommand} from "../../impl/etape/etape.update.command";
+import {EtapeGetByIdHandler} from "../../../services/etape/etape.get-by-id.handler";
+import {EtapeGetByIdQuery} from "../../../services/etape/etape.get-by-id.query";
 
 
 @CommandHandler(EtapeUpdateCommand)
 export class EtapeUpdateHandler implements IQueryHandler<EtapeUpdateCommand> {
 
-    @InjectRepository(EtapeRepository) private readonly repository: EtapeRepositoryInterface;
-
     constructor(
-        private readonly queryBus: QueryBus,
-        @InjectRepository(EtapeRepository) repository: EtapeRepositoryInterface
+        private readonly etapeGetByIdHandler: EtapeGetByIdHandler,
+        @InjectRepository(EtapeRepository) private readonly repository: EtapeRepositoryInterface
     ) {
-        this.repository = repository;
     }
 
     /**
@@ -28,7 +26,7 @@ export class EtapeUpdateHandler implements IQueryHandler<EtapeUpdateCommand> {
      */
     async execute(query: EtapeUpdateCommand): Promise<EtapeInterface> {
 
-        const etapeFound = await this.queryBus.execute(new EtapeGetByIdQuery(query.etape.id));
+        const etapeFound = await this.etapeGetByIdHandler.execute(new EtapeGetByIdQuery(query.etape.id));
 
         this.verifyOrThrow(etapeFound, query);
 

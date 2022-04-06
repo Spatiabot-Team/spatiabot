@@ -1,6 +1,5 @@
 import {Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {ConsequencePossibleInterface} from "../../../domain/interfaces/consequence-possible.interface";
-import {MondeEntity} from "./monde.entity";
 import {ReponseEntity} from "./reponse.entity";
 import {EtapeEntity} from "./etape.entity";
 
@@ -24,7 +23,7 @@ export class ConsequencePossibleEntity implements ConsequencePossibleInterface {
     @Column()
     reponseId: string;
 
-    @ManyToOne(type => EtapeEntity)
+    @ManyToOne(type => EtapeEntity,{ nullable: true })
     @JoinColumn({name: "etapeSuivanteId"})
     etapeSuivante?: EtapeEntity;
 

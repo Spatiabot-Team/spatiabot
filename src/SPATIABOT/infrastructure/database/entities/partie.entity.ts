@@ -1,6 +1,17 @@
-import {Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    Index,
+    JoinColumn,
+    ManyToMany,
+    ManyToOne, OneToMany,
+    PrimaryGeneratedColumn
+} from "typeorm";
 import {PartieInterface} from "../../../domain/interfaces/partie.interface";
 import {MondeEntity} from "./monde.entity";
+import {StatEntity} from "./stat.entity";
+import {JoueurEntity} from "./joueur.entity";
 
 @Entity('partie')
 export class PartieEntity implements PartieInterface {
@@ -12,7 +23,7 @@ export class PartieEntity implements PartieInterface {
     @Column()
     discordGuildUuid?: string;
 
-    @CreateDateColumn({type: 'date'})
+    @CreateDateColumn({type: 'timestamptz'})
     created?: Date;
 
     @Column({default: true})
@@ -28,4 +39,16 @@ export class PartieEntity implements PartieInterface {
     @Index()
     @Column()
     mondeId?: string;
+
+    @OneToMany(type => StatEntity,stat => stat.partie, {
+        cascade: true,
+        eager : true
+    })
+    statsMonde?: StatEntity[];
+
+    @OneToMany(type => JoueurEntity,joueur => joueur.partie, {
+        cascade: true,
+        eager : true
+    })
+    joueurs?: JoueurEntity[];
 }

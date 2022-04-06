@@ -4,9 +4,10 @@ import {EffetRepositoryInterface} from "src/SPATIABOT/application/repositories/e
 import {EffetInterface} from "../../../../domain/interfaces/effet.interface";
 import {Effet} from "../../../../domain/entities/effet";
 import {EffetRepository} from "../../../../infrastructure/database/repositories/effet.repository";
-import {EffetGetByIdQuery} from "../../../queries/impl/effet/effet.get-by-id.query";
 import {EffetNotFoundException} from "../../../../domain/exceptions/effet/effet-not-found.exception";
 import {EffetUpdateCommand} from "../../impl/effet/effet.update.command";
+import {EffetGetByIdHandler} from "../../../services/effet/effet.get-by-id.handler";
+import {EffetGetByIdQuery} from "../../../services/effet/effet.get-by-id.query";
 
 
 @CommandHandler(EffetUpdateCommand)
@@ -15,7 +16,7 @@ export class EffetUpdateHandler implements IQueryHandler<EffetUpdateCommand> {
     @InjectRepository(EffetRepository) private readonly repository: EffetRepositoryInterface;
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly effetGetByIdHandler: EffetGetByIdHandler,
         @InjectRepository(EffetRepository) repository: EffetRepositoryInterface
     ) {
         this.repository = repository;
@@ -28,7 +29,7 @@ export class EffetUpdateHandler implements IQueryHandler<EffetUpdateCommand> {
      */
     async execute(query: EffetUpdateCommand): Promise<EffetInterface> {
 
-        const effetFound = await this.queryBus.execute(new EffetGetByIdQuery(query.effet.id));
+        const effetFound = await this.effetGetByIdHandler.execute(new EffetGetByIdQuery(query.effet.id));
 
         this.verifyOrThrow(effetFound, query);
 

@@ -38,11 +38,16 @@ import {ReponsePutController} from "./reponse/reponse.put.controller";
 import {MondeScenariosGetController} from "./monde/monde.scenarios.get.controller";
 import {ScenarioGetBySlugController} from "./scenario/scenario.get-by-slug.controller";
 import {PartieFindController} from "./partie/partie.find.controller";
+import {PartiePostController} from "./partie/partie.post.controller";
+import {MondeStatsPostController} from "./monde/monde.stats.post.controller";
+import {MondeStatsDeleteController} from "./monde/monde.stats.delete.controller";
+import {MondeStatsPutController} from "./monde/monde.stats.put.controller";
 
 export const Controllers = [
 
     // Partie
     PartieFindController,
+    PartiePostController,
 
     // Monde
     MondeByConnectedUserController,
@@ -53,6 +58,9 @@ export const Controllers = [
     MondeDeleteController,
     MondeDeleteAuteurController,
     MondeAddAuteurController,
+    MondeStatsPostController,
+    MondeStatsDeleteController,
+    MondeStatsPutController,
 
     // Auteur
     AuteurFindController,

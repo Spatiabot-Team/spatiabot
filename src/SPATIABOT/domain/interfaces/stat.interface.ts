@@ -7,5 +7,8 @@ export interface StatInterface {
     quantite?: number;
     texte?: string;
     unite?: UniteInterface;
+    mondeId?: string;
+    partieId?: string;
+
 
 }

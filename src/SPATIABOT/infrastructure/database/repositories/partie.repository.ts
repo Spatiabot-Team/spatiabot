@@ -22,7 +22,4 @@ export class PartieRepository extends Repository<PartieEntity> implements Partie
         })
     }
 
-
-
-
 }

@@ -1,7 +1,8 @@
 import {ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Request} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
-import {ReponseGetQuery} from "../../../../application/queries/impl/reponse/reponse.get.query";
+import {CommandBus} from "@nestjs/cqrs";
+import {ReponseGetHandler} from "../../../../application/services/reponse/reponse.get.handler";
+import {ReponseGetQuery} from "../../../../application/services/reponse/reponse.get.query";
 
 @ApiTags('Reponse')
 @Controller('Reponses')
@@ -9,12 +10,13 @@ export class ReponseGetController {
 
     constructor(
         private readonly commandBus: CommandBus,
-        private readonly queryBus: QueryBus,
-    ) {}
+        private readonly reponseGetHandler: ReponseGetHandler,
+    ) {
+    }
 
     @Get()
     async index(@Request() req) {
-        return this.queryBus.execute(new ReponseGetQuery());
+        return this.reponseGetHandler.execute(new ReponseGetQuery());
     }
 
 }

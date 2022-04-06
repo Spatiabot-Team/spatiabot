@@ -3,6 +3,7 @@ import {ScenarioEntity} from "../entities/scenario.entity";
 import {ScenarioRepositoryInterface} from "../../../application/repositories/scenario.repository.interface";
 import {ScenarioInterface} from "../../../domain/interfaces/scenario.interface";
 import {ScenarioLightInterface} from "../../../domain/interfaces/scenario-light.interface";
+import {MondeEntity} from "../entities/monde.entity";
 
 @EntityRepository(ScenarioEntity)
 export class ScenarioRepository extends Repository<ScenarioEntity> implements ScenarioRepositoryInterface {
@@ -36,6 +37,28 @@ export class ScenarioRepository extends Repository<ScenarioEntity> implements Sc
                 mondeId
             }
         });
+    }
+
+    /**
+     * Retourne un scenario aléatoire en respectant les conditions suivantes :
+     * - il y a une première étape
+     * - le joueur ne l'a pas encore fait
+     * - le scenario est actif
+     * @param joueurId
+     */
+    async determinerScenarioSuivantJoueur(joueurId : string) : Promise<ScenarioInterface | null>{
+
+        return this.createQueryBuilder('scenario')
+            .innerJoin('scenario.monde', 'monde')
+            .innerJoin('monde.parties', 'partie')
+            .innerJoin('partie.joueurs', 'joueur')
+            .innerJoinAndSelect('scenario.etapes', 'etape')
+            .where('etape.premiereEtape = true')
+            .andWhere('joueur.id = :joueurId', {joueurId})
+            .andWhere('not(scenario.id::text = ANY (joueur.scenarioEffectues))')
+            .andWhere('scenario.actif = true')
+            .orderBy("RANDOM()")
+            .getOne();
     }
 
 }

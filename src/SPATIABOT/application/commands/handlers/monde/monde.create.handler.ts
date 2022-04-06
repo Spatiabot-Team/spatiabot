@@ -5,15 +5,16 @@ import {MondeRepositoryInterface} from "../../../repositories/monde.repository.i
 import {MondeRepository} from "../../../../infrastructure/database/repositories/monde.repository";
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 import {MondeAlreadyExistsException} from "../../../../domain/exceptions/monde/monde-already-exists.exception";
-import {MondeFindQuery} from "../../../queries/impl/monde/monde.find.query";
 import slugify from "slugify";
+import {MondeFindHandler} from "../../../services/monde/monde.find.handler";
+import {MondeFindQuery} from "../../../services/monde/monde.find.query";
 
 
 @CommandHandler(MondeCreateCommand)
 export class MondeCreateHandler implements IQueryHandler<MondeCreateCommand> {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly mondeFindHandler: MondeFindHandler,
         @InjectRepository(MondeRepository) private readonly repository: MondeRepositoryInterface
     ) {
         this.repository = repository;
@@ -26,7 +27,7 @@ export class MondeCreateHandler implements IQueryHandler<MondeCreateCommand> {
      */
     async execute(query: MondeCreateCommand): Promise<MondeInterface> {
 
-        const mondeFound = await this.queryBus.execute(new MondeFindQuery(query.monde));
+        const mondeFound = await this.mondeFindHandler.execute(new MondeFindQuery(query.monde));
 
         if (mondeFound) {
             throw new MondeAlreadyExistsException();

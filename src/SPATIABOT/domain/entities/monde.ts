@@ -14,7 +14,7 @@ export class Monde implements MondeInterface {
     /** Ids User of the authors **/
     auteurIds?: string[];
     auteurs?: AuteurInterface[];
-    statDefaults?: StatInterface[];
+    stats?: StatInterface[];
     unites?: UniteInterface[];
     scenarios?: ScenarioInterface[];
     parties?: PartieInterface[];

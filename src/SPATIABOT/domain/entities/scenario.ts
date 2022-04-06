@@ -8,11 +8,16 @@ export class Scenario implements ScenarioInterface {
     id: string;
     titre: string;
     slug: string;
-    mondeId : string;
+    mondeId: string;
     auteurIds?: string[];
     auteurs?: AuteurInterface[];
 
     hasAuteur(auteurId) {
         return this.auteurIds && this.auteurIds.includes(auteurId);
     }
+
+    addAuteurId(auteurId) {
+        this.auteurIds.push(auteurId);
+    }
+
 }

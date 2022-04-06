@@ -5,24 +5,23 @@ import {MondeRepositoryInterface} from "../../../repositories/monde.repository.i
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
-import {MondeGetByIdQuery} from "../../../queries/impl/monde/monde.get-by-id.query";
 import {UserRepository} from "../../../../../USER/infrastructure/database/repositories/user.repository";
 import {UserRepositoryInterface} from "../../../../../USER/application/repositories/user.repository.interface";
 import {Monde} from "../../../../domain/entities/monde";
 import {MondeAddAuteurCommand} from "../../impl/monde/monde.add-auteur.command";
 import {MondeHasAlreadyThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-already-this-auteur.exception";
 import {UserNotFoundException} from "../../../../domain/exceptions/auteur/user-not-found.exception";
+import {MondeGetByIdHandler} from "../../../services/monde/monde.get-by-id.handler";
+import {MondeGetByIdQuery} from "../../../services/monde/monde.get-by-id.query";
 
 @CommandHandler(MondeAddAuteurCommand)
 export class MondeAddAuteurHandler implements IQueryHandler<MondeAddAuteurCommand> {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly mondeGetByIdHandler: MondeGetByIdHandler,
         @InjectRepository(MondeRepository) private readonly repository: MondeRepositoryInterface,
         @InjectRepository(UserRepository) private readonly userRepository: UserRepositoryInterface
     ) {
-        this.repository = repository;
-        this.userRepository = userRepository;
     }
 
     /**
@@ -34,7 +33,7 @@ export class MondeAddAuteurHandler implements IQueryHandler<MondeAddAuteurComman
      */
     async execute(query: MondeAddAuteurCommand): Promise<MondeInterface> {
 
-        const mondeFound = await this.queryBus.execute(new MondeGetByIdQuery(query.mondeId));
+        const mondeFound = await this.mondeGetByIdHandler.execute(new MondeGetByIdQuery(query.mondeId));
         this.verify(mondeFound,query);
 
         const user = await this.userRepository.findOne(query.auteurId);

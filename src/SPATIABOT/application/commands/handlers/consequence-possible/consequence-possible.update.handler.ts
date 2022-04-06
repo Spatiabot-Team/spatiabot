@@ -4,9 +4,14 @@ import {ConsequencePossibleRepositoryInterface} from "src/SPATIABOT/application/
 import {ConsequencePossibleInterface} from "../../../../domain/interfaces/consequence-possible.interface";
 import {ConsequencePossible} from "../../../../domain/entities/consequence-possible";
 import {ConsequencePossibleRepository} from "../../../../infrastructure/database/repositories/consequence-possible.repository";
-import {ConsequencePossibleGetByIdQuery} from "../../../queries/impl/consequence-possible/consequence-possible.get-by-id.query";
 import {ConsequencePossibleNotFoundException} from "../../../../domain/exceptions/consequence-possible/consequence-possible.not-found.exception";
 import {ConsequencePossibleUpdateCommand} from "../../impl/consequence-possible/consequence-possible.update.command";
+import {
+    ConsequencePossibleGetByIdHandler
+} from "../../../services/consequence-possible/consequence-possible.get-by-id.handler";
+import {
+    ConsequencePossibleGetByIdQuery
+} from "../../../services/consequence-possible/consequence-possible.get-by-id.query";
 
 
 @CommandHandler(ConsequencePossibleUpdateCommand)
@@ -15,7 +20,7 @@ export class ConsequencePossibleUpdateHandler implements IQueryHandler<Consequen
     @InjectRepository(ConsequencePossibleRepository) private readonly repository: ConsequencePossibleRepositoryInterface;
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly consequencePossibleGetByIdHandler: ConsequencePossibleGetByIdHandler,
         @InjectRepository(ConsequencePossibleRepository) repository: ConsequencePossibleRepositoryInterface
     ) {
         this.repository = repository;
@@ -28,7 +33,9 @@ export class ConsequencePossibleUpdateHandler implements IQueryHandler<Consequen
      */
     async execute(query: ConsequencePossibleUpdateCommand): Promise<ConsequencePossibleInterface> {
 
-        const consequencePossibleFound = await this.queryBus.execute(new ConsequencePossibleGetByIdQuery(query.consequencePossible.id));
+        const consequencePossibleFound = await this.consequencePossibleGetByIdHandler.execute(
+            new ConsequencePossibleGetByIdQuery(query.consequencePossible.id)
+        );
 
         this.verifyOrThrow(consequencePossibleFound, query);
 

@@ -6,6 +6,8 @@ import {EtapeRepository} from "./etape.repository";
 import {ConsequencePossibleRepository} from "./consequence-possible.repository";
 import {EffetRepository} from "./effet.repository";
 import {ReponseRepository} from "./reponse.repository";
+import {JoueurRepository} from "./joueur.repository";
+import {StatRepository} from "./stat.repository";
 
 export const repositoriesSpatiabot = [
     PartieRepository,
@@ -16,4 +18,6 @@ export const repositoriesSpatiabot = [
     ReponseRepository,
     ConsequencePossibleRepository,
     EffetRepository,
+    JoueurRepository,
+    StatRepository,
 ]

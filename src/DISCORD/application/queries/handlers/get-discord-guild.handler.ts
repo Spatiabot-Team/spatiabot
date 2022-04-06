@@ -1,5 +1,4 @@
 import {IQueryHandler, QueryHandler} from "@nestjs/cqrs";
-import {GetPartieByDiscordGuildQuery} from "../impl/get-discord-guilds.query";
 import {InjectRepository} from "@nestjs/typeorm";
 import {clc} from "@nestjs/common/utils/cli-colors.util";
 import {DiscordGuildRepository} from "../../../infrastructure/database/repositories/discord-guild.repository";

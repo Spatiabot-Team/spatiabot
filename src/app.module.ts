@@ -10,6 +10,7 @@ import {FixturesController} from "./APP/controllers/fixtures.controller";
 import {TerminusModule} from "@nestjs/terminus";
 import { HealthController } from './HEALTH/health.controller';
 import {HttpModule} from "@nestjs/axios";
+import {ScheduleModule} from "@nestjs/schedule";
 
 @Module({
     imports: [
@@ -55,6 +56,7 @@ import {HttpModule} from "@nestjs/axios";
         // BotModule,
         SpatiabotModule,
         LoggerModule,
+        ScheduleModule.forRoot()
     ],
     controllers: [FixturesController, HealthController],
     providers: [],

@@ -17,8 +17,8 @@ export class UserUpdatePreferencesController {
 
     @Put('/update-preferences')
     @UseGuards(JwtAuthGuard)
-    async index(@Request() req, @Body() preferences: PreferencesDto) {
-        return this.userRepository.save({id: req.user.id, preferences});
+    async index(@Request() req, @Body() preferencesDto: PreferencesDto) {
+        return await this.userRepository.save({id: req.user.id, preferences : preferencesDto.preferences});
     }
 
 

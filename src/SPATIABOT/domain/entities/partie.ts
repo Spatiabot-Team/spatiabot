@@ -8,7 +8,7 @@ export class Partie implements PartieInterface {
     id?: string;
     created?: Date;
     actif?: boolean;
-    stats?: StatInterface[];
+    statsMonde?: StatInterface[];
     monde?: MondeInterface;
     discordGuildUuid?: string;
     joueurs?: JoueurInterface[];

@@ -4,7 +4,8 @@ import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {Partie} from "../../../../domain/entities/partie";
 import {PartieFind} from "../../dtos/partie/partie.find";
-import {PartieFindQuery} from "../../../../application/queries/impl/partie/partie.find.query";
+import {PartieFindQuery} from "../../../../application/services/partie/partie.find.query";
+import {PartieFindHandler} from "../../../../application/services/partie/partie.find.handler";
 
 // @ApiBearerAuth()
 @ApiTags('Partie')
@@ -12,7 +13,7 @@ import {PartieFindQuery} from "../../../../application/queries/impl/partie/parti
 export class PartieFindController {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly partieFindHandler: PartieFindHandler,
     ) {
     }
 
@@ -20,7 +21,7 @@ export class PartieFindController {
     @UseGuards(JwtAuthGuard)
     async index(@Request() req, @Body() partieFind: PartieFind): Promise<Partie[]> {
         try {
-            return this.queryBus.execute(new PartieFindQuery(partieFind.mondeId, partieFind.discordGuildUuid));
+            return await this.partieFindHandler.execute(new PartieFindQuery(partieFind.mondeId, partieFind.discordGuildUuid));
         } catch (e: any) {
             console.error('DiscordGuildSyncByConnectedUserController error : ', e);
         }

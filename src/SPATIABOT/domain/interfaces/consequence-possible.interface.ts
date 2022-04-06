@@ -1,6 +1,7 @@
 import {ReponseInterface} from "./reponse.interface";
+import {RandomPoidsInterface} from "./random-poids.interface";
 
-export interface ConsequencePossibleInterface {
+export interface ConsequencePossibleInterface extends RandomPoidsInterface{
 
     id?: string;
     poids?: number;

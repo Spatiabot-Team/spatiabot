@@ -25,8 +25,7 @@ export class DiscordGuildEntity implements DiscordGuildInterface {
     icon?: string;
 
     @OneToMany(type => DiscordGuildUserEntity, discordGuildUserEntity => discordGuildUserEntity.discordGuild, {
-        cascade: true,
-        eager: true
+        cascade: true
     })
     discordGuildUsers?: DiscordGuildUserEntity[];
 

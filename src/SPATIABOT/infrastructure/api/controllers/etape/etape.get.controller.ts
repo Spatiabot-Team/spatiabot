@@ -1,7 +1,8 @@
 import {ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Request} from "@nestjs/common";
 import {CommandBus, QueryBus} from "@nestjs/cqrs";
-import {EtapeGetQuery} from "../../../../application/queries/impl/etape/etape.get.query";
+import {EtapeGetHandler} from "../../../../application/services/etape/etape.get.handler";
+import {EtapeGetQuery} from "../../../../application/services/etape/etape.get.query";
 
 @ApiTags('Etape')
 @Controller('Etapes')
@@ -9,12 +10,12 @@ export class EtapeGetController {
 
     constructor(
         private readonly commandBus: CommandBus,
-        private readonly queryBus: QueryBus,
+        private readonly etapeGetHandler: EtapeGetHandler,
     ) {}
 
     @Get()
     async index(@Request() req) {
-        return this.queryBus.execute(new EtapeGetQuery());
+        return this.etapeGetHandler.execute(new EtapeGetQuery());
     }
 
 }

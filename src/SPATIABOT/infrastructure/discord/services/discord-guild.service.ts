@@ -6,6 +6,9 @@ import {Cache} from 'cache-manager';
 import {GetDiscordGuildQuery} from "../../../../DISCORD/application/queries/impl/get-discord-guild.query";
 import {CreateDiscordGuildFromDiscordCommand} from "../../../../DISCORD/application/commands/impl/create-discord-guild-from-discord.command";
 
+/**
+ * @todo à refactorer, ça devrait être dans le module Discord dans la partie application et non infra
+ */
 @Injectable()
 export class DiscordGuildService {
 
@@ -17,7 +20,8 @@ export class DiscordGuildService {
     }
 
     /**
-     *
+     * Cherche l'objet discord guild en cache, si non trouvé le cherche en base
+     * si toujours pas trouvé le créer et l'ajoute au cache
      * @param discordGuildId
      * @private
      * @throws GuildNotFoundException
@@ -26,11 +30,14 @@ export class DiscordGuildService {
 
         let discordGuilds = await this.cacheManager.get(CacheKeys.DISCORD_GUILDS);
 
+        // Si disocrdGuilds n'existe pas en cache on doit initialiser le cache
         if (!discordGuilds) {
             discordGuilds = {};
+
             await this.cacheManager.set(CacheKeys.DISCORD_GUILDS, {}, {ttl: process.env.CACHE_DURATION_DISCORD_GUILDS || 360000});
         }
 
+        // Maintenant on peut vérifier que notre guild est ou non en cache
         if (!discordGuilds[discordGuildParam.id]) {
             discordGuilds[discordGuildParam.id] = await this.findOrCreateDiscordGuildInDb(discordGuildParam);
             await this.cacheManager.set(CacheKeys.DISCORD_GUILDS, discordGuilds);
@@ -40,8 +47,7 @@ export class DiscordGuildService {
     }
 
     /**
-     * Cherche l'objet discord guild en cache, si non trouvé le cherche en base
-     * si toujours pas trouvé le créer et l'ajoute au cache
+     *
      * @param discordGuildParam
      * @private
      * @return DiscordGuild

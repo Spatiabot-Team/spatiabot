@@ -5,10 +5,11 @@ import { MondeUpdateCommand } from "../../impl/monde/monde.update.command";
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 import {Monde} from "../../../../domain/entities/monde";
 import {MondeRepository} from "../../../../infrastructure/database/repositories/monde.repository";
-import {MondeGetByIdQuery} from "../../../queries/impl/monde/monde.get-by-id.query";
 import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
 import slugify from "slugify";
+import {MondeGetByIdHandler} from "../../../services/monde/monde.get-by-id.handler";
+import {MondeGetByIdQuery} from "../../../services/monde/monde.get-by-id.query";
 
 
 @CommandHandler(MondeUpdateCommand)
@@ -17,7 +18,7 @@ export class MondeUpdateHandler implements IQueryHandler<MondeUpdateCommand> {
     @InjectRepository(MondeRepository) private readonly repository: MondeRepositoryInterface;
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly mondeGetByIdHandler: MondeGetByIdHandler,
         @InjectRepository(MondeRepository) repository: MondeRepositoryInterface
     ) {
         this.repository = repository;
@@ -31,7 +32,7 @@ export class MondeUpdateHandler implements IQueryHandler<MondeUpdateCommand> {
      */
     async execute(query: MondeUpdateCommand): Promise<MondeInterface> {
 
-        const mondeFound = await this.queryBus.execute(new MondeGetByIdQuery(query.monde.id));
+        const mondeFound = await this.mondeGetByIdHandler.execute(new MondeGetByIdQuery(query.monde.id));
 
         this.verifyOrThrow(mondeFound, query);
 

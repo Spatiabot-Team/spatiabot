@@ -1,5 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {IsNotEmpty, IsUUID} from "class-validator";
+import {IsNotEmpty, IsOptional, IsUUID} from "class-validator";
 import {UniteInterface} from "../../../../domain/interfaces/unite.interface";
 
 export class UnitePost implements UniteInterface {
@@ -27,10 +27,10 @@ export class UnitePost implements UniteInterface {
     libelle: string;
 
     @ApiProperty({
-        description: 'Description du monde',
+        description: 'Description de l\'unité',
         required: true
     })
-    @IsNotEmpty()
+    @IsOptional()
     description: string;
 
 }

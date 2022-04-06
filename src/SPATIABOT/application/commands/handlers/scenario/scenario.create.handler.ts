@@ -5,17 +5,18 @@ import {ScenarioRepository} from "../../../../infrastructure/database/repositori
 import {ScenarioRepositoryInterface} from "../../../repositories/scenario.repository.interface";
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";
 import {Monde} from "../../../../domain/entities/monde";
-import {MondeFindQuery} from "../../../queries/impl/monde/monde.find.query";
 import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
 import slugify from "slugify";
+import {MondeFindHandler} from "../../../services/monde/monde.find.handler";
+import {MondeFindQuery} from "../../../services/monde/monde.find.query";
 
 
 @CommandHandler(ScenarioCreateCommand)
 export class ScenarioCreateHandler implements IQueryHandler<ScenarioCreateCommand> {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly mondeFindHandler: MondeFindHandler,
         @InjectRepository(ScenarioRepository) private readonly repository: ScenarioRepositoryInterface
     ) {
         this.repository = repository;
@@ -28,7 +29,7 @@ export class ScenarioCreateHandler implements IQueryHandler<ScenarioCreateComman
      */
     async execute(query: ScenarioCreateCommand): Promise<ScenarioInterface> {
 
-        const mondeFound = await this.queryBus.execute(new MondeFindQuery({id: query.scenario.mondeId}));
+        const mondeFound = await this.mondeFindHandler.execute(new MondeFindQuery({id: query.scenario.mondeId}));
 
         this.verifyOrThrow(mondeFound, query);
 

@@ -9,7 +9,7 @@ export class MondeRepository extends Repository<MondeEntity> implements MondeRep
     async findAllByAuteurId(id: string): Promise<MondeInterface[]> {
 
         return this.find({
-            select: ['id', 'nom', 'code','auteurIds'],
+            select: ['id', 'nom', 'code', 'auteurIds'],
             where: {
                 auteurIds: Like(`%${id}%`)
             }

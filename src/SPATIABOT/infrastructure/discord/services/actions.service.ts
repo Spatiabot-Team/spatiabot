@@ -3,7 +3,9 @@ import {ActionNotFoundException} from "../exceptions/action-not-found.exception"
 import {CommandBus} from "@nestjs/cqrs";
 import {MessageFromDiscord} from "../../../../DISCORD/domain/entities/message-from-discord.entity";
 import {AbstractDiscordActionCommand} from "../commands/impl/abstract-discord-action.command";
-import {DiscordDecollageInfraCommand} from "../commands/impl/discord-decollage-infra.command";
+import {DiscordDecollageCommand} from "../commands/impl/discord-decollage.command";
+import {AnswerInChannelCommand} from "../../../../DISCORD/application/commands/impl/answer-in-channel.command";
+import {TestCommand} from "../commands/impl/test.command";
 
 @Injectable()
 export class ActionsService {
@@ -14,12 +16,13 @@ export class ActionsService {
      */
     actions: { [key: string]: { event: (message: MessageFromDiscord) => AbstractDiscordActionCommand } } =
         {
-            'd': {'event': (message: MessageFromDiscord) => new DiscordDecollageInfraCommand(message)},
-            'decollage': {'event': (message: MessageFromDiscord) => new DiscordDecollageInfraCommand(message)},
+            'd': {'event': (message: MessageFromDiscord) => new DiscordDecollageCommand(message)},
+            'decollage': {'event': (message: MessageFromDiscord) => new DiscordDecollageCommand(message)},
         };
 
-    actionsAdmin: { [key: string]: { event: (message: MessageFromDiscord) => void } } =
+    actionsAdmin: { [key: string]: { event: (message: MessageFromDiscord) => AbstractDiscordActionCommand } } =
         {
+            't': {'event': (message: MessageFromDiscord) => new TestCommand(message)},
             // 'creer-partie': {'event': (message: MessageFromDiscord) => new DiscordDecollageCommand(message)},
         };
 
@@ -36,9 +39,13 @@ export class ActionsService {
         }
 
         if (this.actionsAdmin[key]) {
+            // @todo vérifier que le user est admin
+            await this.commandBus.execute(this.actionsAdmin[key].event(message));
             return;
         }
 
+
+        await this.commandBus.execute(new AnswerInChannelCommand(message.message.channel,'Visiblement cette commande n\'existe pas...'));
         // Si on arrive là c'est qu'on a pas trouvé d'action correspondant à la commande
         throw new ActionNotFoundException()
     }

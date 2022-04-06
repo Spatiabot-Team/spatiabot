@@ -1,14 +1,21 @@
 import {Injectable} from '@nestjs/common';
-import {Client, Intents} from "discord.js";
+import {Client, Intents, User} from "discord.js";
 import {clc} from "@nestjs/common/utils/cli-colors.util";
 
 @Injectable()
 export class DiscordService {
 
     clientDiscord: Client;
+    ready: boolean;
 
     constructor() {
-        this.clientDiscord = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
+        this.ready = false;
+        this.clientDiscord = new Client({
+            intents: [
+                Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES
+            ],
+            partials: ["CHANNEL"]
+        });
         this.clientDiscord.on('error', e => {
             console.error(clc.red('Error with discord : '), e);
         });
@@ -21,12 +28,13 @@ export class DiscordService {
             // si dans x ms on a pas coupé ce setTimeout par un clearTimeout alors c'est que la connexion n'a pas abouti
             const timeout = setTimeout(() => {
                     this.clientDiscord.emit('error', Error('Connection cannot be made, is discord API down?'));
-                },30000,
+                }, 30000,
             );
 
 
             this.clientDiscord.once('ready', () => {
-                console.log('Discord is ready')
+                console.log('Discord is ready');
+                this.ready = true;
                 clearTimeout(timeout);
             });
 
@@ -42,6 +50,13 @@ export class DiscordService {
         this.clientDiscord.on(eventName, cb);
     }
 
+    async findUser(discordId: string): Promise<User> {
+        let userDiscord = this.clientDiscord.users.cache.find(user => user.id == discordId);
+        if (!userDiscord) {
+            userDiscord = await this.clientDiscord.users.fetch(discordId);
+        }
+        return userDiscord;
+    }
 
     //
     // async sendMessages(channel, msgs: MessageEmbed[]) {

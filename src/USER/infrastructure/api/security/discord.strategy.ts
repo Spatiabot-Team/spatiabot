@@ -1,9 +1,8 @@
 import {PassportStrategy} from '@nestjs/passport';
 import {config} from 'dotenv';
 
-import {Injectable, UnauthorizedException} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {SocialDiscordService} from "../../../application/services/social-discord.service";
-import * as fs from "fs";
 
 const Strategy = require('passport-discord').Strategy;
 
@@ -25,7 +24,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
 
     async validate(accessToken: string, refreshToken: string, profile: any, done: any): Promise<any> {
         const socialDiscord = this.socialDiscordService.adaptPasseportProfilDiscordToSocialDiscord(profile);
-        done(null, {accessToken,refreshToken,socialDiscord});
+        done(null, {accessToken, refreshToken, socialDiscord});
     }
 
 }

@@ -4,13 +4,14 @@ import {ScenarioRepositoryInterface} from "src/SPATIABOT/application/repositorie
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";
 import {Scenario} from "../../../../domain/entities/scenario";
 import {ScenarioRepository} from "../../../../infrastructure/database/repositories/scenario.repository";
-import {ScenarioGetByIdQuery} from "../../../queries/impl/scenario/scenario.get-by-id.query";
 import {ScenarioNotFoundException} from "../../../../domain/exceptions/scenario/scenario-not-found.exception";
 import {
     ScenarioHasNotThisAuteurException
 } from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
 import {ScenarioUpdateCommand} from "../../impl/scenario/scenario.update.command";
 import slugify from "slugify";
+import {ScenarioGetByIdHandler} from "../../../services/scenario/scenario.get-by-id.handler";
+import {ScenarioGetByIdQuery} from "../../../services/scenario/scenario.get-by-id.query";
 
 
 @CommandHandler(ScenarioUpdateCommand)
@@ -19,10 +20,9 @@ export class ScenarioUpdateHandler implements IQueryHandler<ScenarioUpdateComman
     @InjectRepository(ScenarioRepository) private readonly repository: ScenarioRepositoryInterface;
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly scenarioGetByIdHandler: ScenarioGetByIdHandler,
         @InjectRepository(ScenarioRepository) repository: ScenarioRepositoryInterface
     ) {
-        this.repository = repository;
     }
 
     /**
@@ -33,7 +33,7 @@ export class ScenarioUpdateHandler implements IQueryHandler<ScenarioUpdateComman
      */
     async execute(query: ScenarioUpdateCommand): Promise<ScenarioInterface> {
 
-        const scenarioFound = await this.queryBus.execute(new ScenarioGetByIdQuery(query.scenario.id));
+        const scenarioFound = await this.scenarioGetByIdHandler.execute(new ScenarioGetByIdQuery(query.scenario.id));
 
         this.verifyOrThrow(scenarioFound, query);
 

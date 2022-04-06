@@ -13,6 +13,9 @@ export class ReponseEntity implements ReponseInterface {
     id?: string;
 
     @Column()
+    libelle: string;
+
+    @Column()
     titre: string;
 
     @Column()

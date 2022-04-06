@@ -6,4 +6,5 @@ export class Unite implements UniteInterface {
     code?: string;
     libelle?: string;
     description?: string;
+    mondeId?: string;
 }

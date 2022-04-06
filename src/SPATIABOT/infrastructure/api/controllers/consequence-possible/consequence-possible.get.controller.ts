@@ -1,7 +1,12 @@
 import {ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Request} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
-import {ConsequencePossibleGetQuery} from "../../../../application/queries/impl/consequence-possible/consequence-possible.get.query";
+import {CommandBus} from "@nestjs/cqrs";
+import {
+    ConsequencePossibleGetHandler
+} from "../../../../application/services/consequence-possible/consequence-possible.get.handler";
+import {
+    ConsequencePossibleGetQuery
+} from "../../../../application/services/consequence-possible/consequence-possible.get.query";
 
 @ApiTags('ConsequencePossible')
 @Controller('consequence-possibles')
@@ -9,12 +14,13 @@ export class ConsequencePossibleGetController {
 
     constructor(
         private readonly commandBus: CommandBus,
-        private readonly queryBus: QueryBus,
-    ) {}
+        private readonly consequencePossibleGetHandler: ConsequencePossibleGetHandler,
+    ) {
+    }
 
     @Get()
     async index(@Request() req) {
-        return this.queryBus.execute(new ConsequencePossibleGetQuery());
+        return this.consequencePossibleGetHandler.execute(new ConsequencePossibleGetQuery());
     }
 
 }

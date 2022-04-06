@@ -3,16 +3,17 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {ScenarioHasNotThisAuteurException} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
 import {ScenarioNotFoundException} from "../../../../domain/exceptions/scenario/scenario-not-found.exception";
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";
-import {ScenarioGetByIdQuery} from "../../../queries/impl/scenario/scenario.get-by-id.query";
 import {ScenarioRepository} from "../../../../infrastructure/database/repositories/scenario.repository";
 import {ScenarioRepositoryInterface} from "../../../repositories/scenario.repository.interface";
 import {ScenarioDeleteCommand} from "../../impl/scenario/scenario.delete.command";
+import {ScenarioGetByIdHandler} from "../../../services/scenario/scenario.get-by-id.handler";
+import {ScenarioGetByIdQuery} from "../../../services/scenario/scenario.get-by-id.query";
 
 @CommandHandler(ScenarioDeleteCommand)
 export class ScenarioDeleteHandler implements IQueryHandler<ScenarioDeleteCommand> {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly scenarioGetByIdHandler: ScenarioGetByIdHandler,
         @InjectRepository(ScenarioRepository) private readonly repository: ScenarioRepositoryInterface
     ) {
         this.repository = repository;
@@ -26,7 +27,7 @@ export class ScenarioDeleteHandler implements IQueryHandler<ScenarioDeleteComman
      */
     async execute(query: ScenarioDeleteCommand): Promise<ScenarioInterface> {
 
-        const scenarioFound = await this.queryBus.execute(new ScenarioGetByIdQuery(query.scenarioId));
+        const scenarioFound = await this.scenarioGetByIdHandler.execute(new ScenarioGetByIdQuery(query.scenarioId));
 
         if (!scenarioFound) {
             throw new ScenarioNotFoundException();

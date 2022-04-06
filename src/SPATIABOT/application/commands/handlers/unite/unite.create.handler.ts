@@ -3,21 +3,21 @@ import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {UniteInterface} from "../../../../domain/interfaces/unite.interface";
 import {Monde} from "../../../../domain/entities/monde";
-import {MondeFindQuery} from "../../../queries/impl/monde/monde.find.query";
 import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
 import {UniteRepositoryInterface} from "../../../repositories/unite.repository.interface";
 import {UniteRepository} from "../../../../infrastructure/database/repositories/unite.repository";
+import {MondeFindHandler} from "../../../services/monde/monde.find.handler";
+import {MondeFindQuery} from "../../../services/monde/monde.find.query";
 
 
 @CommandHandler(UniteCreateCommand)
 export class UniteCreateHandler implements IQueryHandler<UniteCreateCommand> {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly mondeFindHandler: MondeFindHandler,
         @InjectRepository(UniteRepository) private readonly repository: UniteRepositoryInterface
     ) {
-        this.repository = repository;
     }
 
     /**
@@ -28,7 +28,7 @@ export class UniteCreateHandler implements IQueryHandler<UniteCreateCommand> {
      */
     async execute(query: UniteCreateCommand): Promise<UniteInterface> {
 
-        const mondeFound = await this.queryBus.execute(new MondeFindQuery({id: query.unite.mondeId}));
+        const mondeFound = await this.mondeFindHandler.execute(new MondeFindQuery({id: query.unite.mondeId}));
 
         this.verifyOrThrow(mondeFound, query);
 

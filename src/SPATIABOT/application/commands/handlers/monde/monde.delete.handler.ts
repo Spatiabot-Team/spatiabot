@@ -6,14 +6,19 @@ import {MondeRepositoryInterface} from "../../../repositories/monde.repository.i
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
-import {MondeGetByIdQuery} from "../../../queries/impl/monde/monde.get-by-id.query";
+import {MondeGetByIdHandler} from "../../../services/monde/monde.get-by-id.handler";
+import {MondeGetByIdQuery} from "../../../services/monde/monde.get-by-id.query";
+import {MondeIsAuteurQuery} from "../../../validations/monde/monde.is-auteur.query";
+import {MondeIsAuteurValidation} from "../../../validations/monde/monde.is-auteur.validation";
+
 
 
 @CommandHandler(MondeDeleteCommand)
 export class MondeDeleteHandler implements IQueryHandler<MondeDeleteCommand> {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly mondeGetByIdHandler: MondeGetByIdHandler,
+        private readonly mondeIsAuteurValidation: MondeIsAuteurValidation,
         @InjectRepository(MondeRepository) private readonly repository: MondeRepositoryInterface
     ) {
         this.repository = repository;
@@ -27,15 +32,9 @@ export class MondeDeleteHandler implements IQueryHandler<MondeDeleteCommand> {
      */
     async execute(query: MondeDeleteCommand): Promise<MondeInterface> {
 
-        const mondeFound = await this.queryBus.execute(new MondeGetByIdQuery(query.mondeId));
+        const mondeFound = await this.mondeGetByIdHandler.execute(new MondeGetByIdQuery(query.mondeId));
 
-        if (!mondeFound) {
-            throw new MondeNotFoundException();
-        }
-
-        if (!mondeFound.hasAuteur(query.auteurId)) {
-            throw new MondeHasNotThisAuteurException();
-        }
+        await this.mondeIsAuteurValidation.execute( new MondeIsAuteurQuery(mondeFound, query.auteurId))
 
         return this.repository.delete(query.mondeId);
     }

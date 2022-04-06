@@ -5,6 +5,7 @@ import {DiscordMessageAdapter} from "../../../DISCORD/infrastructure/adapter/dis
 import {WinstonLogger} from "../../../LOGGER/winston-logger";
 import {DiscordGuildService} from "./services/discord-guild.service";
 import {ActionNotFoundException} from "./exceptions/action-not-found.exception";
+import {ActionsDmService} from "./services/actions-dm.service";
 
 
 @Injectable()
@@ -15,9 +16,10 @@ export class RoutingBot {
     constructor(
         private readonly discordService: DiscordService,
         private readonly actionsService: ActionsService,
+        private readonly actionsDmService: ActionsDmService,
         private readonly discordMessageAdapter: DiscordMessageAdapter,
         private readonly logger: WinstonLogger,
-        private readonly discordGuildService : DiscordGuildService
+        private readonly discordGuildService: DiscordGuildService
     ) {
         this.defaultPrefix = process.env.BOT_PREFIX || "!";
         this.discordService.addEvent("messageCreate", (message) => this.handler(message));
@@ -28,21 +30,21 @@ export class RoutingBot {
         try {
 
             //Est-ce en dm ?
-            if (message.channel.type === "dm") {
-                return;
+            if (message.channel.type === 'DM') {
+                return await this.actionsDmService.execute(message);
             }
 
             const discordGuild = await this.discordGuildService.findOrCreateDiscordGuild(message.guild);
 
-            //@todo vérifier s'il y a une whitelist des channel pour ce serveur (en gro est-on autorisé à prendre en compte ce mesage)
+            //@todo vérifier s'il y a une whitelist des channels pour ce serveur (en gros est-on autorisé à prendre en compte ce mesage)
 
             if (message.content.startsWith(discordGuild.prefix)) {
                 const messageFromDiscord = this.discordMessageAdapter.adaptFromDiscord(message, discordGuild);
-                await this.actionsService.execute(messageFromDiscord.args[0], messageFromDiscord); // Peut être faire un adapt et passer un objet de domaine
+                await this.actionsService.execute(messageFromDiscord.args[0], messageFromDiscord);
             }
 
         } catch (e) {
-            if(e instanceof ActionNotFoundException){
+            if (e instanceof ActionNotFoundException) {
                 //@todo emit "cette action n'existe pas"
                 return;
             }

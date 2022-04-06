@@ -8,4 +8,5 @@ export class Reponse implements ReponseInterface {
     texte?: string;
     libelle?: string;
     consequencePossibles?: ConsequencePossibleInterface[];
+
 }

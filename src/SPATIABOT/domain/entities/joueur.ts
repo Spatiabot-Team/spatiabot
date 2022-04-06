@@ -4,7 +4,7 @@ import {EtapeInterface} from "../interfaces/etape.interface";
 import {PartieInterface} from "../interfaces/partie.interface";
 import {StatInterface} from "../interfaces/stat.interface";
 import {EffetInterface} from "../interfaces/effet.interface";
-import {ReponseInterface} from "../interfaces/reponse.interface";
+import {MondeInterface} from "../interfaces/monde.interface";
 
 export class Joueur implements JoueurInterface {
 
@@ -18,6 +18,10 @@ export class Joueur implements JoueurInterface {
     /** id des scenarios déjà effectués **/
     scenarioEffectues?: string[];
     stats?: StatInterface[];
+
+    constructor(joueur: JoueurInterface) {
+        Object.assign(this, joueur);
+    }
 
     /**
      * Retourne true si l'étape est en état "A_AFFICHER" et que l'on a dépassé la date minimum d'affichage de l'étape en cours

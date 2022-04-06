@@ -8,7 +8,7 @@ import {DiscordGuild} from "../../../domain/entities/discord-guild.entity";
 export class DiscordGuildRepository extends Repository<DiscordGuildEntity> implements DiscordGuildRepositoryInterface {
 
     findOneById(id: number): Promise<DiscordGuildInterface> {
-        return Promise.resolve(new DiscordGuild());
+        return this.findOne(id);
     }
 
     async findAll(): Promise<DiscordGuildInterface[]> {

@@ -28,7 +28,7 @@ import {AppGateway} from "../app.gateway";
                 return {
                     secret: config.get<string>('JWT_KEY_SECRET'),
                     signOptions: {
-                        expiresIn: config.get<string | number>('JWT_EXPIRES_IN') || '600s',
+                        expiresIn: config.get<string | number>('JWT_EXPIRES_IN') || '36000s',
                     },
                 };
             },

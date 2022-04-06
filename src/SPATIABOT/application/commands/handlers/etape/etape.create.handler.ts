@@ -2,19 +2,20 @@ import {EtapeCreateCommand} from "../../impl/etape/etape.create.command";
 import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {EtapeInterface} from "../../../../domain/interfaces/etape.interface";
-import {ScenarioGetByIdQuery} from "../../../queries/impl/scenario/scenario.get-by-id.query";
 import {Scenario} from "../../../../domain/entities/scenario";
 import {ScenarioNotFoundException} from "../../../../domain/exceptions/scenario/scenario-not-found.exception";
 import {ScenarioHasNotThisAuteurException} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
 import {EtapeRepositoryInterface} from "../../../repositories/etape.repository.interface";
 import {EtapeRepository} from "../../../../infrastructure/database/repositories/etape.repository";
+import {ScenarioGetByIdHandler} from "../../../services/scenario/scenario.get-by-id.handler";
+import {ScenarioGetByIdQuery} from "../../../services/scenario/scenario.get-by-id.query";
 
 
 @CommandHandler(EtapeCreateCommand)
 export class EtapeCreateHandler implements IQueryHandler<EtapeCreateCommand> {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly scenarioGetByIdHandler: ScenarioGetByIdHandler,
         @InjectRepository(EtapeRepository) private readonly repository: EtapeRepositoryInterface
     ) {
         this.repository = repository;
@@ -27,7 +28,7 @@ export class EtapeCreateHandler implements IQueryHandler<EtapeCreateCommand> {
      */
     async execute(query: EtapeCreateCommand): Promise<EtapeInterface> {
 
-        const scenarioFound = await this.queryBus.execute(new ScenarioGetByIdQuery(query.etape.scenarioId));
+        const scenarioFound = await this.scenarioGetByIdHandler.execute(new ScenarioGetByIdQuery(query.etape.scenarioId));
 
         this.verifyOrThrow(scenarioFound, query);
 

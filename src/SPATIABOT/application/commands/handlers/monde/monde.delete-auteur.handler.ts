@@ -5,15 +5,16 @@ import {MondeRepositoryInterface} from "../../../repositories/monde.repository.i
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
-import {MondeGetByIdQuery} from "../../../queries/impl/monde/monde.get-by-id.query";
 import {MondeDeleteAuteurCommand} from "../../impl/monde/monde.delete-auteur.command";
+import {MondeGetByIdHandler} from "../../../services/monde/monde.get-by-id.handler";
+import {MondeGetByIdQuery} from "../../../services/monde/monde.get-by-id.query";
 
 
 @CommandHandler(MondeDeleteAuteurCommand)
 export class MondeDeleteAuteurHandler implements IQueryHandler<MondeDeleteAuteurCommand> {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly mondeGetByIdHandler: MondeGetByIdHandler,
         @InjectRepository(MondeRepository) private readonly repository: MondeRepositoryInterface
     ) {
         this.repository = repository;
@@ -27,7 +28,7 @@ export class MondeDeleteAuteurHandler implements IQueryHandler<MondeDeleteAuteur
      */
     async execute(query: MondeDeleteAuteurCommand): Promise<MondeInterface> {
 
-        const mondeFound = await this.queryBus.execute(new MondeGetByIdQuery(query.mondeId));
+        const mondeFound = await this.mondeGetByIdHandler.execute(new MondeGetByIdQuery(query.mondeId));
 
         if (!mondeFound) {
             throw new MondeNotFoundException();

@@ -5,14 +5,15 @@ import {CacheKeys} from "../../cache/cache-keys";
 import {PartieNotFoundException} from "../../../domain/exceptions/partie-not-found.exception";
 import {QueryBus} from "@nestjs/cqrs";
 import {Cache} from 'cache-manager';
-import {PartieGetByDiscordGuildQuery} from "../../../application/queries/impl/partie/partie.get-by-discord-guild.query";
+import {PartieGetByDiscordGuildQuery} from "../../../application/services/partie/partie.get-by-discord-guild.query";
+import {PartieGetByDiscordGuildHandler} from "../../../application/services/partie/partie.get-by-discord-guild.handler";
 
 @Injectable()
 export class PartieService {
 
     constructor(
         @Inject(CACHE_MANAGER) private cacheManager: Cache,
-        private readonly queryBus: QueryBus
+        private readonly partieGetByDiscordGuildHandler: PartieGetByDiscordGuildHandler
     ) {
     }
 
@@ -46,7 +47,7 @@ export class PartieService {
      */
     private async findPartiesInDb(discordGuild: DiscordGuild): Promise<Partie> {
 
-        let partie = await this.queryBus.execute(new PartieGetByDiscordGuildQuery(discordGuild.id));
+        let partie = await this.partieGetByDiscordGuildHandler.execute(new PartieGetByDiscordGuildQuery(discordGuild.id));
 
         if (!partie) {
             throw new PartieNotFoundException()
