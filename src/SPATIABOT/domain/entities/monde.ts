@@ -10,6 +10,7 @@ export class Monde implements MondeInterface {
     id?: string;
     code?: string;
     nom?: string;
+    slug?: string;
     description?: string;
     /** Ids User of the authors **/
     auteurIds?: string[];

@@ -19,7 +19,7 @@ export class ScenarioEntity implements ScenarioInterface {
     @Column({nullable: true, default: false})
     actif?: boolean;
 
-    @Column('simple-array')
+    @Column({type: 'text', array: true, default: []})
     auteurIds?: string[] = [];
 
     @ManyToOne(type => MondeEntity, monde => monde.scenarios, {

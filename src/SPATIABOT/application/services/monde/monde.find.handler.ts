@@ -17,6 +17,7 @@ export class MondeFindHandler {
         const mondeFound = await this.repository.findOne({
             where: {...query.monde}
         });
+
         if (!mondeFound) {
             return null;
         }

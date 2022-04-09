@@ -1,5 +1,3 @@
-import {ConsequencePossibleInterface} from "./consequence-possible.interface";
-
 /**
  * Définit l'unité d'un effet
  * cela peut être par exemple :
