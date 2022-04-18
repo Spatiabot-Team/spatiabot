@@ -20,10 +20,12 @@ import {PartieFindHandler} from "./partie/partie.find.handler";
 import {EtapeNextDateHandler} from "./etape/etape.next-date.handler";
 import {JoueurEtapeFindAllAAfficherHandler} from "./joueur/joueur.etape.find-all-a-afficher.handler";
 import {JoueurUserFindBySocialDiscordIdHandler} from "./joueur/joueur.user.find-by-social-discord-id.handler";
+import {AuteurFindByIdsHandler} from "./auteur/auteur.find-by-ids.handler";
 
 export const QueryHandlers = [
     // Auteur
     AuteurFindHandler,
+    AuteurFindByIdsHandler,
 
     // Consequence-possible
     ConsequencePossibleGetByIdHandler,

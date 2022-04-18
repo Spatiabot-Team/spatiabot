@@ -1,18 +1,14 @@
 import {Controller, Get, Req, UseGuards} from '@nestjs/common';
-import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
+import {ApiTags} from "@nestjs/swagger";
 import {AuthGuard} from "@nestjs/passport";
 import {SocialDiscordService} from "../../../../application/services/social-discord.service";
 import {UserService} from "../../../../application/services/user.service";
 import {InjectRepository} from "@nestjs/typeorm";
 import {SocialDiscordRepository} from "../../../database/repositories/social-discord.repository";
-import {
-    SocialDiscordRepositoryInterface
-} from "../../../../application/repositories/social-discord.repository.interface";
 import {UserRepository} from "../../../database/repositories/user.repository";
 import {UserRepositoryInterface} from "../../../../application/repositories/user.repository.interface";
 
 @ApiTags('Users')
-@ApiBearerAuth()
 @Controller()
 export class SocialDiscordLoginController {
 

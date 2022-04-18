@@ -3,6 +3,7 @@ import {MondeRepositoryInterface} from "../../repositories/monde.repository.inte
 import {MondeRepository} from "../../../infrastructure/database/repositories/monde.repository";
 import {Monde} from "../../../domain/entities/monde";
 import {MondeFindQuery} from "./monde.find.query";
+import {MondeNotFoundException} from "../../../domain/exceptions/monde/monde-not-found.exception";
 
 export class MondeFindHandler {
 
@@ -17,6 +18,7 @@ export class MondeFindHandler {
         const mondeFound = await this.repository.findOne({
             where: {...query.monde}
         });
+
         if (!mondeFound) {
             return null;
         }

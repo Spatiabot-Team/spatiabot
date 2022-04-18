@@ -25,7 +25,7 @@ export class MondeEntity implements MondeInterface {
     @Column()
     description: string;
 
-    @Column('simple-array')
+    @Column({type: 'text', array: true, default: []})
     auteurIds?: string[] = [];
 
     @OneToMany(type => ScenarioEntity, scenario => scenario.monde, {

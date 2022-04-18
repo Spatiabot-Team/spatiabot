@@ -1,4 +1,4 @@
-import {EntityRepository, Like, Repository} from "typeorm";
+import {EntityRepository, In, Like, Raw, Repository} from "typeorm";
 import {MondeRepositoryInterface} from "../../../application/repositories/monde.repository.interface";
 import {MondeEntity} from "../entities/monde.entity";
 import {MondeInterface} from "../../../domain/interfaces/monde.interface";
@@ -9,9 +9,9 @@ export class MondeRepository extends Repository<MondeEntity> implements MondeRep
     async findAllByAuteurId(id: string): Promise<MondeInterface[]> {
 
         return this.find({
-            select: ['id', 'nom', 'code', 'auteurIds'],
+            select: ['id', 'nom', 'slug', 'code', 'auteurIds'],
             where: {
-                auteurIds: Like(`%${id}%`)
+                auteurIds: Raw(aliasColumn => `:id = any(${aliasColumn})`, {id})
             }
         });
     }

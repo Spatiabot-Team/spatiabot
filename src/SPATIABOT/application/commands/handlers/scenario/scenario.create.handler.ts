@@ -32,13 +32,12 @@ export class ScenarioCreateHandler implements IQueryHandler<ScenarioCreateComman
         const mondeFound = await this.mondeFindHandler.execute(new MondeFindQuery({id: query.scenario.mondeId}));
 
         this.verifyOrThrow(mondeFound, query);
-
         return this.repository.save({
             ...query.scenario,
-            slug : slugify(query.scenario.titre,{lower:true}),
-            auteurIds : [query.auteurId],
-            monde: {id: query.scenario.mondeId}}
-        );
+            slug: slugify(query.scenario.titre, {lower: true}),
+            auteurIds: [query.auteurId],
+            monde: {id: query.scenario.mondeId}
+        });
     }
 
     verifyOrThrow(mondeFound: Monde | null, query: ScenarioCreateCommand) {

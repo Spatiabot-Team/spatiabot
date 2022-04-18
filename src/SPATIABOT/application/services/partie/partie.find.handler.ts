@@ -11,10 +11,10 @@ export class PartieFindHandler {
     }
 
     async execute(query: PartieFindQuery) {
-
             return await this.repository.find({
                 mondeId : query.mondeId,
                 discordGuildUuid : query.discordGuildUuid,
+                actif : true
             });
 
     }

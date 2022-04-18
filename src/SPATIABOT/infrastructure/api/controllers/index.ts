@@ -42,6 +42,9 @@ import {PartiePostController} from "./partie/partie.post.controller";
 import {MondeStatsPostController} from "./monde/monde.stats.post.controller";
 import {MondeStatsDeleteController} from "./monde/monde.stats.delete.controller";
 import {MondeStatsPutController} from "./monde/monde.stats.put.controller";
+import {SystemeInitDbController} from "./systeme/systeme.init-db.controller";
+import {AuteurFindByIdsController} from "./auteur/auteur.find-by-ids.controller";
+import {ScenarioPostWithDependanciesController} from "./scenario/scenario.post-with-dependancies.controller";
 
 export const Controllers = [
 
@@ -64,6 +67,7 @@ export const Controllers = [
 
     // Auteur
     AuteurFindController,
+    AuteurFindByIdsController,
 
     // Unite
     UnitePostController,
@@ -78,6 +82,7 @@ export const Controllers = [
     ScenarioDeleteController,
     ScenarioPutController,
     ScenarioAddAuteurController,
+    ScenarioPostWithDependanciesController,
 
     // Etape
     EtapePostController,
@@ -106,4 +111,7 @@ export const Controllers = [
     ConsequencePossiblePutController,
     ConsequencePossibleGetController,
     ConsequencePossibleGetByIdController,
+
+    // Système
+    SystemeInitDbController
 ];

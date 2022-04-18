@@ -43,7 +43,10 @@ export class JoueurEntity implements JoueurInterface {
     @Column({type: 'timestamptz',nullable : true})
     etapeDateAffichage?: Date;
 
-    @ManyToOne(type => PartieEntity, partie => partie.joueurs)
+    @ManyToOne(type => PartieEntity, partie => partie.joueurs,{
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+    })
     partie?: PartieEntity;
 
     @Index()

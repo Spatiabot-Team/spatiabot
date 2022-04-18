@@ -27,17 +27,17 @@ export class EnvoyerSuiteScenarioCron {
     ) {
     }
 
-    // @Cron('*/3 * * * * *')
     @Cron(CronExpression.EVERY_30_SECONDS)
     async handleCron() {
-        if(this.discordService.ready){
+
+        if (process.env.CRON_ACTIF === 'true' && this.discordService.ready) {
 
             // Récupérer tous les joueurs qui ont une étape à afficher avec l'étape en question
             const joueurs = await this.joueurEtapeFindAllAAfficherHandler.execute();
 
             // Envoyer l'étape aux joueurs ! (ça en jette !)
-            await Promise.all(joueurs.map(joueur =>
-                this.commandBus.execute(new ChannelWriteToUserCommand(
+            await Promise.all(joueurs.map(joueur => this.commandBus.execute(
+                    new ChannelWriteToUserCommand(
                         joueur.user.socialDiscord.discordId,
                         this.messageEmbedEtapeService.execute(joueur.etapeEnCours)
                     )
@@ -45,13 +45,11 @@ export class EnvoyerSuiteScenarioCron {
             );
 
             // Mettre à jour l'état de l'étape en cours
-            if(joueurs.length > 0){
+            if (joueurs.length > 0) {
                 await this.commandBus.execute(new JoueurEtapeChangerEtatMultiCommand(
-                    joueurs.map(j => j.id),EtapeEtatEnum.ATTENTE_REPONSE
+                    joueurs.map(j => j.id), EtapeEtatEnum.ATTENTE_REPONSE
                 ));
             }
-
         }
-
     }
 }

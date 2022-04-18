@@ -12,9 +12,10 @@ export class JoueurRepository extends Repository<JoueurEntity> implements Joueur
      */
     findAllAAfficher(): Promise<JoueurInterface[]> {
         return this.createQueryBuilder('joueur')
-        .innerJoinAndSelect('joueur.etapeEnCours', 'etape')
+        .innerJoinAndSelect('joueur.etapeEnCours', 'etapeEnCours')
         .innerJoinAndSelect('joueur.user', 'user')
         .innerJoinAndSelect('user.socialDiscord', 'socialDiscord')
+        .leftJoinAndSelect('etapeEnCours.reponses', 'reponses')
         .where('joueur.etapeEnCoursEtat = :etapeEnCoursEtat', {etapeEnCoursEtat: EtapeEtatEnum.A_AFFICHER})
         .andWhere('joueur.etapeDateAffichage < :etapeDateAffichage', {etapeDateAffichage: new Date(Date.now())})
         .getMany();

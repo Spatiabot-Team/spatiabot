@@ -35,7 +35,7 @@ export class UserEntity implements UserInterface {
     socialDiscord?: SocialDiscordEntity;
 
     @OneToOne(type => SocialGeneratedEntity, {
-        eager: true,
+        eager: false,
         nullable: true
     })
     @JoinColumn()

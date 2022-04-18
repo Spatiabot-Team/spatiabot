@@ -23,7 +23,11 @@ export class ConsequencePossibleEntity implements ConsequencePossibleInterface {
     @Column()
     reponseId: string;
 
-    @ManyToOne(type => EtapeEntity,{ nullable: true })
+    @ManyToOne(type => EtapeEntity,{
+        nullable: true,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    })
     @JoinColumn({name: "etapeSuivanteId"})
     etapeSuivante?: EtapeEntity;
 
