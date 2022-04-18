@@ -1,7 +1,4 @@
 import {Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import {EtapeInterface} from "../../../domain/interfaces/etape.interface";
-import {MondeEntity} from "./monde.entity";
-import {ScenarioEntity} from "./scenario.entity";
 import {ReponseInterface} from "../../../domain/interfaces/reponse.interface";
 import {EtapeEntity} from "./etape.entity";
 import {ConsequencePossibleEntity} from "./consequence-possible.entity";

@@ -876,7 +876,7 @@ export const scenarios : ScenarioInterface[] = [
           {
             "id": "c2de5358-85f6-41e0-b598-1a90dd6e85be",
             "titre": "Explorer",
-            "texte": " on arrive devant la fontaine. le paysage est magnifique, luxuriant. Etrangement, il y a un endroit ou la nature a l’air de ne pas vouloir approcher. Les racine des arbres ont des tracés qui laissent à penser qu’elles contournent. Analyser la facade ?\n",
+            "texte": " on arrive devant la fontaine. le paysage est magnifique, luxuriant. Etrangement, il y a un endroit ou la nature a l’air de ne pas vouloir approcher. Les racines des arbres ont des tracés qui laissent à penser qu’elles contournent. Analyser la facade ?\n",
             "libelle": "explorer",
             "consequencePossibles": []
           }

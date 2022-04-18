@@ -1,9 +1,6 @@
-import {Body, Controller, Get, Post, Request, UseGuards} from '@nestjs/common';
+import {Body, Controller, Post, Request, UseGuards} from '@nestjs/common';
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
-import {UserService} from "../../../../application/services/user.service";
-import {JwtAuthGuard} from "../../security/jwt-auth.guard";
 import {InjectRepository} from "@nestjs/typeorm";
-import {UserRepository} from "../../../database/repositories/user.repository";
 import {AuthGuard} from "@nestjs/passport";
 import {JwtService} from "@nestjs/jwt";
 import {
@@ -36,7 +33,7 @@ export class SocialDiscordConnectController {
             ...req.user.socialDiscord,
             user: {id: user.id}
         });
-        return {success : true};
+        return {success: true};
     }
 
 

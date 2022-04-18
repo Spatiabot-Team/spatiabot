@@ -9,6 +9,8 @@ import {PartiePost} from "../../dtos/partie/partie.post";
 import {PartieInterface} from "../../../../domain/interfaces/partie.interface";
 import {PartieCreateCommand} from "../../../../application/commands/impl/partie/partie.create.command";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
+import {PartieAlreadyExistsException} from "../../../../domain/exceptions/partie/partie.already-exists.exception";
+import {PartieAlreadyExistsError} from "../../errors/partie/partie.already-exists.error";
 
 @ApiBearerAuth()
 @ApiTags('Partie')
@@ -34,6 +36,9 @@ export class PartiePostController {
     }
 
     parseError(e): AppError {
+        if(e instanceof PartieAlreadyExistsException){
+            return new PartieAlreadyExistsError();
+        }
         this.logger.error(e);
         return new AppError();
     }

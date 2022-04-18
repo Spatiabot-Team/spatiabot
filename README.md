@@ -32,3 +32,6 @@ npm run dev
 ```
 
 `npm i` n'est utile que la première fois ou pour mettre à jour les dépendances
+
+## Configurations
+Pour que les CRONS soient actifs : .env => CRON_ACTIF=true

@@ -41,7 +41,6 @@ export class UserProfileController {
             }
             return {user: req.user};
         } catch (e) {
-            console.log('je catch !');
             return this.parseError(e);
         }
 

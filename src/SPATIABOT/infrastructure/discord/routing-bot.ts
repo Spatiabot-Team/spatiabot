@@ -36,7 +36,8 @@ export class RoutingBot {
 
             const discordGuild = await this.discordGuildService.findOrCreateDiscordGuild(message.guild);
 
-            //@todo vérifier s'il y a une whitelist des channels pour ce serveur (en gros est-on autorisé à prendre en compte ce mesage)
+            //@todo vérifier s'il y a une whitelist des channels pour ce serveur
+            // (en gros est-on autorisé à prendre en compte ce message)
 
             if (message.content.startsWith(discordGuild.prefix)) {
                 const messageFromDiscord = this.discordMessageAdapter.adaptFromDiscord(message, discordGuild);

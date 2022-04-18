@@ -14,7 +14,7 @@ export class MessageEmbedEtapeService {
 
         const msgs = [];
 
-        // Comme discord est limité à 2048 on va envoyé en plusiuers morceaux si ça en fait plus
+        // Comme discord est limité à 2048 on va envoyer en plusiuers morceaux si ça en fait plus
         // Les \r\n (saut paragraphe) prennent 2 bytes chacun donc on va prendre une marge et mettre 2000
         const arr = etape.texte.match(/(.|[\r\n]){1,2000}/g); // Build the array
 
@@ -28,13 +28,15 @@ export class MessageEmbedEtapeService {
             msgs.push(msg);
         }
 
+        console.log('etape à afficher',etape)
+
         // Réponses
         if (!etape.finScenario && etape.reponses) {
-            etape.reponses.forEach(r => msgs[msgs.length - 1].addField(`__${process.env.BOT_PREFIX}reponse ${r.libelle}__ : ${r.titre}`, r.texte));
+            etape.reponses.forEach(r => msgs[msgs.length - 1].addField(`__${process.env.DISCORD_PREFIX}reponse ${r.libelle}__ : ${r.titre}`, r.texte));
         }
 
         if(etape.finScenario){
-            etape.reponses.forEach(r => msgs[msgs.length - 1].addField(`__${process.env.BOT_PREFIX}reponse terminer__`, 'Terminé.'));
+            etape.reponses.forEach(r => msgs[msgs.length - 1].addField(`__${process.env.DISCORD_PREFIX}reponse terminer__`, 'Terminé.'));
         }
 
         return msgs;
