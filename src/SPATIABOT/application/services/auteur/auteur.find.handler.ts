@@ -1,4 +1,3 @@
-import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Like} from "typeorm";
 import {UserRepository} from "../../../../USER/infrastructure/database/repositories/user.repository";

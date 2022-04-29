@@ -12,7 +12,6 @@ import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
 import {MondeNotFoundError} from "../../errors/monde/monde-not-found.error";
 import {MondeHasNotThisAuteurError} from "../../errors/monde/monde-has-not-this-auteur.error";
-import {ScenarioPostWithDependancies} from "../../dtos/scenario/scenario.post-with-dependancies";
 
 @ApiBearerAuth()
 @ApiTags('Scenario')

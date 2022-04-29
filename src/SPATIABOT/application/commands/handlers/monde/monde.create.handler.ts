@@ -1,4 +1,4 @@
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {MondeCreateCommand} from "../../impl/monde/monde.create.command";
 import {MondeRepositoryInterface} from "../../../repositories/monde.repository.interface";

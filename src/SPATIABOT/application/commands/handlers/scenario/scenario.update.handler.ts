@@ -1,4 +1,4 @@
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ScenarioRepositoryInterface} from "src/SPATIABOT/application/repositories/scenario.repository.interface";
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";

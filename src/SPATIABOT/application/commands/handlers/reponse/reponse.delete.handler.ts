@@ -1,4 +1,4 @@
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ReponseNotFoundException} from "../../../../domain/exceptions/reponse/reponse.not-found.exception";
 import {ReponseInterface} from "../../../../domain/interfaces/reponse.interface";

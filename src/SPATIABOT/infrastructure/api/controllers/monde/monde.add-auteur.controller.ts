@@ -13,7 +13,9 @@ import {MondeNotFoundError} from "../../errors/monde/monde-not-found.error";
 import {MondeHasNotThisAuteurError} from "../../errors/monde/monde-has-not-this-auteur.error";
 import {MondeAlreadyExistsError} from "../../errors/monde/monde-already-exists.error";
 import {MondeAddAuteurCommand} from "../../../../application/commands/impl/monde/monde.add-auteur.command";
-import {MondeHasAlreadyThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-already-this-auteur.exception";
+import {
+    MondeHasAlreadyThisAuteurException
+} from "../../../../domain/exceptions/monde/monde-has-already-this-auteur.exception";
 import {MondeHasAlreadyThisAuteurError} from "../../errors/monde/monde-has-already-this-auteur.error";
 import {UserNotFoundException} from "../../../../domain/exceptions/auteur/user-not-found.exception";
 import {MondeAddAuteur} from "../../dtos/monde/monde.add-auteur";

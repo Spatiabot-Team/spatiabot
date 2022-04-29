@@ -1,6 +1,6 @@
 import {ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Request} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
+import {CommandBus} from "@nestjs/cqrs";
 import {EtapeGetHandler} from "../../../../application/services/etape/etape.get.handler";
 import {EtapeGetQuery} from "../../../../application/services/etape/etape.get.query";
 

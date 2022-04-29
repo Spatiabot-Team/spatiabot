@@ -1,8 +1,7 @@
-import {Column, Entity, Index, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, Index, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {MondeInterface} from "../../../domain/interfaces/monde.interface";
 import {ScenarioEntity} from "./scenario.entity";
 import {UniteEntity} from "./unite.entity";
-import {EtapeEntity} from "./etape.entity";
 import {PartieEntity} from "./partie.entity";
 import {StatEntity} from "./stat.entity";
 

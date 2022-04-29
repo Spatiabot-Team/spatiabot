@@ -1,6 +1,6 @@
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";
 import {ApiProperty} from "@nestjs/swagger";
-import {IsUUID, IsNotEmpty, MinLength, MaxLength} from "class-validator";
+import {IsNotEmpty, IsUUID, MaxLength, MinLength} from "class-validator";
 
 export class ScenarioPost implements ScenarioInterface {
 

@@ -1,5 +1,5 @@
 import {PartieCreateCommand} from "../../impl/partie/partie.create.command";
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {PartieRepository} from "../../../../infrastructure/database/repositories/partie.repository";
 import {PartieRepositoryInterface} from "../../../repositories/partie.repository.interface";

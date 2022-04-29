@@ -1,12 +1,10 @@
-import {IQueryHandler, QueryHandler} from "@nestjs/cqrs";
-import {###Entity###GetByIdQuery} from "../../impl/###entity-tiret###/###entity-tiret###.get-by-id.query";
-import {###Entity###Repository} from "../../../../infrastructure/database/repositories/###entity-tiret###.repository";
+import {###Entity###GetByIdQuery} from "./###entity-tiret###/###entity-tiret###.get-by-id.query";
+import {###Entity###Repository} from "../../../infrastructure/database/repositories/###entity-tiret###.repository";
 import {InjectRepository} from "@nestjs/typeorm";
-import {###Entity###} from "../../../../domain/entities/###entity-tiret###";
-import {###Entity###RepositoryInterface} from "../../../repositories/###entity-tiret###.repository.interface";
+import {###Entity###} from "../../../domain/entities/###entity-tiret###";
+import {###Entity###RepositoryInterface} from "../../repositories/###entity-tiret###.repository.interface";
 
-@QueryHandler(###Entity###GetByIdQuery)
-export class ###Entity###GetByIdHandler implements IQueryHandler<###Entity###GetByIdQuery> {
+export class ###Entity###GetByIdHandler {
 
     constructor(@InjectRepository(###Entity###Repository) private readonly repository: ###Entity###RepositoryInterface) {
         this.repository = repository;

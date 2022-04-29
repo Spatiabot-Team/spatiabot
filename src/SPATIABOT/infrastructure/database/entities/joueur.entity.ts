@@ -1,13 +1,4 @@
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    Index,
-    JoinColumn,
-    ManyToOne,
-    OneToMany,
-    PrimaryGeneratedColumn
-} from "typeorm";
+import {Column, Entity, Index, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {EtapeEntity} from "./etape.entity";
 import {EtapeEtatEnum} from "../../../domain/enums/etape-etat.enum";
 import {PartieEntity} from "./partie.entity";

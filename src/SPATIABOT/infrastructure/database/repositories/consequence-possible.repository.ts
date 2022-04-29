@@ -1,5 +1,7 @@
 import {EntityRepository, Repository} from "typeorm";
-import {ConsequencePossibleRepositoryInterface} from "../../../application/repositories/consequence-possible.repository.interface";
+import {
+    ConsequencePossibleRepositoryInterface
+} from "../../../application/repositories/consequence-possible.repository.interface";
 import {ConsequencePossibleInterface} from "../../../domain/interfaces/consequence-possible.interface";
 import {ConsequencePossibleEntity} from "../entities/consequence-possible.entity";
 

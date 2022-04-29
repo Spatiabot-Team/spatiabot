@@ -1,6 +1,4 @@
 import {StatInterface} from "../../../../domain/interfaces/stat.interface";
-import {ApiProperty} from "@nestjs/swagger";
-import {IsUUID, IsNotEmpty, MinLength, MaxLength} from "class-validator";
 
 export class StatPost implements StatInterface {
 

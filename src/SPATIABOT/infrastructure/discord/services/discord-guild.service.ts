@@ -4,7 +4,9 @@ import {CacheKeys} from "../../cache/cache-keys";
 import {CommandBus, QueryBus} from "@nestjs/cqrs";
 import {Cache} from 'cache-manager';
 import {GetDiscordGuildQuery} from "../../../../DISCORD/application/queries/impl/get-discord-guild.query";
-import {CreateDiscordGuildFromDiscordCommand} from "../../../../DISCORD/application/commands/impl/create-discord-guild-from-discord.command";
+import {
+    CreateDiscordGuildFromDiscordCommand
+} from "../../../../DISCORD/application/commands/impl/create-discord-guild-from-discord.command";
 
 /**
  * @todo à refactorer, ça devrait être dans le module Discord dans la partie application et non infra

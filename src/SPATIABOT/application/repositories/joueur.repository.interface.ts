@@ -12,4 +12,6 @@ export interface JoueurRepositoryInterface {
     changerEtatEtape(joueurIds: string[], etat: EtapeEtatEnum): Promise<UpdateResult>;
 
     findAllBySocialDiscordId(discordId: string): Promise<JoueurInterface[]>;
+
+    delete(joueurId : string);
 }

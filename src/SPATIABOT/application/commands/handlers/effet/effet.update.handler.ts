@@ -1,4 +1,4 @@
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {EffetRepositoryInterface} from "src/SPATIABOT/application/repositories/effet.repository.interface";
 import {EffetInterface} from "../../../../domain/interfaces/effet.interface";

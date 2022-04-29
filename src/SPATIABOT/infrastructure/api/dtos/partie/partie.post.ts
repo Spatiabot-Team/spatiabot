@@ -1,6 +1,6 @@
 import {PartieInterface} from "../../../../domain/interfaces/partie.interface";
 import {ApiProperty} from "@nestjs/swagger";
-import {IsUUID, IsNotEmpty, MinLength, MaxLength, IsOptional} from "class-validator";
+import {IsNotEmpty, IsOptional, IsUUID} from "class-validator";
 
 export class PartiePost implements PartieInterface {
 

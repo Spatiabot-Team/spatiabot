@@ -1,6 +1,5 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Param, Request, UseGuards} from "@nestjs/common";
-import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {ConsequencePossibleInterface} from "../../../../domain/interfaces/consequence-possible.interface";
 import {ParamId} from "../../dtos/generic/param.id";

@@ -1,4 +1,4 @@
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {MondeRepository} from "../../../../infrastructure/database/repositories/monde.repository";
 import {MondeRepositoryInterface} from "../../../repositories/monde.repository.interface";
@@ -9,7 +9,9 @@ import {UserRepository} from "../../../../../USER/infrastructure/database/reposi
 import {UserRepositoryInterface} from "../../../../../USER/application/repositories/user.repository.interface";
 import {Monde} from "../../../../domain/entities/monde";
 import {MondeAddAuteurCommand} from "../../impl/monde/monde.add-auteur.command";
-import {MondeHasAlreadyThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-already-this-auteur.exception";
+import {
+    MondeHasAlreadyThisAuteurException
+} from "../../../../domain/exceptions/monde/monde-has-already-this-auteur.exception";
 import {UserNotFoundException} from "../../../../domain/exceptions/auteur/user-not-found.exception";
 import {MondeGetByIdHandler} from "../../../services/monde/monde.get-by-id.handler";
 import {MondeGetByIdQuery} from "../../../services/monde/monde.get-by-id.query";

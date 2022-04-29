@@ -1,5 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {IsOptional, IsBoolean, IsString, IsNotEmpty} from "class-validator";
+import {IsBoolean, IsNotEmpty, IsOptional, IsString} from "class-validator";
 
 export class ScenarioPut {
 

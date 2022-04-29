@@ -1,5 +1,5 @@
 import {ScenarioCreateCommand} from "../../impl/scenario/scenario.create.command";
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ScenarioRepository} from "../../../../infrastructure/database/repositories/scenario.repository";
 import {ScenarioRepositoryInterface} from "../../../repositories/scenario.repository.interface";

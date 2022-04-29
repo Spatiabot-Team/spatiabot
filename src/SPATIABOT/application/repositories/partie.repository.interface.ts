@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import {Repository} from "typeorm";
 import {Partie} from "../../domain/entities/partie";
 import {PartieInterface} from "../../domain/interfaces/partie.interface";
 

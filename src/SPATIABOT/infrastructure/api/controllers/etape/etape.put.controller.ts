@@ -10,7 +10,9 @@ import {EtapeNotFoundError} from "../../errors/etape/etape-not-found.error";
 import {ScenarioHasNotThisAuteurError} from "../../errors/scenario/scenario-has-not-this-auteur.error";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {EtapeNotFoundException} from "../../../../domain/exceptions/etape/etape-not-found.exception";
-import {ScenarioHasNotThisAuteurException} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
+import {
+    ScenarioHasNotThisAuteurException
+} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
 import {EtapeUpdateCommand} from "../../../../application/commands/impl/etape/etape.update.command";
 import {EtapePut} from "../../dtos/etape/etape.put";
 

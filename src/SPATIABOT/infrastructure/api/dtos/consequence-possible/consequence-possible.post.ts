@@ -1,6 +1,6 @@
 import {ConsequencePossibleInterface} from "../../../../domain/interfaces/consequence-possible.interface";
 import {ApiProperty} from "@nestjs/swagger";
-import {IsNotEmpty, IsNumber, IsOptional, IsUUID} from "class-validator";
+import {IsNotEmpty, IsNumber, IsUUID} from "class-validator";
 
 export class ConsequencePossiblePost implements ConsequencePossibleInterface {
 

@@ -1,5 +1,5 @@
 import {UniteCreateCommand} from "../../impl/unite/unite.create.command";
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {UniteInterface} from "../../../../domain/interfaces/unite.interface";
 import {Monde} from "../../../../domain/entities/monde";

@@ -1,10 +1,16 @@
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
-import {ConsequencePossibleRepositoryInterface} from "src/SPATIABOT/application/repositories/consequence-possible.repository.interface";
+import {
+    ConsequencePossibleRepositoryInterface
+} from "src/SPATIABOT/application/repositories/consequence-possible.repository.interface";
 import {ConsequencePossibleInterface} from "../../../../domain/interfaces/consequence-possible.interface";
 import {ConsequencePossible} from "../../../../domain/entities/consequence-possible";
-import {ConsequencePossibleRepository} from "../../../../infrastructure/database/repositories/consequence-possible.repository";
-import {ConsequencePossibleNotFoundException} from "../../../../domain/exceptions/consequence-possible/consequence-possible.not-found.exception";
+import {
+    ConsequencePossibleRepository
+} from "../../../../infrastructure/database/repositories/consequence-possible.repository";
+import {
+    ConsequencePossibleNotFoundException
+} from "../../../../domain/exceptions/consequence-possible/consequence-possible.not-found.exception";
 import {ConsequencePossibleUpdateCommand} from "../../impl/consequence-possible/consequence-possible.update.command";
 import {
     ConsequencePossibleGetByIdHandler
