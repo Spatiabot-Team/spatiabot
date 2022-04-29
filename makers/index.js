@@ -95,12 +95,12 @@ const dicoGenerate = {
         {
             folderOrigin: `${ __dirname }/templates/g/`,
             fileOrigin: `entity.get.handler.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/queries/handlers/`,
+            folderDestination: `${ __dirname }/../src/###MODULE###/application/services/`,
         },
         {
             folderOrigin: `${ __dirname }/templates/g/`,
             fileOrigin: `entity.get.query.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/queries/impl/`,
+            folderDestination: `${ __dirname }/../src/###MODULE###/application/services/`,
         },
     ],
     'gbi': [
@@ -112,12 +112,12 @@ const dicoGenerate = {
         {
             folderOrigin: `${ __dirname }/templates/gbi/`,
             fileOrigin: `entity.get-by-id.handler.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/queries/handlers/`,
+            folderDestination: `${ __dirname }/../src/###MODULE###/application/services/`,
         },
         {
             folderOrigin: `${ __dirname }/templates/gbi/`,
             fileOrigin: `entity.get-by-id.query.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/queries/impl/`,
+            folderDestination: `${ __dirname }/../src/###MODULE###/application/services/`,
         }
     ]
 }

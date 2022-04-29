@@ -8,7 +8,9 @@ import {AppError} from "../../errors/app.error";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";
 import {ScenarioNotFoundException} from "../../../../domain/exceptions/scenario/scenario-not-found.exception";
-import {ScenarioHasNotThisAuteurException} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
+import {
+    ScenarioHasNotThisAuteurException
+} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
 import {ScenarioNotFoundError} from "../../errors/scenario/scenario-not-found.error";
 import {ScenarioHasNotThisAuteurError} from "../../errors/scenario/scenario-has-not-this-auteur.error";
 import {ScenarioDeleteCommand} from "../../../../application/commands/impl/scenario/scenario.delete.command";

@@ -7,7 +7,9 @@ import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
 import {AppError} from "../../errors/app.error";
 import {ConsequencePossiblePost} from "../../dtos/consequence-possible/consequence-possible.post";
 import {ConsequencePossibleInterface} from "../../../../domain/interfaces/consequence-possible.interface";
-import {ConsequencePossibleCreateCommand} from "../../../../application/commands/impl/consequence-possible/consequence-possible.create.command";
+import {
+    ConsequencePossibleCreateCommand
+} from "../../../../application/commands/impl/consequence-possible/consequence-possible.create.command";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 
 @ApiBearerAuth()

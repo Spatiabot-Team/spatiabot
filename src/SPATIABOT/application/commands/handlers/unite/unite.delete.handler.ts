@@ -1,6 +1,6 @@
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
-import { UniteDeleteCommand } from "../../impl/unite/unite.delete.command";
+import {UniteDeleteCommand} from "../../impl/unite/unite.delete.command";
 import {UniteInterface} from "../../../../domain/interfaces/unite.interface";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
 import {UniteNotFoundException} from "../../../../domain/exceptions/unite/unite-not-found.exception";

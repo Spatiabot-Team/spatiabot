@@ -1,7 +1,6 @@
 import {Injectable} from "@nestjs/common";
 import {CommandBus} from "@nestjs/cqrs";
 import {MessageFromDiscord} from "../../../../DISCORD/domain/entities/message-from-discord.entity";
-import {AbstractDiscordActionCommand} from "../commands/impl/abstract-discord-action.command";
 import {DiscordReponseCommand} from "../commands/impl/discord-reponse.command";
 import {
     JoueurUserFindBySocialDiscordIdHandler

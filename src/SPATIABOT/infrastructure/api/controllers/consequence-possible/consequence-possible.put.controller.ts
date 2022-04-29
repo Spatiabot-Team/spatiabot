@@ -8,8 +8,12 @@ import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
 import {AppError} from "../../errors/app.error";
 import {ConsequencePossibleNotFoundError} from "../../errors/consequence-possible/consequence-possible-not-found.error";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
-import {ConsequencePossibleNotFoundException} from "../../../../domain/exceptions/consequence-possible/consequence-possible.not-found.exception";
-import {ConsequencePossibleUpdateCommand} from "../../../../application/commands/impl/consequence-possible/consequence-possible.update.command";
+import {
+    ConsequencePossibleNotFoundException
+} from "../../../../domain/exceptions/consequence-possible/consequence-possible.not-found.exception";
+import {
+    ConsequencePossibleUpdateCommand
+} from "../../../../application/commands/impl/consequence-possible/consequence-possible.update.command";
 import {ConsequencePossiblePut} from "../../dtos/consequence-possible/consequence-possible.put";
 
 @ApiBearerAuth()

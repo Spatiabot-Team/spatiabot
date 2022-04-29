@@ -1,7 +1,6 @@
 import {JoueurInterface} from "./joueur.interface";
 import {StatInterface} from "./stat.interface";
 import {MondeInterface} from "./monde.interface";
-import {ConsequencePossibleInterface} from "./consequence-possible.interface";
 
 export interface PartieInterface {
 

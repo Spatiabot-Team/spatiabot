@@ -3,7 +3,7 @@ import {Controller, Get, Param, Request, UseGuards} from "@nestjs/common";
 import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {###Entity###Interface} from "../../../../domain/interfaces/###entity-tiret###.interface";
-import {###Entity###GetByIdQuery} from "../../../../application/queries/impl/###entity-tiret###/###entity-tiret###.get-by-id.query";
+import {###Entity###GetByIdQuery} from "../../../../application/services/###entity-tiret###/###entity-tiret###.get-by-id.query";
 import {ParamId} from "../../dtos/generic/param.id";
 
 @ApiBearerAuth()

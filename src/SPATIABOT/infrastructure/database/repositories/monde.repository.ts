@@ -1,4 +1,4 @@
-import {EntityRepository, In, Like, Raw, Repository} from "typeorm";
+import {EntityRepository, Raw, Repository} from "typeorm";
 import {MondeRepositoryInterface} from "../../../application/repositories/monde.repository.interface";
 import {MondeEntity} from "../entities/monde.entity";
 import {MondeInterface} from "../../../domain/interfaces/monde.interface";

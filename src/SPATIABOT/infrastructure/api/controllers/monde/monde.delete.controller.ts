@@ -1,5 +1,5 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
-import {Controller, Delete, Param, Post, Request, UseGuards} from "@nestjs/common";
+import {Controller, Delete, Param, Request, UseGuards} from "@nestjs/common";
 import {CommandBus, QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";

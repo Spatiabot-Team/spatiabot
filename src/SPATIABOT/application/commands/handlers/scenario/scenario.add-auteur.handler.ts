@@ -1,16 +1,20 @@
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ScenarioRepository} from "../../../../infrastructure/database/repositories/scenario.repository";
 import {ScenarioRepositoryInterface} from "../../../repositories/scenario.repository.interface";
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";
 import {ScenarioNotFoundException} from "../../../../domain/exceptions/scenario/scenario-not-found.exception";
-import {ScenarioHasNotThisAuteurException} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
+import {
+    ScenarioHasNotThisAuteurException
+} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
 import {UserRepository} from "../../../../../USER/infrastructure/database/repositories/user.repository";
 import {UserRepositoryInterface} from "../../../../../USER/application/repositories/user.repository.interface";
 import {Scenario} from "../../../../domain/entities/scenario";
 import {ScenarioAddAuteurCommand} from "../../impl/scenario/scenario.add-auteur.command";
 import {UserNotFoundException} from "../../../../domain/exceptions/auteur/user-not-found.exception";
-import {ScenarioHasAlreadyThisAuteurException} from "../../../../domain/exceptions/scenario/scenario-has-already-this-auteur.exception";
+import {
+    ScenarioHasAlreadyThisAuteurException
+} from "../../../../domain/exceptions/scenario/scenario-has-already-this-auteur.exception";
 import {ScenarioGetByIdHandler} from "../../../services/scenario/scenario.get-by-id.handler";
 import {ScenarioGetByIdQuery} from "../../../services/scenario/scenario.get-by-id.query";
 

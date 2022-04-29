@@ -28,8 +28,6 @@ export class MessageEmbedEtapeService {
             msgs.push(msg);
         }
 
-        console.log('etape à afficher',etape)
-
         // Réponses
         if (!etape.finScenario && etape.reponses) {
             etape.reponses.forEach(r => msgs[msgs.length - 1].addField(`__${process.env.DISCORD_PREFIX}reponse ${r.libelle}__ : ${r.titre}`, r.texte));

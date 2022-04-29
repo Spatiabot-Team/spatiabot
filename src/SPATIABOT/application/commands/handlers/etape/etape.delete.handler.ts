@@ -1,4 +1,4 @@
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {EtapeDeleteCommand} from "../../impl/etape/etape.delete.command";
 import {EtapeRepository} from "../../../../infrastructure/database/repositories/etape.repository";

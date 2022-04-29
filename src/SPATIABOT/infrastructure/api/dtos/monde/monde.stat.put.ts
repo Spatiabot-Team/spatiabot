@@ -1,6 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
 import {IsNotEmpty, IsOptional} from "class-validator";
-import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 import {StatInterface} from "../../../../domain/interfaces/stat.interface";
 
 export class MondeStatPut implements StatInterface{

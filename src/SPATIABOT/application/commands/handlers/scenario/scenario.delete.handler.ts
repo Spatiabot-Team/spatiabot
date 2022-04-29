@@ -1,6 +1,8 @@
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
-import {ScenarioHasNotThisAuteurException} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
+import {
+    ScenarioHasNotThisAuteurException
+} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
 import {ScenarioNotFoundException} from "../../../../domain/exceptions/scenario/scenario-not-found.exception";
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";
 import {ScenarioRepository} from "../../../../infrastructure/database/repositories/scenario.repository";

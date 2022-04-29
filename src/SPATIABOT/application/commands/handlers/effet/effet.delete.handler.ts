@@ -1,4 +1,4 @@
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
 import {EffetNotFoundException} from "../../../../domain/exceptions/effet/effet-not-found.exception";
 import {EffetInterface} from "../../../../domain/interfaces/effet.interface";

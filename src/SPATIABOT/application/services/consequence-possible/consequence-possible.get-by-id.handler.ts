@@ -1,4 +1,3 @@
-
 import {InjectRepository} from "@nestjs/typeorm";
 import {ConsequencePossibleRepositoryInterface} from "../../repositories/consequence-possible.repository.interface";
 import {ConsequencePossible} from "../../../domain/entities/consequence-possible";

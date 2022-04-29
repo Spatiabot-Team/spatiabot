@@ -1,6 +1,6 @@
 import {ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Request} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
+import {CommandBus} from "@nestjs/cqrs";
 import {ScenarioGetQuery} from "../../../../application/services/scenario/scenario.get.query";
 import {ScenarioGetHandler} from "../../../../application/services/scenario/scenario.get.handler";
 

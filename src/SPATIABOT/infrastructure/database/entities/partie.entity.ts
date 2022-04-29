@@ -4,8 +4,8 @@ import {
     Entity,
     Index,
     JoinColumn,
-    ManyToMany,
-    ManyToOne, OneToMany,
+    ManyToOne,
+    OneToMany,
     PrimaryGeneratedColumn
 } from "typeorm";
 import {PartieInterface} from "../../../domain/interfaces/partie.interface";

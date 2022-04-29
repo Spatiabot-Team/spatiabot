@@ -1,8 +1,12 @@
-import {CommandHandler, IQueryHandler, QueryBus} from "@nestjs/cqrs";
+import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
-import {ConsequencePossibleNotFoundException} from "../../../../domain/exceptions/consequence-possible/consequence-possible.not-found.exception";
+import {
+    ConsequencePossibleNotFoundException
+} from "../../../../domain/exceptions/consequence-possible/consequence-possible.not-found.exception";
 import {ConsequencePossibleInterface} from "../../../../domain/interfaces/consequence-possible.interface";
-import {ConsequencePossibleRepository} from "../../../../infrastructure/database/repositories/consequence-possible.repository";
+import {
+    ConsequencePossibleRepository
+} from "../../../../infrastructure/database/repositories/consequence-possible.repository";
 import {ConsequencePossibleRepositoryInterface} from "../../../repositories/consequence-possible.repository.interface";
 import {ConsequencePossibleDeleteCommand} from "../../impl/consequence-possible/consequence-possible.delete.command";
 import {

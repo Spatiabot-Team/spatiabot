@@ -1,4 +1,3 @@
-
 import {InjectRepository} from "@nestjs/typeorm";
 
 import {ScenarioRepositoryInterface} from "../../repositories/scenario.repository.interface";

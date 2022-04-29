@@ -11,7 +11,9 @@ import {ScenarioHasNotThisAuteurError} from "../../errors/scenario/scenario-has-
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {ScenarioUpdateCommand} from "../../../../application/commands/impl/scenario/scenario.update.command";
 import {ScenarioNotFoundException} from "../../../../domain/exceptions/scenario/scenario-not-found.exception";
-import {ScenarioHasNotThisAuteurException} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
+import {
+    ScenarioHasNotThisAuteurException
+} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
 import {ScenarioPut} from "../../dtos/scenario/scenario.put";
 
 @ApiBearerAuth()

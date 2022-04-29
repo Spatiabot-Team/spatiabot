@@ -1,6 +1,5 @@
 import {Body, Controller, Post, Request, UseGuards} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
-import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {Partie} from "../../../../domain/entities/partie";
 import {PartieFind} from "../../dtos/partie/partie.find";

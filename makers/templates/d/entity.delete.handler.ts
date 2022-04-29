@@ -11,7 +11,7 @@ import {###Entity###DeleteCommand} from "../../impl/###entity-tiret###/###entity
 export class ###Entity###DeleteHandler implements IQueryHandler<###Entity###DeleteCommand> {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        private readonly ###entityCase###GetByIdHandler: ###Entity###GetByIdHandler,
         @InjectRepository(###Entity###Repository) private readonly repository: ###Entity###RepositoryInterface
     ) {
         this.repository = repository;
@@ -24,8 +24,8 @@ export class ###Entity###DeleteHandler implements IQueryHandler<###Entity###Dele
      * @throws ###Entity###HasNotThisAuteurException
      */
     async execute(query: ###Entity###DeleteCommand): Promise<###Entity###Interface> {
-
-        const ###entityCase###Found = await this.queryBus.execute(new ###Entity###GetByIdQuery(query.###entityCase###Id));
+    this.effetGetByIdHandler
+        const ###entityCase###Found = await this.###Entity###GetByIdHandler.execute(new ###Entity###GetByIdQuery(query.###entityCase###Id));
 
         if (!###entityCase###Found) {
             throw new ###Entity###NotFoundException();

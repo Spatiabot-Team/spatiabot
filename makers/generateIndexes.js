@@ -8,7 +8,7 @@ module.exports = function generateIndexes(module) {
 
     generateIndexesFor('CommandHandlers', `${ __dirname }/../src/${ module }/application/commands/handlers`);
     generateIndexesFor('EventHandlers', `${ __dirname }/../src/${ module }/application/events/handlers`);
-    generateIndexesFor('QueryHandlers', `${ __dirname }/../src/${ module }/application/queries/handlers`);
+    generateIndexesFor('QueryHandlers', `${ __dirname }/../src/${ module }/application/services/`);
 
 }
 
@@ -24,8 +24,8 @@ function generateIndexesFor(component, path) {
         if (fs.lstatSync(`${ path }/${ d }`).isDirectory()) {
 
             const files = fs.readdirSync(`${ path }/${ d }`);
-            const classNames = files.map(adaptToCLass);
-
+            const classNames = files.filter(f => !f.match(/.*Query*./)).map(adaptToCLass);
+            console.log(classNames)
             // Imports
             strImports += classNames.map((c, index) => `import {${ c }} from "./${ d }/${ files[index].slice(0, -3) }";`).join(EOL);
             strImports += EOL;

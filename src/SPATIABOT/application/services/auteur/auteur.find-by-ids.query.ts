@@ -1,4 +1,3 @@
-import {IsUUID} from "class-validator";
 import {isUUID} from "@nestjs/common/utils/is-uuid";
 
 export class AuteurFindByIdsQuery {

@@ -1,6 +1,5 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Param, Request, UseGuards} from "@nestjs/common";
-import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 import {MondeHasNotThisAuteurError} from "../../errors/monde/monde-has-not-this-auteur.error";
