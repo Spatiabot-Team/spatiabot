@@ -1,20 +1,20 @@
 import {CommandHandler, IQueryHandler} from "@nestjs/cqrs";
 import {InjectRepository} from "@nestjs/typeorm";
-import {MondeAddAuteurCommand} from "./monde.add-auteur.command";
-import {MondeGetByIdQuery} from "../../queries/monde/monde.get-by-id.query";
-import {MondeGetByIdHandler} from "../../queries/monde/monde.get-by-id.handler";
-import {MondeRepositoryInterface} from "../../repositories/monde.repository.interface";
-import {UserRepositoryInterface} from "../../../../USER/application/repositories/user.repository.interface";
 import {MondeRepository} from "../../../infrastructure/database/repositories/monde.repository";
-import {UserRepository} from "../../../../USER/infrastructure/database/repositories/user.repository";
+import {MondeRepositoryInterface} from "../../repositories/monde.repository.interface";
 import {MondeInterface} from "../../../domain/interfaces/monde.interface";
-import {UserNotFoundException} from "../../../domain/exceptions/auteur/user-not-found.exception";
-import {Monde} from "../../../domain/entities/monde";
 import {MondeNotFoundException} from "../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
+import {UserRepository} from "../../../../USER/infrastructure/database/repositories/user.repository";
+import {UserRepositoryInterface} from "../../../../USER/application/repositories/user.repository.interface";
+import {Monde} from "../../../domain/entities/monde";
+import {MondeAddAuteurCommand} from "../monde/monde.add-auteur.command";
 import {
     MondeHasAlreadyThisAuteurException
 } from "../../../domain/exceptions/monde/monde-has-already-this-auteur.exception";
+import {UserNotFoundException} from "../../../domain/exceptions/auteur/user-not-found.exception";
+import {MondeGetByIdHandler} from "../../queries/monde/monde.get-by-id.handler";
+import {MondeGetByIdQuery} from "../../queries/monde/monde.get-by-id.query";
 
 @CommandHandler(MondeAddAuteurCommand)
 export class MondeAddAuteurHandler implements IQueryHandler<MondeAddAuteurCommand> {

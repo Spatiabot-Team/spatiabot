@@ -1,4 +1,4 @@
-import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
+import {MondeInterface} from "../../../domain/interfaces/monde.interface";
 
 export class MondeUpdateCommand {
 

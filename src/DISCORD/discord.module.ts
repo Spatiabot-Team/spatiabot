@@ -16,6 +16,7 @@ import {EventHandlers} from "./application/events/handlers";
 import {
     DiscordGuildFindByDiscordGuildIdService
 } from "./application/services/discord-guild/discord-guild.find-by-discord-guild-id.service";
+import {GetDiscordGuildHandler} from "./application/queries/handlers/get-discord-guild.handler";
 
 @Module({
     imports: [
@@ -33,7 +34,7 @@ import {
         DiscordToDbAdapter,
         DiscordMessageAdapter
     ],
-    exports: [DiscordService,DiscordMessageAdapter, DiscordGuildFindByDiscordGuildIdService],
+    exports: [DiscordService,DiscordMessageAdapter, DiscordGuildFindByDiscordGuildIdService, GetDiscordGuildHandler],
     controllers: [...ControllersDiscord]
 })
 export class DiscordModule {

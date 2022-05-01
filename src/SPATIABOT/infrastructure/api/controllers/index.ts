@@ -1,5 +1,1 @@
-
-
-export const Controllers = [
-
-];
+export const Controllers = [];
