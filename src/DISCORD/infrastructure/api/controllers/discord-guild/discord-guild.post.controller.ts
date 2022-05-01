@@ -5,10 +5,12 @@ import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
 import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
 import {DiscordGuildInterface} from "../../../../domain/interfaces/discord-guild.interface";
-import {DiscordGuildCreateCommand} from "../../../../application/commands/impl/discord-guild/discord-guild.create.command";
+import {
+    DiscordGuildCreateCommand
+} from "../../../../application/commands/impl/discord-guild/discord-guild.create.command";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {DiscordGuildPost} from "../../dtos/discord-guild/discord-guild.post";
-import {AppError} from "../../../../../SPATIABOT/infrastructure/api/errors/app.error";
+import {AppError} from "../../../../../APP/errors/app.error";
 
 @ApiBearerAuth()
 @ApiTags('DiscordGuild')

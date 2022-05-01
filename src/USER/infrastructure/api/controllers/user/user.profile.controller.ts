@@ -4,20 +4,8 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {UserRepository} from "../../../database/repositories/user.repository";
 import {UserRepositoryInterface} from "../../../../application/repositories/user.repository.interface";
 import {JwtAuthGuard} from "../../security/jwt-auth.guard";
-import {AppError} from "../../../../../SPATIABOT/infrastructure/api/errors/app.error";
-import {
-    ScenarioNotFoundException
-} from "../../../../../SPATIABOT/domain/exceptions/scenario/scenario-not-found.exception";
-import {
-    ScenarioNotFoundError
-} from "../../../../../SPATIABOT/infrastructure/api/errors/scenario/scenario-not-found.error";
-import {
-    ScenarioHasNotThisAuteurException
-} from "../../../../../SPATIABOT/domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
-import {
-    ScenarioHasNotThisAuteurError
-} from "../../../../../SPATIABOT/infrastructure/api/errors/scenario/scenario-has-not-this-auteur.error";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
+import {AppError} from "../../../../../APP/errors/app.error";
 
 @ApiTags('Users')
 @ApiBearerAuth()
