@@ -1,14 +1,14 @@
 import {JoueurEtapeEnCoursChangedEvent} from "./joueur.etape-en-cours-changed.event";
-import {JoueurRepository} from "../../../infrastructure/database/repositories/joueur.repository";
-import {TypeEffetEnum} from "../../../domain/enums/type-effet.enum";
-import {StatInterface} from "../../../domain/interfaces/stat.interface";
-import {StatRepositoryInterface} from "../../repositories/stat.repository.interface";
 import {InjectRepository} from "@nestjs/typeorm";
-import {EffetInterface} from "../../../domain/interfaces/effet.interface";
-import {PartieInterface} from "../../../domain/interfaces/partie.interface";
-import {JoueurRepositoryInterface} from "../../repositories/joueur.repository.interface";
-import {StatRepository} from "../../../infrastructure/database/repositories/stat.repository";
 import {EventsHandler, IEventHandler} from "@nestjs/cqrs";
+import {JoueurRepository} from "../../../infrastructure/database/repositories/joueur.repository";
+import {StatRepository} from "../../../infrastructure/database/repositories/stat.repository";
+import {JoueurRepositoryInterface} from "../../repositories/joueur.repository.interface";
+import {StatRepositoryInterface} from "../../repositories/stat.repository.interface";
+import {TypeEffetEnum} from "../../../domain/enums/type-effet.enum";
+import {PartieInterface} from "../../../domain/interfaces/partie.interface";
+import {EffetInterface} from "../../../domain/interfaces/effet.interface";
+import {StatInterface} from "../../../domain/interfaces/stat.interface";
 
 
 @EventsHandler(JoueurEtapeEnCoursChangedEvent)
