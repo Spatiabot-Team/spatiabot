@@ -1,6 +1,4 @@
 import {DiscordGuildUserInterface} from "../../../../domain/interfaces/discord-guild-user.interface";
-import {ApiProperty} from "@nestjs/swagger";
-import {IsUUID, IsNotEmpty, MinLength, MaxLength} from "class-validator";
 
 export class DiscordGuildUserPost implements DiscordGuildUserInterface {
 

@@ -8,9 +8,6 @@ import {
 } from "../../../../application/commands/impl/discord-guild-user/discord-guild-user.create.command";
 import {DiscordGuildApiToEntityAdapter} from "../../adapters/discord-guild-api-to-entity.adapter";
 import {
-    DiscordGuildFindOrCreateHandler
-} from "../../../../application/commands/handlers/discord-guild/discord-guild.find-or-create.handler";
-import {
     DiscordGuildFindOrCreateCommand
 } from "../../../../application/commands/impl/discord-guild/discord-guild.find-or-create.command";
 import {

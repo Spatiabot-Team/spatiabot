@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import {Repository} from "typeorm";
 import {DiscordGuildUserInterface} from "../../domain/interfaces/discord-guild-user.interface";
 
 export interface DiscordGuildUserRepositoryInterface extends Repository<DiscordGuildUserInterface>{

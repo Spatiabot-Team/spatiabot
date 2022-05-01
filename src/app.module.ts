@@ -1,16 +1,16 @@
 import {CacheModule, Module} from '@nestjs/common';
 import {Connection} from 'typeorm';
 import {TypeOrmModule} from "@nestjs/typeorm";
-import {SpatiabotModule} from "./SPATIABOT/spatiabot.module";
 import {DiscordModule} from "./DISCORD/discord.module";
 import {LoggerModule} from './LOGGER/logger.module';
 import {UserModule} from "./USER/user.module";
 import {ConfigModule} from "@nestjs/config";
 import {FixturesController} from "./APP/controllers/fixtures.controller";
 import {TerminusModule} from "@nestjs/terminus";
-import { HealthController } from './HEALTH/health.controller';
+import {HealthController} from './HEALTH/health.controller';
 import {HttpModule} from "@nestjs/axios";
 import {ScheduleModule} from "@nestjs/schedule";
+import {SpatiabotModule} from "./SPATIABOT/spatiabot.module";
 
 @Module({
     imports: [
@@ -19,6 +19,7 @@ import {ScheduleModule} from "@nestjs/schedule";
         CacheModule.register(),
         ConfigModule.forRoot({
             isGlobal: true,
+            envFilePath: '.env'
         }),
         TypeOrmModule.forRoot({
             type: "postgres",

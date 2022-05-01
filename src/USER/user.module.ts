@@ -15,7 +15,6 @@ import {JwtModule} from "@nestjs/jwt";
 import {Security} from "./infrastructure/api/security";
 import {ConfigService} from "@nestjs/config";
 import {UsersFixtures} from "./infrastructure/database/fixtures/users.fixtures";
-import {AppGateway} from "../app.gateway";
 
 @Module({
     imports: [
