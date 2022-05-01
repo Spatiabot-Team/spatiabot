@@ -1,4 +1,4 @@
-import {###Entity###GetByIdQuery} from "./###entity-tiret###/###entity-tiret###.get-by-id.query";
+import {###Entity###GetByIdQuery} from "./###entity-tiret###.get-by-id.query";
 import {###Entity###Repository} from "../../../infrastructure/database/repositories/###entity-tiret###.repository";
 import {InjectRepository} from "@nestjs/typeorm";
 import {###Entity###} from "../../../domain/entities/###entity-tiret###";
@@ -15,6 +15,6 @@ export class ###Entity###GetByIdHandler {
         if (!###entityCase###Found) {
             return null;
         }
-        return Object.assign(new ###Entity###(), ###entityCase###Found);
+        return new ###Entity###(###entityCase###Found);
     }
 }
