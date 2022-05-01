@@ -23,7 +23,11 @@ function generateIndexesFor(component, path) {
 
         if (fs.lstatSync(`${ path }/${ d }`).isDirectory()) {
 
-            const files = fs.readdirSync(`${ path }/${ d }`).filter(f => !f.match(/.*query*./) && !f.match(/.*event*./));
+            const files = fs.readdirSync(`${ path }/${ d }`).filter(f =>
+                    !f.match(/.*query*./)
+                && !f.match(/.*event*./)
+                && !f.match(/.*command*./)
+            );
             const classNames = files.map(adaptToCLass);
             console.log(classNames)
             // Imports

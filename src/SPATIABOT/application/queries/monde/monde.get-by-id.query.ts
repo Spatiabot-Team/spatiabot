@@ -1,7 +1,7 @@
 export class MondeGetByIdQuery {
-    id : string
+    mondeId: string
 
-    constructor(id: string) {
-        this.id = id;
+    constructor(mondeId: string) {
+        this.mondeId = mondeId;
     }
 }

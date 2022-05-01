@@ -1,4 +1,4 @@
-import {StatInterface} from "../../../../domain/interfaces/stat.interface";
+import {StatInterface} from "../../../domain/interfaces/stat.interface";
 
 export class MondeStatUpdateCommand {
 
