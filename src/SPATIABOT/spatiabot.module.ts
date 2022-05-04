@@ -20,6 +20,7 @@ import {CRONS} from "./infrastructure/cron";
 import {MessageEmbedEtapeService} from "./infrastructure/discord/services/message/message.embed-etape.service";
 import {ActionsDmService} from "./infrastructure/discord/services/actions-dm.service";
 import {RandomItemByPoidsService} from "./domain/services/random-item-by-poids.service";
+import {MessageEmbedService} from "./infrastructure/discord/services/message/message.embed.service";
 
 @Module({
     imports: [
@@ -38,6 +39,7 @@ import {RandomItemByPoidsService} from "./domain/services/random-item-by-poids.s
         DiscordGuildService,
         PartieService,
         MessageEmbedEtapeService,
+        MessageEmbedService,
         RandomItemByPoidsService,
         ...CommandHandlers,
         ...CommandHandlersDiscordInfra,

@@ -9,6 +9,7 @@ module.exports = function generateIndexes(module) {
     generateIndexesFor('CommandHandlers', `${ __dirname }/../src/${ module }/application/commands/`);
     generateIndexesFor('EventHandlers', `${ __dirname }/../src/${ module }/application/events/`);
     generateIndexesFor('QueryHandlers', `${ __dirname }/../src/${ module }/application/queries/`);
+    generateIndexesFor('Controllers', `${ __dirname }/../src/${ module }/infrastructure/api/controllers/`);
 
 }
 
