@@ -15,6 +15,7 @@ import {EtapeGetByIdController} from "./etape/etape.get-by-id.controller";
 import {EtapeGetController} from "./etape/etape.get.controller";
 import {EtapePostController} from "./etape/etape.post.controller";
 import {EtapePutController} from "./etape/etape.put.controller";
+import {JoueurDeleteController} from "./joueur/joueur.delete.controller";
 import {JoueurGetByIdController} from "./joueur/joueur.get-by-id.controller";
 import {MessagePostController} from "./message/message.post.controller";
 import {MondeAddAuteurController} from "./monde/monde.add-auteur.controller";
@@ -78,6 +79,7 @@ export const Controllers = [
     EtapePutController,
 
     // Joueur
+    JoueurDeleteController,
     JoueurGetByIdController,
 
     // Message

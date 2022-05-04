@@ -24,8 +24,13 @@ export class JoueurEntity implements JoueurInterface {
     userId?: string;
 
     @ManyToOne(type => EtapeEntity, {
-        eager: true
+        eager: true,
+        nullable:true
     })
+    etapeEnCours?: EtapeEntity;
+
+    @Index()
+    @Column({nullable:true})
     etapeEnCoursId?: string;
 
     @Column({nullable: true, default: EtapeEtatEnum.A_AFFICHER})

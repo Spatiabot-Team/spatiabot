@@ -8,6 +8,7 @@ import {EtapeCreateHandler} from "./etape/etape.create.handler";
 import {EtapeDeleteHandler} from "./etape/etape.delete.handler";
 import {EtapeUpdateHandler} from "./etape/etape.update.handler";
 import {JoueurCreateHandler} from "./joueur/joueur.create.handler";
+import {JoueurDeleteHandler} from "./joueur/joueur.delete.handler";
 import {JoueurEtapeChangerEtatMultiHandler} from "./joueur/joueur.etape.changer-etat-multi.handler";
 import {JoueurResponseChoisirHandler} from "./joueur/joueur.response.choisir.handler";
 import {JoueurScenarioAffecterHandler} from "./joueur/joueur.scenario.affecter.handler";
@@ -49,6 +50,7 @@ export const CommandHandlers = [
 
     // Joueur
     JoueurCreateHandler,
+    JoueurDeleteHandler,
     JoueurEtapeChangerEtatMultiHandler,
     JoueurResponseChoisirHandler,
     JoueurScenarioAffecterHandler,

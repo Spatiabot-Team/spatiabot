@@ -9,6 +9,7 @@ export interface JoueurInterface {
     id?: string;
     /** idUser **/
     userId?: string;
+    etapeEnCoursId?: string;
     etapeEnCours?: EtapeInterface;
     etapeEnCoursEtat?: EtapeEtatEnum;
     etapeDateAffichage?: Date;

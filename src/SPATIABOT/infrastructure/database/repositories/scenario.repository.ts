@@ -52,7 +52,7 @@ export class ScenarioRepository extends Repository<ScenarioEntity> implements Sc
             .innerJoin('monde.parties', 'partie')
             .innerJoin('partie.joueurs', 'joueur')
             .innerJoinAndSelect('scenario.etapes', 'etape')
-            .where('etape.premiereEtape = true')
+            .andWhere('etape.premiereEtape = true')
             .andWhere('joueur.id = :joueurId', {joueurId})
             .andWhere('not(scenario.id::text = ANY (joueur.scenarioEffectues))')
             .andWhere('scenario.actif = true')
