@@ -19,7 +19,7 @@ import {MondeGetByIdQuery} from "../../../../application/queries/monde/monde.get
 @ApiBearerAuth()
 @ApiTags('Monde')
 @Controller('mondes')
-export class MondeScenariosGetController {
+export class MondePartiesGetController {
 
     constructor(
         private readonly mondeGetByIdHandler: MondeGetByIdHandler,

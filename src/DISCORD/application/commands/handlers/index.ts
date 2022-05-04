@@ -4,6 +4,7 @@ import {DiscordGuildUserCreateHandler} from "./discord-guild-user/discord-guild-
 import {DiscordGuildUserResetHandler} from "./discord-guild-user/discord-guild-user.reset.handler";
 import {AnswerInChannelHandler} from "./answer-in-channel.handler";
 import {ChannelWriteToUserHandler} from "./channel/channel.write-to-user.handler";
+import {ChannelWriteHandler} from "./channel/channel.write.handler";
 
 export const CommandHandlers = [
     // Discord-guild
@@ -17,5 +18,6 @@ export const CommandHandlers = [
     AnswerInChannelHandler,
 
     // Channel
-    ChannelWriteToUserHandler
+    ChannelWriteToUserHandler,
+    ChannelWriteHandler
 ];
