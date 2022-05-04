@@ -1,22 +1,22 @@
 module.exports = [
     {
-        folderOrigin: `${ __dirname }/templates/d/`,
+        folderOrigin: `${ __dirname }/../templates/d/`,
         fileOrigin: `entity.delete.handler.ts`,
-        folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/handlers/`,
+        folderDestination: `${ __dirname }/../../src/###MODULE###/application/commands/`,
     },
     {
-        folderOrigin: `${ __dirname }/templates/d/`,
+        folderOrigin: `${ __dirname }/../templates/d/`,
         fileOrigin: `entity.delete.command.ts`,
-        folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/impl/`,
+        folderDestination: `${ __dirname }/../../src/###MODULE###/application/commands/`,
     },
     {
-        folderOrigin: `${ __dirname }/templates/d/`,
+        folderOrigin: `${ __dirname }/../templates/d/`,
         fileOrigin: `entity.delete.controller.ts`,
-        folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/controllers/`,
+        folderDestination: `${ __dirname }/../../src/###MODULE###/infrastructure/api/controllers/`,
     },
     {
-        folderOrigin: `${ __dirname }/templates/`,
+        folderOrigin: `${ __dirname }/../templates/`,
         fileOrigin: `entity.not-found.error.ts`,
-        folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/errors/`,
+        folderDestination: `${ __dirname }/../../src/###MODULE###/infrastructure/api/errors/`,
     }
 ]

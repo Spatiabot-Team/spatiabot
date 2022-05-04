@@ -6,16 +6,16 @@ import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decor
 import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
 import {AppError} from "../../errors/app.error";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
-import {###Entity###Interface} from "../../../../domain/interfaces/###entity-tiret###.interface";
-import {###Entity###NotFoundException} from "../../../../domain/exceptions/###entity-tiret###/###entity-tiret###.not-found.exception";
-import {###Entity###NotFoundError} from "../../errors/###entity-tiret###/###entity-tiret###.not-found.error";
-import {###Entity###DeleteCommand} from "../../../../application/commands/###entity-tiret###/###entity-tiret###.delete.command";
+import {JoueurInterface} from "../../../../domain/interfaces/joueur.interface";
+import {JoueurNotFoundException} from "../../../../domain/exceptions/joueur/joueur.not-found.exception";
+import {JoueurNotFoundError} from "../../errors/joueur/joueur.not-found.error";
+import {JoueurDeleteCommand} from "../../../../application/commands/joueur/joueur.delete.command";
 import {ParamId} from "../../../../../APP/dtos/param.id";
 
 @ApiBearerAuth()
-@ApiTags('###Entity###')
-@Controller('###entity-tiret###s')
-export class ###Entity###DeleteController {
+@ApiTags('Joueur')
+@Controller('joueurs')
+export class JoueurDeleteController {
 
     constructor(
         private readonly queryBus: QueryBus,
@@ -27,17 +27,17 @@ export class ###Entity###DeleteController {
     @Delete('/:id')
     @UseGuards(JwtAuthGuard)
     @Roles(RolesEnum.ADMIN)
-    async index(@Request() req, @Param() paramId: ParamId): Promise<###Entity###Interface | AppError> {
+    async index(@Request() req, @Param() paramId: ParamId): Promise<JoueurInterface | AppError> {
         try {
-            return await this.commandBus.execute(new ###Entity###DeleteCommand(paramId.id));
+            return await this.commandBus.execute(new JoueurDeleteCommand(paramId.id));
         } catch (e) {
             return this.parseError(e);
         }
     }
 
     parseError(e): AppError {
-        if (e instanceof ###Entity###NotFoundException) {
-            return new ###Entity###NotFoundError();
+        if (e instanceof JoueurNotFoundException) {
+            return new JoueurNotFoundError();
         }
         this.logger.error(e);
         return new AppError();
