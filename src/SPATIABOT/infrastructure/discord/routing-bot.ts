@@ -46,7 +46,7 @@ export class RoutingBot {
 
         } catch (e) {
             if (e instanceof ActionNotFoundException) {
-                //@todo emit "cette action n'existe pas"
+                // Commande inconnue reçue, on ne fait rien
                 return;
             }
             console.error('ERROR RoutingBot : ', e);
