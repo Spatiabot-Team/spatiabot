@@ -44,8 +44,6 @@ export class ActionsService {
             return;
         }
 
-
-        await this.commandBus.execute(new AnswerInChannelCommand(message.message.channel,'Visiblement cette commande n\'existe pas...'));
         // Si on arrive là c'est qu'on a pas trouvé d'action correspondant à la commande
         throw new ActionNotFoundException()
     }
