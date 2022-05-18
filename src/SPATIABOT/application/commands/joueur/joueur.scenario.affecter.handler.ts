@@ -35,8 +35,6 @@ export class JoueurScenarioAffecterHandler implements IQueryHandler<JoueurScenar
         // Chercher le scenario que l'on va affecter au joueur
         const scenario = await this.scenarioRepository.determinerScenarioSuivantJoueur(query.joueurId);
 
-        console.log(scenario.etapes.find(e => e.premiereEtape).id)
-
         // Mettre à jour le joueur
         if (scenario) {
             await this.repository.save({
@@ -49,8 +47,15 @@ export class JoueurScenarioAffecterHandler implements IQueryHandler<JoueurScenar
             return scenario;
         }
 
-        // Retourner le scenario
-        throw new ScenarioNotFoundException();
+        await this.repository.save({
+            id: joueur.id,
+            etapeEnCours: null,
+            etapeEnCoursEtat : EtapeEtatEnum.ATTENTE_NOUVEAU_SCENARIO,
+            etapeDateAffichage : null
+        });
+        
+        return null;
+        // throw new ScenarioNotFoundException();
     }
 
     private verifyUserNotAlreadyInPartie(query: JoueurScenarioAffecterCommand) {

@@ -9,6 +9,8 @@ export interface JoueurRepositoryInterface {
 
     findAllAAfficher(): Promise<JoueurInterface[]>;
 
+    findAllEnAttenteScenario(): Promise<JoueurInterface[]>;
+
     changerEtatEtape(joueurIds: string[], etat: EtapeEtatEnum): Promise<UpdateResult>;
 
     findAllBySocialDiscordId(discordId: string): Promise<JoueurInterface[]>;

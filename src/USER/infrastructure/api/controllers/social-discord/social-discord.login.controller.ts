@@ -20,6 +20,10 @@ export class SocialDiscordLoginController {
     ) {
     }
 
+    /**
+     * Permet de s'authentifier
+     * @param req
+     */
     @Get('auth/discord/login')
     @UseGuards(AuthGuard('discord'))
     async discordAuth(@Req() req) {

@@ -13,6 +13,7 @@ import {EtapeNextDateHandler} from "../../queries/etape/etape.next-date.handler"
 import {JoueurInterface} from "../../../domain/interfaces/joueur.interface";
 import {JoueurScenarioAffecterCommand} from "../joueur/joueur.scenario.affecter.command";
 import {JoueurReponseChoisirCommand} from "../joueur/joueur.reponse.choisir.command";
+import {Reponse} from "../../../domain/entities/reponse";
 
 @CommandHandler(JoueurReponseChoisirCommand)
 export class JoueurResponseChoisirHandler implements IQueryHandler<JoueurReponseChoisirCommand> {
@@ -28,7 +29,7 @@ export class JoueurResponseChoisirHandler implements IQueryHandler<JoueurReponse
     /**
      * @throws JoueurEtapePasDeReponseEnAttenteException
      */
-    async execute(query: JoueurReponseChoisirCommand): Promise<JoueurInterface | null> {
+    async execute(query: JoueurReponseChoisirCommand): Promise<ReponseInterface | null> {
 
         // Récupérer le joueur avec son étape en cours et les réponses disponnibles
         const joueur = await this.joueurRepository.findOne({
@@ -36,25 +37,31 @@ export class JoueurResponseChoisirHandler implements IQueryHandler<JoueurReponse
             relations: ['etapeEnCours', 'etapeEnCours.reponses']
         });
 
-        // Si l'étape en cours est la fin du scenario alors on réoriente vers la sélection d'un autre scenario
+        // C'est une réponse à une fin de scénario => on en affecte un autre et on arrête là
         if(joueur.etapeEnCours.finScenario){
-            return this.commandBus.execute(new JoueurScenarioAffecterCommand(query.joueurId));
+            //@todo mieux gérer ce cas là
+            await this.commandBus.execute(new JoueurScenarioAffecterCommand(query.joueurId));
+            const r = new Reponse();
+            r.texte = 'La prochaine aventure arrive bientôt...';
+            return r;
         }
 
         // Vérifier la situation du joueur et throw si c'est pas bon (il a une étape encours, la réponse existe...)
         this.verify(query, joueur);
 
         // Définir la conséquence que l'on applique parmi les conséquences possibles de la réponse choisie
-        const reponse : ReponseInterface = this.findReponse(joueur.etapeEnCours.reponses, query);
+        const reponse : ReponseInterface = this.findReponse(joueur.etapeEnCours.reponses, query.reponseLibelle);
         const consequencePossible = this.randomItemByPoidsService.execute(reponse.consequencePossibles);
 
         // Mettre à jour le joueur
-        return this.joueurRepository.save({
+        this.joueurRepository.save({
             id : joueur.id,
             etapeEnCoursEtat : EtapeEtatEnum.A_AFFICHER,
             etapeEnCours : {id : consequencePossible.etapeSuivanteId},
             etapeDateAffichage : this.etapeNextDateHandler.execute()
         });
+
+        return reponse;
     }
 
     /**
@@ -69,13 +76,13 @@ export class JoueurResponseChoisirHandler implements IQueryHandler<JoueurReponse
 
     }
 
-    findReponse(reponses : ReponseInterface[],query: JoueurReponseChoisirCommand) : ReponseInterface{
+    findReponse(reponses : ReponseInterface[],reponseLibelle: string) : ReponseInterface{
 
         if (!reponses) {
             throw new ReponseNotFoundException();
         }
 
-        const reponse  = reponses.find(r => r.libelle === query.reponseLibelle);
+        const reponse  = reponses.find(r => r.libelle === reponseLibelle);
 
         if(reponse){
             return reponse;

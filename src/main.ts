@@ -7,6 +7,9 @@ import {clc} from "@nestjs/common/utils/cli-colors.util";
 
 
 async function bootstrap() {
+
+    clc.red(`Environnement de ${process.env.ENVIRONMENT}`)
+
     const app = await NestFactory.create(AppModule);
     app.setGlobalPrefix('/api/v1');
 

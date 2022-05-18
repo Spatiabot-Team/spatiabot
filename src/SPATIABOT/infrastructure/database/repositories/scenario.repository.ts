@@ -31,7 +31,7 @@ export class ScenarioRepository extends Repository<ScenarioEntity> implements Sc
 
     async findLightOfMonde(mondeId : string) : Promise<ScenarioLightInterface[]> {
         return this.find({
-            select : ['id','titre','mondeId','slug'],
+            select : ['id','titre','mondeId','slug','actif'],
             where : {
                 mondeId
             }

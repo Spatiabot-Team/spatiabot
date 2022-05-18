@@ -30,11 +30,11 @@ export class MessageEmbedEtapeService {
 
         // Réponses
         if (!etape.finScenario && etape.reponses) {
-            etape.reponses.forEach(r => msgs[msgs.length - 1].addField(`__${process.env.DISCORD_PREFIX}reponse ${r.libelle}__ : ${r.titre}`, r.texte));
+            etape.reponses.forEach(r => msgs[msgs.length - 1].addField(`__${process.env.DISCORD_PREFIX}reponse ${r.libelle}__`, r.titre));
         }
 
         if(etape.finScenario){
-            etape.reponses.forEach(r => msgs[msgs.length - 1].addField(`__${process.env.DISCORD_PREFIX}reponse terminer__`, 'Terminé.'));
+            msgs[msgs.length - 1].addField(`__${process.env.DISCORD_PREFIX}reponse fin__`, 'Fin.');
         }
 
         return msgs;

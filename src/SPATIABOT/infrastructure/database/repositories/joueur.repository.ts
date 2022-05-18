@@ -22,6 +22,15 @@ export class JoueurRepository extends Repository<JoueurEntity> implements Joueur
     }
 
     /**
+     * Retourne les Joueurs qui ont une étape que l'on doit leur envoyer
+     */
+    findAllEnAttenteScenario(): Promise<JoueurInterface[]> {
+        return this.createQueryBuilder('joueur')
+        .where('joueur.etapeEnCoursEtat = :etapeEnCoursEtat', {etapeEnCoursEtat: EtapeEtatEnum.ATTENTE_NOUVEAU_SCENARIO})
+        .getMany();
+    }
+
+    /**
      * Retourne les joueur correspondant au discord id et dont la partie est active
      * Dans l'objet retourné on charge : la partie, l'étape en cours, le user
      * @param discordId

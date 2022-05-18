@@ -8,6 +8,7 @@ import {EtapeGetByIdHandler} from "./etape/etape.get-by-id.handler";
 import {EtapeGetHandler} from "./etape/etape.get.handler";
 import {EtapeNextDateHandler} from "./etape/etape.next-date.handler";
 import {JoueurEtapeFindAllAAfficherHandler} from "./joueur/joueur.etape.find-all-a-afficher.handler";
+import {JoueurFindAllEnAttenteScenarioHandler} from "./joueur/joueur.find-all-en-attente-scenario.handler";
 import {JoueurGetByIdHandler} from "./joueur/joueur.get-by-id.handler";
 import {JoueurUserFindBySocialDiscordIdHandler} from "./joueur/joueur.user.find-by-social-discord-id.handler";
 import {MondeFindHandler} from "./monde/monde.find.handler";
@@ -43,6 +44,7 @@ export const QueryHandlers = [
 
     // Joueur
     JoueurEtapeFindAllAAfficherHandler,
+    JoueurFindAllEnAttenteScenarioHandler,
     JoueurGetByIdHandler,
     JoueurUserFindBySocialDiscordIdHandler,
 
