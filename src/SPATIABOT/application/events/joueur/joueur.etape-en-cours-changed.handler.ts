@@ -26,24 +26,22 @@ export class JoueurEtapeEnCoursChangedHandler implements IEventHandler<JoueurEta
         const joueur = await this.joueurRepository.findOne({
             relations: ['etapeEnCours', 'etapeEnCours.effets', 'partie', 'partie.statsMonde']
         });
+        const effets = joueur.etapeEnCours.effets;
 
-        if(joueur.etapeEnCours){
-            const effets = joueur.etapeEnCours.effets;
+        // Appliquer les effets de type monde à la partie
+        const stats = this.getStatPartieApresApplicationEffets(
+            joueur.partie, joueur.etapeEnCours.effets.filter(
+                effet => effet.type === TypeEffetEnum.MONDE
+            )
+        );
+        this.statRepository.save(stats);
 
-            // Appliquer les effets de type monde à la partie
-            const stats = this.getStatPartieApresApplicationEffets(
-                joueur.partie, joueur.etapeEnCours.effets.filter(
-                    effet => effet.type === TypeEffetEnum.MONDE
-                )
-            );
-            this.statRepository.save(stats);
+        // NON IMPLEMENTE POUR L'INSTANT : Appliquer les effets de type joueur au joueur
 
-            // NON IMPLEMENTE POUR L'INSTANT : Appliquer les effets de type joueur au joueur
+        // Eventuellement ici voir si cela déclenche quelque chose genre pirates > seuil déclencher scenario mondial...
 
-            // Eventuellement ici voir si cela déclenche quelque chose genre pirates > seuil déclencher scenario mondial...
+        // FiN <3
 
-            // FiN <3
-        }
     }
 
     getStatPartieApresApplicationEffets(partie: PartieInterface, effets: EffetInterface[]) : StatInterface[] {

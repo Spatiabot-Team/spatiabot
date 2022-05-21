@@ -27,7 +27,8 @@ export class JoueurResponseChoisirHandler implements IQueryHandler<JoueurReponse
     }
 
     /**
-     * @throws JoueurEtapePasDeReponseEnAttenteException
+     *
+     * @param query
      */
     async execute(query: JoueurReponseChoisirCommand): Promise<ReponseInterface | null> {
 
@@ -76,6 +77,11 @@ export class JoueurResponseChoisirHandler implements IQueryHandler<JoueurReponse
 
     }
 
+    /**
+     *
+     * @param reponses
+     * @param reponseLibelle
+     */
     findReponse(reponses : ReponseInterface[],reponseLibelle: string) : ReponseInterface{
 
         if (!reponses) {

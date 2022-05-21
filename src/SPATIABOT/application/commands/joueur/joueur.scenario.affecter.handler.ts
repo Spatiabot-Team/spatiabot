@@ -53,7 +53,7 @@ export class JoueurScenarioAffecterHandler implements IQueryHandler<JoueurScenar
             etapeEnCoursEtat : EtapeEtatEnum.ATTENTE_NOUVEAU_SCENARIO,
             etapeDateAffichage : null
         });
-        
+
         return null;
         // throw new ScenarioNotFoundException();
     }

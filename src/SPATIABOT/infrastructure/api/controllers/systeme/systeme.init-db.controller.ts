@@ -25,7 +25,7 @@ export class SystemeInitDbController {
     ) {
     }
 
-    @Post()
+    @Post('init-fixtures')
     @UseGuards(JwtAuthGuard)
     @Roles(RolesEnum.ADMIN)
     async index(@Request() req) {
