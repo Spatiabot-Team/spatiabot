@@ -3,6 +3,7 @@ import {UserRepository} from "../../../../USER/infrastructure/database/repositor
 import {UserRepositoryInterface} from "../../../../USER/application/repositories/user.repository.interface";
 import {Auteur} from "../../../domain/entities/auteur";
 import {AuteurFindByIdsQuery} from "./auteur.find-by-ids.query";
+import {In} from "typeorm";
 
 export class AuteurFindByIdsHandler {
 
@@ -13,8 +14,7 @@ export class AuteurFindByIdsHandler {
     }
 
     async execute(query: AuteurFindByIdsQuery): Promise<Auteur[] | null> {
-
-        const users = await this.repository.find(query.ids);
+        const users = await this.repository.findUsers(query.ids);
         return users.map(user => Auteur.assignUser(user));
     }
 }

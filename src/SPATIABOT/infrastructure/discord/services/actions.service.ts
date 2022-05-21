@@ -4,7 +4,6 @@ import {CommandBus} from "@nestjs/cqrs";
 import {MessageFromDiscord} from "../../../../DISCORD/domain/entities/message-from-discord.entity";
 import {AbstractDiscordActionCommand} from "../commands/impl/abstract-discord-action.command";
 import {DiscordDecollageCommand} from "../commands/impl/discord-decollage.command";
-import {AnswerInChannelCommand} from "../../../../DISCORD/application/commands/impl/answer-in-channel.command";
 import {TestCommand} from "../commands/impl/test.command";
 
 @Injectable()

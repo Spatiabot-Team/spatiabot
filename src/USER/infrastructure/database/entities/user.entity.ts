@@ -11,7 +11,7 @@ export class UserEntity implements UserInterface {
     @PrimaryGeneratedColumn('uuid')
     id?: string;
 
-    @Column({unique: true})
+    @Column({unique: true,nullable: true})
     @Index()
     username?: string;
 
