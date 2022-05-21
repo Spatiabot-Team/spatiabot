@@ -3,7 +3,6 @@ import {ScenarioEntity} from "../entities/scenario.entity";
 import {ScenarioRepositoryInterface} from "../../../application/repositories/scenario.repository.interface";
 import {ScenarioInterface} from "../../../domain/interfaces/scenario.interface";
 import {ScenarioLightInterface} from "../../../domain/interfaces/scenario-light.interface";
-import {MondeEntity} from "../entities/monde.entity";
 
 @EntityRepository(ScenarioEntity)
 export class ScenarioRepository extends Repository<ScenarioEntity> implements ScenarioRepositoryInterface {
@@ -32,7 +31,7 @@ export class ScenarioRepository extends Repository<ScenarioEntity> implements Sc
 
     async findLightOfMonde(mondeId : string) : Promise<ScenarioLightInterface[]> {
         return this.find({
-            select : ['id','titre','mondeId','slug'],
+            select : ['id','titre','mondeId','slug','actif'],
             where : {
                 mondeId
             }
@@ -48,23 +47,12 @@ export class ScenarioRepository extends Repository<ScenarioEntity> implements Sc
      */
     async determinerScenarioSuivantJoueur(joueurId : string) : Promise<ScenarioInterface | null>{
 
-        console.log(this.createQueryBuilder('scenario')
-        .innerJoin('scenario.monde', 'monde')
-        .innerJoin('monde.parties', 'partie')
-        .innerJoin('partie.joueurs', 'joueur')
-        .innerJoinAndSelect('scenario.etapes', 'etape')
-        .where('etape.premiereEtape = true')
-        .andWhere('joueur.id = :joueurId', {joueurId})
-        .andWhere('not(scenario.id::text = ANY (joueur.scenarioEffectues))')
-        .andWhere('scenario.actif = true')
-        .orderBy("RANDOM()")
-        .getSql());
         return this.createQueryBuilder('scenario')
             .innerJoin('scenario.monde', 'monde')
             .innerJoin('monde.parties', 'partie')
             .innerJoin('partie.joueurs', 'joueur')
             .innerJoinAndSelect('scenario.etapes', 'etape')
-            .where('etape.premiereEtape = true')
+            .andWhere('etape.premiereEtape = true')
             .andWhere('joueur.id = :joueurId', {joueurId})
             .andWhere('not(scenario.id::text = ANY (joueur.scenarioEffectues))')
             .andWhere('scenario.actif = true')

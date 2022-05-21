@@ -1,11 +1,10 @@
 import {Body, Controller, Post, Request, UseGuards} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
-import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {Partie} from "../../../../domain/entities/partie";
 import {PartieFind} from "../../dtos/partie/partie.find";
-import {PartieFindQuery} from "../../../../application/services/partie/partie.find.query";
-import {PartieFindHandler} from "../../../../application/services/partie/partie.find.handler";
+import {PartieFindQuery} from "../../../../application/queries/partie/partie.find.query";
+import {PartieFindHandler} from "../../../../application/queries/partie/partie.find.handler";
 
 // @ApiBearerAuth()
 @ApiTags('Partie')

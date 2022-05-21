@@ -1,5 +1,7 @@
 import {EntityRepository, Repository} from "typeorm";
-import {DiscordGuildUserRepositoryInterface} from "../../../application/repositories/discord-guild-user.repository.interface";
+import {
+    DiscordGuildUserRepositoryInterface
+} from "../../../application/repositories/discord-guild-user.repository.interface";
 import {DiscordGuildUserInterface} from "../../../domain/interfaces/discord-guild-user.interface";
 import {DiscordGuildUserEntity} from "../entities/discord-guild-user.entity";
 

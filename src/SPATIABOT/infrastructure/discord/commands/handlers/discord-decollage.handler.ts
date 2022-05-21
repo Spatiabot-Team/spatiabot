@@ -1,18 +1,17 @@
-import {CommandBus, CommandHandler, IQueryHandler} from "@nestjs/cqrs";
-import {PartieService} from "../../services/partie.service";
 import {DiscordDecollageCommand} from "../impl/discord-decollage.command";
-import {SocialDiscordService} from "../../../../../USER/application/services/social-discord.service";
-import {Message} from "discord.js";
-import {SocialDiscordInterface} from "../../../../../USER/domain/interfaces/social-discord.interface";
-import {PartieNotFoundException} from "../../../../domain/exceptions/partie-not-found.exception";
+import {JoueurScenarioAffecterCommand} from "../../../../application/commands/joueur/joueur.scenario.affecter.command";
+import {PartieService} from "../../services/partie.service";
 import {DiscordCdn} from "../../../../../DISCORD/application/services/discord-cdn.service";
+import {Message} from "discord.js";
 import {AnswerInChannelCommand} from "../../../../../DISCORD/application/commands/impl/answer-in-channel.command";
-import {JoueurCreateCommand} from "../../../../application/commands/impl/joueur/joueur.create.command";
-import {JoueurAlreadyInPartieException} from "../../../../domain/exceptions/joueur/joueur-already-in-partie.exception";
+import {SocialDiscordInterface} from "../../../../../USER/domain/interfaces/social-discord.interface";
+import {CommandBus, CommandHandler, IQueryHandler} from "@nestjs/cqrs";
+import {SocialDiscordService} from "../../../../../USER/application/services/social-discord.service";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
-import {
-    JoueurScenarioAffecterCommand
-} from "../../../../application/commands/impl/joueur/joueur.scenario.affecter.command";
+import {JoueurAlreadyInPartieException} from "../../../../domain/exceptions/joueur/joueur-already-in-partie.exception";
+import {JoueurCreateCommand} from "../../../../application/commands/joueur/joueur.create.command";
+import {PartieNotFoundException} from "../../../../domain/exceptions/partie-not-found.exception";
+
 
 @CommandHandler(DiscordDecollageCommand)
 export class DiscordDecollageHandler implements IQueryHandler<DiscordDecollageCommand> {

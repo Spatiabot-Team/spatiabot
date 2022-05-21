@@ -1,6 +1,6 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Body, Controller, Param, Put, Request, UseGuards} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
+import {CommandBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {EtapeInterface} from "../../../../domain/interfaces/etape.interface";
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
@@ -10,8 +10,10 @@ import {EtapeNotFoundError} from "../../errors/etape/etape-not-found.error";
 import {ScenarioHasNotThisAuteurError} from "../../errors/scenario/scenario-has-not-this-auteur.error";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {EtapeNotFoundException} from "../../../../domain/exceptions/etape/etape-not-found.exception";
-import {ScenarioHasNotThisAuteurException} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
-import {EtapeUpdateCommand} from "../../../../application/commands/impl/etape/etape.update.command";
+import {
+    ScenarioHasNotThisAuteurException
+} from "../../../../domain/exceptions/scenario/scenario-has-not-this-auteur.exception";
+import {EtapeUpdateCommand} from "../../../../application/commands/etape/etape.update.command";
 import {EtapePut} from "../../dtos/etape/etape.put";
 
 @ApiBearerAuth()
@@ -20,7 +22,7 @@ import {EtapePut} from "../../dtos/etape/etape.put";
 export class EtapePutController {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        
         private readonly commandBus: CommandBus,
         private readonly logger: WinstonLogger,
     ) {

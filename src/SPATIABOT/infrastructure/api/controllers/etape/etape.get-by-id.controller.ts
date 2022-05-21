@@ -1,11 +1,10 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Param, Request, UseGuards} from "@nestjs/common";
-import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {EtapeInterface} from "../../../../domain/interfaces/etape.interface";
 import {ParamId} from "../../dtos/generic/param.id";
-import {EtapeGetByIdHandler} from "../../../../application/services/etape/etape.get-by-id.handler";
-import {EtapeGetByIdQuery} from "../../../../application/services/etape/etape.get-by-id.query";
+import {EtapeGetByIdHandler} from "../../../../application/queries/etape/etape.get-by-id.handler";
+import {EtapeGetByIdQuery} from "../../../../application/queries/etape/etape.get-by-id.query";
 
 @ApiBearerAuth()
 @ApiTags('Etape')

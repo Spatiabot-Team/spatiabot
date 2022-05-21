@@ -1,4 +1,4 @@
-import {Channel, TextBasedChannels} from "discord.js";
+import {TextBasedChannels} from "discord.js";
 
 export class AnswerInChannelCommand {
     channel: TextBasedChannels;

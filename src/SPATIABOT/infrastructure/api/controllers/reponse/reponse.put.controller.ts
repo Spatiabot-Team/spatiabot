@@ -1,6 +1,6 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Body, Controller, Param, Put, Request, UseGuards} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
+import {CommandBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {ReponseInterface} from "../../../../domain/interfaces/reponse.interface";
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
@@ -9,7 +9,7 @@ import {AppError} from "../../errors/app.error";
 import {ReponseNotFoundError} from "../../errors/reponse/reponse.not-found.error";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {ReponseNotFoundException} from "../../../../domain/exceptions/reponse/reponse.not-found.exception";
-import {ReponseUpdateCommand} from "../../../../application/commands/impl/reponse/reponse.update.command";
+import {ReponseUpdateCommand} from "../../../../application/commands/reponse/reponse.update.command";
 import {ReponsePut} from "../../dtos/reponse/reponse.put";
 
 @ApiBearerAuth()
@@ -18,7 +18,7 @@ import {ReponsePut} from "../../dtos/reponse/reponse.put";
 export class ReponsePutController {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        
         private readonly commandBus: CommandBus,
         private readonly logger: WinstonLogger,
     ) {

@@ -1,10 +1,10 @@
 import {CACHE_MANAGER, Inject, Injectable} from "@nestjs/common";
 import {QueryBus} from "@nestjs/cqrs";
-import {CacheKeys} from "../../../../SPATIABOT/infrastructure/cache/cache-keys";
 import {Cache} from 'cache-manager';
 import {InjectRepository} from "@nestjs/typeorm";
 import {DiscordGuildRepository} from "../../../infrastructure/database/repositories/discord-guild.repository";
 import {DiscordGuildRepositoryInterface} from "../../repositories/discord-guild.repository.interface";
+import {CacheKeys} from "../../../infrastructure/cache/cache-keys";
 
 @Injectable()
 export class DiscordGuildFindByDiscordGuildIdService {

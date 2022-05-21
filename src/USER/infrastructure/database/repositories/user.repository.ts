@@ -1,4 +1,4 @@
-import {EntityRepository, Repository} from "typeorm";
+import {EntityRepository, In, Repository} from "typeorm";
 import {UserEntity} from "../entities/user.entity";
 import {UserRepositoryInterface} from "../../../application/repositories/user.repository.interface";
 import {UserInterface} from "../../../domain/interfaces/user.interface";
@@ -22,6 +22,15 @@ export class UserRepository extends Repository<UserEntity> implements UserReposi
         return this.findOne({
             relations : ['socialDiscord','roles'],
             where : {id : userId}
+        });
+    }
+
+
+
+    async findUsers(ids: any[]): Promise<UserInterface[]>{
+
+        return this.findByIds(ids, {
+            relations : ['socialDiscord']
         });
     }
 

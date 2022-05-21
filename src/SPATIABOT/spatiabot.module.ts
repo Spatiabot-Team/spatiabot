@@ -1,7 +1,7 @@
 import {CacheModule, Module} from '@nestjs/common';
 import {CqrsModule} from '@nestjs/cqrs';
-import {CommandHandlers} from "./application/commands/handlers";
-import {QueryHandlers} from "./application/services";
+import {CommandHandlers} from "./application/commands/";
+import {QueryHandlers} from "./application/queries";
 import {Controllers} from "./infrastructure/api/controllers";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {RoutingBot} from "./infrastructure/discord/routing-bot";
@@ -14,12 +14,13 @@ import {PartieService} from "./infrastructure/discord/services/partie.service";
 import {UserModule} from "../USER/user.module";
 import {CommandHandlersDiscordInfra} from "./infrastructure/discord/commands/handlers";
 import {UserRepository} from "../USER/infrastructure/database/repositories/user.repository";
-import {EventHandlers} from "./application/events/handlers";
+import {EventHandlers} from "./application/events/";
 import {Validations} from "./application/validations";
 import {CRONS} from "./infrastructure/cron";
 import {MessageEmbedEtapeService} from "./infrastructure/discord/services/message/message.embed-etape.service";
 import {ActionsDmService} from "./infrastructure/discord/services/actions-dm.service";
 import {RandomItemByPoidsService} from "./domain/services/random-item-by-poids.service";
+import {MessageEmbedService} from "./infrastructure/discord/services/message/message.embed.service";
 
 @Module({
     imports: [
@@ -38,6 +39,7 @@ import {RandomItemByPoidsService} from "./domain/services/random-item-by-poids.s
         DiscordGuildService,
         PartieService,
         MessageEmbedEtapeService,
+        MessageEmbedService,
         RandomItemByPoidsService,
         ...CommandHandlers,
         ...CommandHandlersDiscordInfra,

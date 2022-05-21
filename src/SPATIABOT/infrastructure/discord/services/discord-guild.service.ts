@@ -1,10 +1,14 @@
 import {CACHE_MANAGER, Inject, Injectable} from "@nestjs/common";
 import {DiscordGuild} from "../../../../DISCORD/domain/entities/discord-guild.entity";
 import {CacheKeys} from "../../cache/cache-keys";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
+import {CommandBus} from "@nestjs/cqrs";
 import {Cache} from 'cache-manager';
 import {GetDiscordGuildQuery} from "../../../../DISCORD/application/queries/impl/get-discord-guild.query";
-import {CreateDiscordGuildFromDiscordCommand} from "../../../../DISCORD/application/commands/impl/create-discord-guild-from-discord.command";
+import {
+    CreateDiscordGuildFromDiscordCommand
+} from "../../../../DISCORD/application/commands/impl/create-discord-guild-from-discord.command";
+import {GetDiscordGuildHandler} from "../../../../DISCORD/application/queries/handlers/get-discord-guild.handler";
+import {DiscordGuildInterface} from "../../../../DISCORD/domain/interfaces/discord-guild.interface";
 
 /**
  * @todo à refactorer, ça devrait être dans le module Discord dans la partie application et non infra
@@ -14,8 +18,8 @@ export class DiscordGuildService {
 
     constructor(
         @Inject(CACHE_MANAGER) private cacheManager: Cache,
-        private readonly queryBus: QueryBus,
-        private readonly commandBus: CommandBus
+        private readonly commandBus: CommandBus,
+        private readonly getDiscordGuildHandler: GetDiscordGuildHandler
     ) {
     }
 
@@ -52,9 +56,9 @@ export class DiscordGuildService {
      * @private
      * @return DiscordGuild
      */
-    private async findOrCreateDiscordGuildInDb(discordGuildParam: { id: string }): Promise<DiscordGuild> {
+    private async findOrCreateDiscordGuildInDb(discordGuildParam: { id: string }): Promise<DiscordGuildInterface> {
 
-        let discordGuild = await this.queryBus.execute(new GetDiscordGuildQuery({discordGuildId: discordGuildParam.id}));
+        let discordGuild= await this.getDiscordGuildHandler.execute(new GetDiscordGuildQuery({discordGuildId: discordGuildParam.id}));
 
         if (!discordGuild) {
             discordGuild = await this.commandBus.execute(new CreateDiscordGuildFromDiscordCommand(discordGuildParam))

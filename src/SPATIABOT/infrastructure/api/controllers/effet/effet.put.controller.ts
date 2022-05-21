@@ -1,6 +1,6 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Body, Controller, Param, Put, Request, UseGuards} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
+import {CommandBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {EffetInterface} from "../../../../domain/interfaces/effet.interface";
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
@@ -9,7 +9,7 @@ import {AppError} from "../../errors/app.error";
 import {EffetNotFoundError} from "../../errors/effet/effet.not-found.error";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {EffetNotFoundException} from "../../../../domain/exceptions/effet/effet-not-found.exception";
-import {EffetUpdateCommand} from "../../../../application/commands/impl/effet/effet.update.command";
+import {EffetUpdateCommand} from "../../../../application/commands/effet/effet.update.command";
 import {EffetPut} from "../../dtos/effet/effet.put";
 
 @ApiBearerAuth()
@@ -18,7 +18,7 @@ import {EffetPut} from "../../dtos/effet/effet.put";
 export class EffetPutController {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        
         private readonly commandBus: CommandBus,
         private readonly logger: WinstonLogger,
     ) {

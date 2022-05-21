@@ -9,8 +9,8 @@ import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {###Entity###Interface} from "../../../../domain/interfaces/###entity-tiret###.interface";
 import {###Entity###NotFoundException} from "../../../../domain/exceptions/###entity-tiret###/###entity-tiret###.not-found.exception";
 import {###Entity###NotFoundError} from "../../errors/###entity-tiret###/###entity-tiret###.not-found.error";
-import {###Entity###DeleteCommand} from "../../../../application/commands/impl/###entity-tiret###/###entity-tiret###.delete.command";
-import {ParamId} from "../../dtos/generic/param.id";
+import {###Entity###DeleteCommand} from "../../../../application/commands/###entity-tiret###/###entity-tiret###.delete.command";
+import {ParamId} from "../../../../../APP/dtos/param.id";
 
 @ApiBearerAuth()
 @ApiTags('###Entity###')

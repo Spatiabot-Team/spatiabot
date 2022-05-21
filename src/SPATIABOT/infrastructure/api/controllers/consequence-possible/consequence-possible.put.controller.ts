@@ -1,6 +1,6 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Body, Controller, Param, Put, Request, UseGuards} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
+import {CommandBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {ConsequencePossibleInterface} from "../../../../domain/interfaces/consequence-possible.interface";
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
@@ -8,8 +8,12 @@ import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
 import {AppError} from "../../errors/app.error";
 import {ConsequencePossibleNotFoundError} from "../../errors/consequence-possible/consequence-possible-not-found.error";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
-import {ConsequencePossibleNotFoundException} from "../../../../domain/exceptions/consequence-possible/consequence-possible.not-found.exception";
-import {ConsequencePossibleUpdateCommand} from "../../../../application/commands/impl/consequence-possible/consequence-possible.update.command";
+import {
+    ConsequencePossibleNotFoundException
+} from "../../../../domain/exceptions/consequence-possible/consequence-possible.not-found.exception";
+import {
+    ConsequencePossibleUpdateCommand
+} from "../../../../application/commands/consequence-possible/consequence-possible.update.command";
 import {ConsequencePossiblePut} from "../../dtos/consequence-possible/consequence-possible.put";
 
 @ApiBearerAuth()
@@ -18,7 +22,7 @@ import {ConsequencePossiblePut} from "../../dtos/consequence-possible/consequenc
 export class ConsequencePossiblePutController {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        
         private readonly commandBus: CommandBus,
         private readonly logger: WinstonLogger,
     ) {

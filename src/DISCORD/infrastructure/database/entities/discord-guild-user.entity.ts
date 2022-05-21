@@ -1,10 +1,6 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
 import {DiscordGuildUserInterface} from "../../../domain/interfaces/discord-guild-user.interface";
-import {
-    ConsequencePossibleEntity
-} from "../../../../SPATIABOT/infrastructure/database/entities/consequence-possible.entity";
 import {DiscordGuildEntity} from "./discord-guild.entity";
-import {EtapeEntity} from "../../../../SPATIABOT/infrastructure/database/entities/etape.entity";
 import {DiscordGuild} from "../../../domain/entities/discord-guild.entity";
 
 @Entity('discord_guild_user')

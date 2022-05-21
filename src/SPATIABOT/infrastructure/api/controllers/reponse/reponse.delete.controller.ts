@@ -1,6 +1,6 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Controller, Delete, Param, Request, UseGuards} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
+import {CommandBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
 import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
@@ -9,7 +9,7 @@ import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {ReponseInterface} from "../../../../domain/interfaces/reponse.interface";
 import {ReponseNotFoundException} from "../../../../domain/exceptions/reponse/reponse.not-found.exception";
 import {ReponseNotFoundError} from "../../errors/reponse/reponse.not-found.error";
-import {ReponseDeleteCommand} from "../../../../application/commands/impl/reponse/reponse.delete.command";
+import {ReponseDeleteCommand} from "../../../../application/commands/reponse/reponse.delete.command";
 import {ParamId} from "../../dtos/generic/param.id";
 
 @ApiBearerAuth()
@@ -18,7 +18,7 @@ import {ParamId} from "../../dtos/generic/param.id";
 export class ReponseDeleteController {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        
         private readonly commandBus: CommandBus,
         private readonly logger: WinstonLogger,
     ) {

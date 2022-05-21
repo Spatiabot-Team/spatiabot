@@ -3,10 +3,9 @@ import {DiscordGuild} from "../../../../DISCORD/domain/entities/discord-guild.en
 import {Partie} from "../../../domain/entities/partie";
 import {CacheKeys} from "../../cache/cache-keys";
 import {PartieNotFoundException} from "../../../domain/exceptions/partie-not-found.exception";
-import {QueryBus} from "@nestjs/cqrs";
 import {Cache} from 'cache-manager';
-import {PartieGetByDiscordGuildQuery} from "../../../application/services/partie/partie.get-by-discord-guild.query";
-import {PartieGetByDiscordGuildHandler} from "../../../application/services/partie/partie.get-by-discord-guild.handler";
+import {PartieGetByDiscordGuildQuery} from "../../../application/queries/partie/partie.get-by-discord-guild.query";
+import {PartieGetByDiscordGuildHandler} from "../../../application/queries/partie/partie.get-by-discord-guild.handler";
 
 @Injectable()
 export class PartieService {

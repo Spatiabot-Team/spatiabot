@@ -22,8 +22,13 @@ export class CreateUserWithSocialDiscordHandler implements IQueryHandler<CreateU
      */
     async execute(query: CreateUserWithSocialDiscordCommand): Promise<UserInterface> {
 
+        // Chercher si un user porte déjà ce nom (car username doit être unique)
+        const userWithSameName = await this.userRepository.findUserByUsername(query.socialDiscord.username)
+
+        // s'il y en a déjà un on met null pour la table user (on ira chercher son username dans socialDiscord)
+        // S'il veut se connecter avec son username il devra en créer un)
         const userEntity = await this.userRepository.createUser({
-            username: query.socialDiscord.username,
+            username: userWithSameName ? null : query.socialDiscord.username,
             avatar: query.socialDiscord.avatarFullLink
         })
 

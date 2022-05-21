@@ -2,7 +2,6 @@ import {EtapeInterface} from "./etape.interface";
 import {StatInterface} from "./stat.interface";
 import {PartieInterface} from "./partie.interface";
 import {EtapeEtatEnum} from "../enums/etape-etat.enum";
-import {ConsequencePossibleInterface} from "./consequence-possible.interface";
 import {UserInterface} from "../../../USER/domain/interfaces/user.interface";
 
 export interface JoueurInterface {
@@ -10,6 +9,7 @@ export interface JoueurInterface {
     id?: string;
     /** idUser **/
     userId?: string;
+    etapeEnCoursId?: string;
     etapeEnCours?: EtapeInterface;
     etapeEnCoursEtat?: EtapeEtatEnum;
     etapeDateAffichage?: Date;

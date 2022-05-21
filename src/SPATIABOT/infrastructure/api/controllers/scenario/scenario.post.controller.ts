@@ -1,13 +1,13 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Body, Controller, Post, Request, UseGuards} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
+import {CommandBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
 import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
 import {AppError} from "../../errors/app.error";
 import {ScenarioPost} from "../../dtos/scenario/scenario.post";
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";
-import {ScenarioCreateCommand} from "../../../../application/commands/impl/scenario/scenario.create.command";
+import {ScenarioCreateCommand} from "../../../../application/commands/scenario/scenario.create.command";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {MondeNotFoundException} from "../../../../domain/exceptions/monde/monde-not-found.exception";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
@@ -20,7 +20,7 @@ import {MondeHasNotThisAuteurError} from "../../errors/monde/monde-has-not-this-
 export class ScenarioPostController {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        
         private readonly commandBus: CommandBus,
         private readonly logger: WinstonLogger,
     ) {

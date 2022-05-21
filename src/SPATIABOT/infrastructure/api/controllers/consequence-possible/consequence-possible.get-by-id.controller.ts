@@ -1,15 +1,14 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Param, Request, UseGuards} from "@nestjs/common";
-import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {ConsequencePossibleInterface} from "../../../../domain/interfaces/consequence-possible.interface";
 import {ParamId} from "../../dtos/generic/param.id";
 import {
     ConsequencePossibleGetByIdHandler
-} from "../../../../application/services/consequence-possible/consequence-possible.get-by-id.handler";
+} from "../../../../application/queries/consequence-possible/consequence-possible.get-by-id.handler";
 import {
     ConsequencePossibleGetByIdQuery
-} from "../../../../application/services/consequence-possible/consequence-possible.get-by-id.query";
+} from "../../../../application/queries/consequence-possible/consequence-possible.get-by-id.query";
 
 @ApiBearerAuth()
 @ApiTags('ConsequencePossible')

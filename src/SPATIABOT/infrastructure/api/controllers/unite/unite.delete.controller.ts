@@ -10,7 +10,7 @@ import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/monde/monde-has-not-this-auteur.exception";
 import {MondeHasNotThisAuteurError} from "../../errors/monde/monde-has-not-this-auteur.error";
 import {MondeAlreadyExistsError} from "../../errors/monde/monde-already-exists.error";
-import {UniteDeleteCommand} from "../../../../application/commands/impl/unite/unite.delete.command";
+import {UniteDeleteCommand} from "../../../../application/commands/unite/unite.delete.command";
 import {UniteNotFoundException} from "../../../../domain/exceptions/unite/unite-not-found.exception";
 import {UniteNotFoundError} from "../../errors/unite/unite-not-found.error";
 

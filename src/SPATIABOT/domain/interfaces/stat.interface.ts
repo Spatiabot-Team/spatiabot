@@ -1,5 +1,4 @@
 import {UniteInterface} from "./unite.interface";
-import {ConsequencePossibleInterface} from "./consequence-possible.interface";
 
 export interface StatInterface {
 

@@ -1,13 +1,13 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Body, Controller, Post, Request, UseGuards} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
+import {CommandBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
 import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
 import {AppError} from "../../errors/app.error";
 import {PartiePost} from "../../dtos/partie/partie.post";
 import {PartieInterface} from "../../../../domain/interfaces/partie.interface";
-import {PartieCreateCommand} from "../../../../application/commands/impl/partie/partie.create.command";
+import {PartieCreateCommand} from "../../../../application/commands/partie/partie.create.command";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {PartieAlreadyExistsException} from "../../../../domain/exceptions/partie/partie.already-exists.exception";
 import {PartieAlreadyExistsError} from "../../errors/partie/partie.already-exists.error";
@@ -18,7 +18,7 @@ import {PartieAlreadyExistsError} from "../../errors/partie/partie.already-exist
 export class PartiePostController {
 
     constructor(
-        private readonly queryBus: QueryBus,
+        
         private readonly commandBus: CommandBus,
         private readonly logger: WinstonLogger,
     ) {

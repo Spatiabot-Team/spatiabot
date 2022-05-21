@@ -1,15 +1,17 @@
-import {CommandBus, CommandHandler, EventBus, IQueryHandler} from "@nestjs/cqrs";
-import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
+import {CommandHandler} from "@nestjs/cqrs/dist/utils/command-handler.decorator";
 import {DiscordReponseCommand} from "../impl/discord-reponse.command";
-import {JoueurReponseChoisirCommand} from "../../../../application/commands/impl/joueur/joueurReponseChoisirCommand";
-import {
-    JoueurEtapeEnCoursChangedEvent
-} from "../../../../application/events/impl/joueur/joueur.etape-en-cours-changed.event";
-import {ReponseNotFoundException} from "../../../../domain/exceptions/reponse/reponse.not-found.exception";
+import {CommandBus, EventBus, IQueryHandler} from "@nestjs/cqrs";
+import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {AnswerInChannelCommand} from "../../../../../DISCORD/application/commands/impl/answer-in-channel.command";
 import {
     JoueurEtapePasDeReponseEnAttenteException
 } from "../../../../domain/exceptions/joueur/joueur.etape.pas-de-reponse-en-attente.exception";
+import {JoueurReponseChoisirCommand} from "../../../../application/commands/joueur/joueur.reponse.choisir.command";
+import {
+    JoueurEtapeEnCoursChangedEvent
+} from "../../../../application/events/joueur/joueur.etape-en-cours-changed.event";
+import {ReponseInterface} from "../../../../domain/interfaces/reponse.interface";
+import {ReponseNotFoundException} from "../../../../domain/exceptions/reponse/reponse.not-found.exception";
 
 @CommandHandler(DiscordReponseCommand)
 export class DiscordReponseHandler implements IQueryHandler<DiscordReponseCommand> {
@@ -35,7 +37,9 @@ export class DiscordReponseHandler implements IQueryHandler<DiscordReponseComman
 
             // Indiquer au spatiabot qu'un joueur a choisi une réponse
             // Si quelque chose ne va pas le code partira dans le catch car Exception
-            await this.commandBus.execute(new JoueurReponseChoisirCommand(query.joueur.id, reponse, args))
+            const reponseChoisie : ReponseInterface = await this.commandBus.execute(
+                new JoueurReponseChoisirCommand(query.joueur.id, reponse, args)
+            );
 
             // Appliquer les effets de l'étape suivante du joueur (qui est devenue étape en cours)
             this.eventBus.publish(new JoueurEtapeEnCoursChangedEvent(query.joueur.id));
@@ -43,7 +47,7 @@ export class DiscordReponseHandler implements IQueryHandler<DiscordReponseComman
             // Annoncer au joueur qu'on a pris en compte sa réponse
             await this.commandBus.execute(new AnswerInChannelCommand(
                 query.messageFromDiscord.message.channel,
-                `Nous avons pris en compte votre réponse aventurier`
+                reponseChoisie.texte
             ));
 
         } catch (e) {

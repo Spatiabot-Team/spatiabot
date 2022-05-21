@@ -1,6 +1,6 @@
 import {EffetInterface} from "../../../../domain/interfaces/effet.interface";
 import {ApiProperty} from "@nestjs/swagger";
-import {IsNotEmpty, IsNumber,IsEnum} from "class-validator";
+import {IsEnum, IsNotEmpty, IsNumber} from "class-validator";
 import {TypeEffetEnum} from "../../../../domain/enums/type-effet.enum";
 
 export class EffetPost implements EffetInterface {

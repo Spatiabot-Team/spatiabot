@@ -1,13 +1,4 @@
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    Index,
-    JoinColumn,
-    ManyToOne,
-    OneToMany,
-    PrimaryGeneratedColumn
-} from "typeorm";
+import {Column, Entity, Index, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {EtapeEntity} from "./etape.entity";
 import {EtapeEtatEnum} from "../../../domain/enums/etape-etat.enum";
 import {PartieEntity} from "./partie.entity";
@@ -33,9 +24,14 @@ export class JoueurEntity implements JoueurInterface {
     userId?: string;
 
     @ManyToOne(type => EtapeEntity, {
-        eager: true
+        eager: true,
+        nullable:true
     })
     etapeEnCours?: EtapeEntity;
+
+    @Index()
+    @Column({nullable:true})
+    etapeEnCoursId?: string;
 
     @Column({nullable: true, default: EtapeEtatEnum.A_AFFICHER})
     etapeEnCoursEtat?: EtapeEtatEnum;

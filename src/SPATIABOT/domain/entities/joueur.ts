@@ -4,7 +4,6 @@ import {EtapeInterface} from "../interfaces/etape.interface";
 import {PartieInterface} from "../interfaces/partie.interface";
 import {StatInterface} from "../interfaces/stat.interface";
 import {EffetInterface} from "../interfaces/effet.interface";
-import {MondeInterface} from "../interfaces/monde.interface";
 
 export class Joueur implements JoueurInterface {
 

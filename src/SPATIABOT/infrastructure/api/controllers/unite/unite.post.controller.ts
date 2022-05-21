@@ -6,7 +6,7 @@ import {UniteInterface} from "../../../../domain/interfaces/unite.interface";
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
 import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
 import {AppError} from "../../errors/app.error";
-import {UniteCreateCommand} from "../../../../application/commands/impl/unite/unite.create.command";
+import {UniteCreateCommand} from "../../../../application/commands/unite/unite.create.command";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {UniteAlreadyExistsError} from "../../errors/unite/unite-already-exists.error";
 import {UniteAlreadyExistsException} from "../../../../domain/exceptions/unite/unite-already-exists.exception";

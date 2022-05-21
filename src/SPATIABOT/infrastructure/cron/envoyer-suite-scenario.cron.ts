@@ -6,14 +6,15 @@ import {
 import {CommandBus} from "@nestjs/cqrs";
 import {
     JoueurEtapeFindAllAAfficherHandler
-} from "../../application/services/joueur/joueur.etape.find-all-a-afficher.handler";
+} from "../../application/queries/joueur/joueur.etape.find-all-a-afficher.handler";
 import {MessageEmbedEtapeService} from "../discord/services/message/message.embed-etape.service";
 import {WinstonLogger} from "../../../LOGGER/winston-logger";
+
+import {EtapeEtatEnum} from "../../domain/enums/etape-etat.enum";
 import {DiscordService} from "../../../DISCORD/application/services/discord.service";
 import {
     JoueurEtapeChangerEtatMultiCommand
-} from "../../application/commands/impl/joueur/joueur.etape.changer-etat-multi.command";
-import {EtapeEtatEnum} from "../../domain/enums/etape-etat.enum";
+} from "../../application/commands/joueur/joueur.etape.changer-etat-multi.command";
 
 @Injectable()
 export class EnvoyerSuiteScenarioCron {

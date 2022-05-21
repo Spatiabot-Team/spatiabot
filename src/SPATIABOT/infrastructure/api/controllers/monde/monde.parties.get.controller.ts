@@ -13,13 +13,13 @@ import {ScenarioRepositoryInterface} from "../../../../application/repositories/
 import {ScenarioInterface} from "../../../../domain/interfaces/scenario.interface";
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
 import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
-import {MondeGetByIdHandler} from "../../../../application/services/monde/monde.get-by-id.handler";
-import {MondeGetByIdQuery} from "../../../../application/services/monde/monde.get-by-id.query";
+import {MondeGetByIdHandler} from "../../../../application/queries/monde/monde.get-by-id.handler";
+import {MondeGetByIdQuery} from "../../../../application/queries/monde/monde.get-by-id.query";
 
 @ApiBearerAuth()
 @ApiTags('Monde')
 @Controller('mondes')
-export class MondeScenariosGetController {
+export class MondePartiesGetController {
 
     constructor(
         private readonly mondeGetByIdHandler: MondeGetByIdHandler,

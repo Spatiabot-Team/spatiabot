@@ -1,11 +1,10 @@
 import {Injectable} from "@nestjs/common";
 import {CommandBus} from "@nestjs/cqrs";
 import {MessageFromDiscord} from "../../../../DISCORD/domain/entities/message-from-discord.entity";
-import {AbstractDiscordActionCommand} from "../commands/impl/abstract-discord-action.command";
 import {DiscordReponseCommand} from "../commands/impl/discord-reponse.command";
 import {
     JoueurUserFindBySocialDiscordIdHandler
-} from "../../../application/services/joueur/joueur.user.find-by-social-discord-id.handler";
+} from "../../../application/queries/joueur/joueur.user.find-by-social-discord-id.handler";
 import {
     DiscordGuildFindByDiscordGuildIdService
 } from "../../../../DISCORD/application/services/discord-guild/discord-guild.find-by-discord-guild-id.service";

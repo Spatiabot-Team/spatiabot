@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common';
-import {Client, Intents, User} from "discord.js";
+import {Client, Intents, TextChannel, User} from "discord.js";
 import {clc} from "@nestjs/common/utils/cli-colors.util";
 
 @Injectable()
@@ -67,9 +67,21 @@ export class DiscordService {
     //     return await this.clientDiscord.guilds.fetch(id);
     // }
     //
-    // async findChannel(channelId) {
-    //     return await this.clientDiscord.channels.fetch(channelId);
-    // }
+    async findChannel(channelId) {
+        return await this.clientDiscord.channels.fetch(channelId);
+    }
+
+    /**
+     *
+     * @param channelId
+     */
+    async findTextChannel(channelId): Promise<TextChannel> {
+        const channel = await this.clientDiscord.channels.fetch(channelId)
+        if (!(channel instanceof TextChannel)) {
+            throw new Error('Ce channel n\est pas un channel textuel');
+        }
+        return channel;
+    }
 
     /**
      * Remplace les mots clefs

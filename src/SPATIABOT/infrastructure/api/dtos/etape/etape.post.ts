@@ -1,6 +1,6 @@
 import {EtapeInterface} from "../../../../domain/interfaces/etape.interface";
 import {ApiProperty} from "@nestjs/swagger";
-import {IsUUID, IsNotEmpty, MinLength, MaxLength, IsOptional, IsBoolean} from "class-validator";
+import {IsBoolean, IsNotEmpty, IsOptional, IsUUID, MaxLength, MinLength} from "class-validator";
 
 export class EtapePost implements EtapeInterface {
 

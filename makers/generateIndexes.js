@@ -6,9 +6,10 @@ const { EOL } = require('os');
 
 module.exports = function generateIndexes(module) {
 
-    generateIndexesFor('CommandHandlers', `${ __dirname }/../src/${ module }/application/commands/handlers`);
-    generateIndexesFor('EventHandlers', `${ __dirname }/../src/${ module }/application/events/handlers`);
-    generateIndexesFor('QueryHandlers', `${ __dirname }/../src/${ module }/application/queries/handlers`);
+    generateIndexesFor('CommandHandlers', `${ __dirname }/../src/${ module }/application/commands/`);
+    generateIndexesFor('EventHandlers', `${ __dirname }/../src/${ module }/application/events/`);
+    generateIndexesFor('QueryHandlers', `${ __dirname }/../src/${ module }/application/queries/`);
+    generateIndexesFor('Controllers', `${ __dirname }/../src/${ module }/infrastructure/api/controllers/`);
 
 }
 
@@ -23,9 +24,13 @@ function generateIndexesFor(component, path) {
 
         if (fs.lstatSync(`${ path }/${ d }`).isDirectory()) {
 
-            const files = fs.readdirSync(`${ path }/${ d }`);
+            const files = fs.readdirSync(`${ path }/${ d }`).filter(f =>
+                    !f.match(/.*query*./)
+                && !f.match(/.*event*./)
+                && !f.match(/.*command*./)
+            );
             const classNames = files.map(adaptToCLass);
-
+            console.log(classNames)
             // Imports
             strImports += classNames.map((c, index) => `import {${ c }} from "./${ d }/${ files[index].slice(0, -3) }";`).join(EOL);
             strImports += EOL;

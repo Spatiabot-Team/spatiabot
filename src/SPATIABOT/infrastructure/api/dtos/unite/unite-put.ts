@@ -1,5 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {IsNotEmpty, IsUUID} from "class-validator";
+import {IsNotEmpty} from "class-validator";
 import {UniteInterface} from "../../../../domain/interfaces/unite.interface";
 
 export class UnitePut implements UniteInterface {

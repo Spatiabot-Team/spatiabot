@@ -1,7 +1,6 @@
 import {Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {StatInterface} from "../../../domain/interfaces/stat.interface";
 import {UniteEntity} from "./unite.entity";
-import {EtapeEntity} from "./etape.entity";
 import {JoueurEntity} from "./joueur.entity";
 import {PartieEntity} from "./partie.entity";
 import {MondeEntity} from "./monde.entity";

@@ -1,3 +1,10 @@
+const CONFIG_G = require("./config/g");
+const CONFIG_GBI = require("./config/gbi");
+const CONFIG_D = require("./config/d");
+const CONFIG_U = require("./config/u");
+const CONFIG_C = require("./config/c");
+const CONFIG_R = require("./config/r");
+
 const { clc } = require("@nestjs/common/utils/cli-colors.util");
 const fs = require("fs");
 const generateGenericExceptions = require('./generateGenericExceptions');
@@ -6,120 +13,12 @@ const generateIndexes = require('./generateIndexes');
 const capitalizeFirstLetter = require('./capitalizeFirstLetter');
 
 const dicoGenerate = {
-    'r': [
-        {
-            createEntityFolder: false,
-            folderOrigin: `${ __dirname }/templates/r/`,
-            fileOrigin: `entity.repository.interface.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/repositories/`,
-        },
-        {
-            createEntityFolder: false,
-            folderOrigin: `${ __dirname }/templates/r/`,
-            fileOrigin: `entity.repository.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/database/repositories/`,
-        },
-    ],
-    'c': [
-        {
-            folderOrigin: `${ __dirname }/templates/c/`,
-            fileOrigin: `entity.create.handler.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/handlers/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/c/`,
-            fileOrigin: `entity.create.command.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/impl/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/c/`,
-            fileOrigin: `entity.post.controller.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/controllers/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/c/`,
-            fileOrigin: `entity.post.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/dtos/`,
-        }
-    ],
-    'u': [
-        {
-            folderOrigin: `${ __dirname }/templates/u/`,
-            fileOrigin: `entity.update.handler.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/handlers/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/u/`,
-            fileOrigin: `entity.update.command.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/impl/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/u/`,
-            fileOrigin: `entity.put.controller.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/controllers/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/u/`,
-            fileOrigin: `entity.put.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/dtos/`,
-        }
-    ],
-    'd': [
-        {
-            folderOrigin: `${ __dirname }/templates/d/`,
-            fileOrigin: `entity.delete.handler.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/handlers/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/d/`,
-            fileOrigin: `entity.delete.command.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/commands/impl/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/d/`,
-            fileOrigin: `entity.delete.controller.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/controllers/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/`,
-            fileOrigin: `entity.not-found.error.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/errors/`,
-        }
-    ],
-    'g': [
-        {
-            folderOrigin: `${ __dirname }/templates/g/`,
-            fileOrigin: `entity.get.controller.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/controllers/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/g/`,
-            fileOrigin: `entity.get.handler.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/queries/handlers/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/g/`,
-            fileOrigin: `entity.get.query.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/queries/impl/`,
-        },
-    ],
-    'gbi': [
-        {
-            folderOrigin: `${ __dirname }/templates/gbi/`,
-            fileOrigin: `entity.get-by-id.controller.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/infrastructure/api/controllers/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/gbi/`,
-            fileOrigin: `entity.get-by-id.handler.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/queries/handlers/`,
-        },
-        {
-            folderOrigin: `${ __dirname }/templates/gbi/`,
-            fileOrigin: `entity.get-by-id.query.ts`,
-            folderDestination: `${ __dirname }/../src/###MODULE###/application/queries/impl/`,
-        }
-    ]
+    'r': CONFIG_R,
+    'c': CONFIG_C,
+    'u': CONFIG_U,
+    'd': CONFIG_D,
+    'g': CONFIG_G,
+    'gbi': CONFIG_GBI
 }
 
 function run() {

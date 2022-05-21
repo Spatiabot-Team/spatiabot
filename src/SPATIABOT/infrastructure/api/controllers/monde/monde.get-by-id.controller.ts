@@ -1,6 +1,5 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Param, Request, UseGuards} from "@nestjs/common";
-import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 import {MondeHasNotThisAuteurError} from "../../errors/monde/monde-has-not-this-auteur.error";
@@ -10,12 +9,12 @@ import {AppError} from "../../errors/app.error";
 import {WinstonLogger} from "../../../../../LOGGER/winston-logger";
 import {ParamSlugOrId} from "../../dtos/generic/param.slug-or-id";
 import {isUUID} from "@nestjs/common/utils/is-uuid";
-import {MondeFindHandler} from "../../../../application/services/monde/monde.find.handler";
-import {MondeFindQuery} from "../../../../application/services/monde/monde.find.query";
+import {MondeFindHandler} from "../../../../application/queries/monde/monde.find.handler";
+import {MondeFindQuery} from "../../../../application/queries/monde/monde.find.query";
 import {
     ScenarioLightByMondeIdHandler
-} from "../../../../application/services/scenario/scenario.light-by-monde-id.handler";
-import {ScenarioLightByMondeIdQuery} from "../../../../application/services/scenario/scenario.light-by-monde-id.query";
+} from "../../../../application/queries/scenario/scenario.light-by-monde-id.handler";
+import {ScenarioLightByMondeIdQuery} from "../../../../application/queries/scenario/scenario.light-by-monde-id.query";
 
 @ApiBearerAuth()
 @ApiTags('Monde')

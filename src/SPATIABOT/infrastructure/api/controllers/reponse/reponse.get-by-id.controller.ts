@@ -1,11 +1,10 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Param, Request, UseGuards} from "@nestjs/common";
-import {QueryBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {ReponseInterface} from "../../../../domain/interfaces/reponse.interface";
 import {ParamId} from "../../dtos/generic/param.id";
-import {ReponseGetByIdQuery} from "../../../../application/services/reponse/reponse.get-by-id.query";
-import {ReponseGetByIdHandler} from "../../../../application/services/reponse/reponse.get-by-id.handler";
+import {ReponseGetByIdQuery} from "../../../../application/queries/reponse/reponse.get-by-id.query";
+import {ReponseGetByIdHandler} from "../../../../application/queries/reponse/reponse.get-by-id.handler";
 
 @ApiBearerAuth()
 @ApiTags('Reponse')

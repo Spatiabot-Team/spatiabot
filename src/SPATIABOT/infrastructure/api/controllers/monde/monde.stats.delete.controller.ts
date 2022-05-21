@@ -1,6 +1,6 @@
 import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {Controller, Delete, Param, Request, UseGuards} from "@nestjs/common";
-import {CommandBus, QueryBus} from "@nestjs/cqrs";
+import {CommandBus} from "@nestjs/cqrs";
 import {JwtAuthGuard} from "../../../../../USER/infrastructure/api/security/jwt-auth.guard";
 import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
@@ -12,11 +12,8 @@ import {MondeHasNotThisAuteurException} from "../../../../domain/exceptions/mond
 import {MondeNotFoundError} from "../../errors/monde/monde-not-found.error";
 import {MondeHasNotThisAuteurError} from "../../errors/monde/monde-has-not-this-auteur.error";
 import {MondeAlreadyExistsError} from "../../errors/monde/monde-already-exists.error";
-import {MondeDeleteAuteurCommand} from "../../../../application/commands/impl/monde/monde.delete-auteur.command";
-import {MondeDeleteAuteur} from "../../dtos/monde/monde.delete-auteur";
-import {ParamId} from "../../dtos/generic/param.id";
 import {MondeStatDelete} from "../../dtos/monde/monde.stat.delete";
-import {MondeStatDeleteCommand} from "../../../../application/commands/impl/monde/monde.stat.delete.command";
+import {MondeStatDeleteCommand} from "../../../../application/commands/monde/monde.stat.delete.command";
 
 @ApiBearerAuth()
 @ApiTags('Monde')

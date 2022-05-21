@@ -12,8 +12,8 @@ import {StatRepositoryInterface} from "../../../../application/repositories/stat
 import {StatInterface} from "../../../../domain/interfaces/stat.interface";
 import {Roles} from "../../../../../USER/infrastructure/api/security/roles.decorator";
 import {RolesEnum} from "../../../../../USER/domain/enum/roles.enum";
-import {MondeGetByIdHandler} from "../../../../application/services/monde/monde.get-by-id.handler";
-import {MondeGetByIdQuery} from "../../../../application/services/monde/monde.get-by-id.query";
+import {MondeGetByIdHandler} from "../../../../application/queries/monde/monde.get-by-id.handler";
+import {MondeGetByIdQuery} from "../../../../application/queries/monde/monde.get-by-id.query";
 import {StatRepository} from "../../../database/repositories/stat.repository";
 import {MondeStatPost} from "../../dtos/monde/monde.stat.post";
 

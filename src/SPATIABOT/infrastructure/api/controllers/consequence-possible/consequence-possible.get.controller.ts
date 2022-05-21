@@ -3,10 +3,10 @@ import {Controller, Get, Request} from "@nestjs/common";
 import {CommandBus} from "@nestjs/cqrs";
 import {
     ConsequencePossibleGetHandler
-} from "../../../../application/services/consequence-possible/consequence-possible.get.handler";
+} from "../../../../application/queries/consequence-possible/consequence-possible.get.handler";
 import {
     ConsequencePossibleGetQuery
-} from "../../../../application/services/consequence-possible/consequence-possible.get.query";
+} from "../../../../application/queries/consequence-possible/consequence-possible.get.query";
 
 @ApiTags('ConsequencePossible')
 @Controller('consequence-possibles')

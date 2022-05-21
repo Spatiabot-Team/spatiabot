@@ -1,8 +1,8 @@
 import {ApiTags} from "@nestjs/swagger";
 import {Controller, Get, Request} from "@nestjs/common";
 import {CommandBus} from "@nestjs/cqrs";
-import {EffetGetHandler} from "../../../../application/services/effet/effet.get.handler";
-import {EffetGetQuery} from "../../../../application/services/effet/effet.get.query";
+import {EffetGetHandler} from "../../../../application/queries/effet/effet.get.handler";
+import {EffetGetQuery} from "../../../../application/queries/effet/effet.get.query";
 
 @ApiTags('Effet')
 @Controller('Effets')

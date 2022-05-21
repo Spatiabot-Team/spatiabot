@@ -1,6 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {IsNotEmpty, IsOptional, IsUUID} from "class-validator";
-import {MondeInterface} from "../../../../domain/interfaces/monde.interface";
+import {IsNotEmpty, IsUUID} from "class-validator";
 import {StatInterface} from "../../../../domain/interfaces/stat.interface";
 
 export class MondeStatPutParam implements StatInterface{
