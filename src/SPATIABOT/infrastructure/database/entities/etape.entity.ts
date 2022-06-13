@@ -22,6 +22,9 @@ export class EtapeEntity implements EtapeInterface {
     @Column({default: false})
     finScenario?: boolean;
 
+    @Column({default: false})
+    gameOver?: boolean;
+
     @ManyToOne(type => ScenarioEntity, scenario => scenario.etapes, {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'

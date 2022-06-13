@@ -11,6 +11,7 @@ export interface EtapeInterface {
     order?: number;
     premiereEtape?: boolean;
     finScenario?: boolean;
+    gameOver?:boolean;
 
     // Parents
     scenarioId?: string;

@@ -14,4 +14,5 @@ export class Etape implements EtapeInterface {
     order: number;
     reponses: ReponseInterface[];
     scenarioId: string;
+    gameOver?:boolean = false;
 }

@@ -10,7 +10,6 @@ import {ReponseNotFoundException} from "../../../domain/exceptions/reponse/repon
 import {RandomItemByPoidsService} from "../../../domain/services/random-item-by-poids.service";
 import {ReponseInterface} from "../../../domain/interfaces/reponse.interface";
 import {EtapeNextDateHandler} from "../../queries/etape/etape.next-date.handler";
-import {JoueurInterface} from "../../../domain/interfaces/joueur.interface";
 import {JoueurScenarioAffecterCommand} from "../joueur/joueur.scenario.affecter.command";
 import {JoueurReponseChoisirCommand} from "../joueur/joueur.reponse.choisir.command";
 import {Reponse} from "../../../domain/entities/reponse";
@@ -20,14 +19,14 @@ export class JoueurResponseChoisirHandler implements IQueryHandler<JoueurReponse
 
     constructor(
         @InjectRepository(JoueurRepository) private readonly joueurRepository: JoueurRepositoryInterface,
-        private readonly randomItemByPoidsService : RandomItemByPoidsService,
-        private readonly etapeNextDateHandler : EtapeNextDateHandler,
-        private readonly commandBus : CommandBus
+        private readonly randomItemByPoidsService: RandomItemByPoidsService,
+        private readonly etapeNextDateHandler: EtapeNextDateHandler,
+        private readonly commandBus: CommandBus
     ) {
     }
 
     /**
-     *
+     * @todo Eclaircir cette fonction qui est trop longue et fait trop de choses
      * @param query
      */
     async execute(query: JoueurReponseChoisirCommand): Promise<ReponseInterface | null> {
@@ -38,8 +37,16 @@ export class JoueurResponseChoisirHandler implements IQueryHandler<JoueurReponse
             relations: ['etapeEnCours', 'etapeEnCours.reponses']
         });
 
+        // C'est un gameover
+        if (joueur.etapeEnCours.gameOver) {
+            const r = new Reponse();
+            r.titre = 'GAME OVER';
+            r.texte = 'Quelle tristesse...vous êtes...mort :\'(\n La vie est faite de choix, tapez **!respawn** pour prendre un nouveau départ';
+            return r;
+        }
+
         // C'est une réponse à une fin de scénario => on en affecte un autre et on arrête là
-        if(joueur.etapeEnCours.finScenario){
+        if (joueur.etapeEnCours.finScenario) {
             //@todo mieux gérer ce cas là
             await this.commandBus.execute(new JoueurScenarioAffecterCommand(query.joueurId));
             const r = new Reponse();
@@ -51,15 +58,15 @@ export class JoueurResponseChoisirHandler implements IQueryHandler<JoueurReponse
         this.verify(query, joueur);
 
         // Définir la conséquence que l'on applique parmi les conséquences possibles de la réponse choisie
-        const reponse : ReponseInterface = this.findReponse(joueur.etapeEnCours.reponses, query.reponseLibelle);
+        const reponse: ReponseInterface = this.findReponse(joueur.etapeEnCours.reponses, query.reponseLibelle);
         const consequencePossible = this.randomItemByPoidsService.execute(reponse.consequencePossibles);
 
         // Mettre à jour le joueur
         this.joueurRepository.save({
-            id : joueur.id,
-            etapeEnCoursEtat : EtapeEtatEnum.A_AFFICHER,
-            etapeEnCours : {id : consequencePossible.etapeSuivanteId},
-            etapeDateAffichage : this.etapeNextDateHandler.execute()
+            id: joueur.id,
+            etapeEnCoursEtat: EtapeEtatEnum.A_AFFICHER,
+            etapeEnCours: {id: consequencePossible.etapeSuivanteId},
+            etapeDateAffichage: this.etapeNextDateHandler.execute()
         });
 
         return reponse;
@@ -82,15 +89,15 @@ export class JoueurResponseChoisirHandler implements IQueryHandler<JoueurReponse
      * @param reponses
      * @param reponseLibelle
      */
-    findReponse(reponses : ReponseInterface[],reponseLibelle: string) : ReponseInterface{
+    findReponse(reponses: ReponseInterface[], reponseLibelle: string): ReponseInterface {
 
         if (!reponses) {
             throw new ReponseNotFoundException();
         }
 
-        const reponse  = reponses.find(r => r.libelle === reponseLibelle);
+        const reponse = reponses.find(r => r.libelle === reponseLibelle);
 
-        if(reponse){
+        if (reponse) {
             return reponse;
         }
 

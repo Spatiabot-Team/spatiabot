@@ -44,4 +44,12 @@ export class EtapePut implements EtapeInterface {
     @IsBoolean()
     @IsOptional()
     finScenario: boolean;
+
+    @ApiProperty({
+        description: 'Est-ce un gameOver ?',
+        required: true
+    })
+    @IsBoolean()
+    @IsOptional()
+    gameOver: boolean;
 }

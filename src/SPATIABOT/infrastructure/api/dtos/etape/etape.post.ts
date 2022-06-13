@@ -44,6 +44,14 @@ export class EtapePost implements EtapeInterface {
     finScenario: boolean;
 
     @ApiProperty({
+        description: 'Est-ce un game over ?',
+        required: true
+    })
+    @IsBoolean()
+    @IsOptional()
+    gameOver: boolean;
+
+    @ApiProperty({
         description: 'Scenraio dans lequel se déroule l\'etape',
         required: true
     })

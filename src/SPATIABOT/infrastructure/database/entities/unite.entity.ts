@@ -1,6 +1,7 @@
 import {Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {MondeEntity} from "./monde.entity";
 import {UniteInterface} from "../../../domain/interfaces/unite.interface";
+import {PorteeEnum} from "../../../domain/enums/portee.enum";
 
 @Entity('unite')
 export class UniteEntity implements UniteInterface {
@@ -17,6 +18,9 @@ export class UniteEntity implements UniteInterface {
 
     @Column({nullable:true})
     description: string;
+
+    @Column({nullable: true, default: PorteeEnum.JOUEUR})
+    portee?: PorteeEnum;
 
     @ManyToOne(type => MondeEntity, monde => monde.unites, {
         onDelete: 'CASCADE',

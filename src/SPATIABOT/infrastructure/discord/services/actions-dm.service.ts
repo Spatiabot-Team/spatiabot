@@ -11,6 +11,7 @@ import {
 import {DiscordMessageAdapter} from "../../../../DISCORD/infrastructure/adapter/discord-message.adapter";
 import {JoueurInterface} from "../../../domain/interfaces/joueur.interface";
 import {AbstractDiscordDmActionCommand} from "../commands/impl/abstract-discord-dm-action.command";
+import {DiscordRespawnCommand} from "../commands/impl/discord-respawn.command";
 
 @Injectable()
 export class ActionsDmService {
@@ -19,6 +20,7 @@ export class ActionsDmService {
         {
             'r': {'event': (message: MessageFromDiscord,joueur : JoueurInterface) => new DiscordReponseCommand(message,joueur)},
             'reponse': {'event': (message: MessageFromDiscord, joueur : JoueurInterface) => new DiscordReponseCommand(message,joueur)},
+            'respawn': {'event': (message: MessageFromDiscord, joueur : JoueurInterface) => new DiscordRespawnCommand(message,joueur)},
         };
 
     constructor(

@@ -5,10 +5,10 @@ import {JoueurRepository} from "../../../infrastructure/database/repositories/jo
 import {StatRepository} from "../../../infrastructure/database/repositories/stat.repository";
 import {JoueurRepositoryInterface} from "../../repositories/joueur.repository.interface";
 import {StatRepositoryInterface} from "../../repositories/stat.repository.interface";
-import {TypeEffetEnum} from "../../../domain/enums/type-effet.enum";
 import {PartieInterface} from "../../../domain/interfaces/partie.interface";
 import {EffetInterface} from "../../../domain/interfaces/effet.interface";
 import {StatInterface} from "../../../domain/interfaces/stat.interface";
+import {PorteeEnum} from "../../../domain/enums/portee.enum";
 
 
 @EventsHandler(JoueurEtapeEnCoursChangedEvent)
@@ -31,7 +31,7 @@ export class JoueurEtapeEnCoursChangedHandler implements IEventHandler<JoueurEta
         // Appliquer les effets de type monde à la partie
         const stats = this.getStatPartieApresApplicationEffets(
             joueur.partie, joueur.etapeEnCours.effets.filter(
-                effet => effet.type === TypeEffetEnum.MONDE
+                effet => effet.unite.portee === PorteeEnum.MONDE
             )
         );
         this.statRepository.save(stats);
@@ -44,7 +44,7 @@ export class JoueurEtapeEnCoursChangedHandler implements IEventHandler<JoueurEta
 
     }
 
-    getStatPartieApresApplicationEffets(partie: PartieInterface, effets: EffetInterface[]) : StatInterface[] {
+    getStatPartieApresApplicationEffets(partie: PartieInterface, effets: EffetInterface[]): StatInterface[] {
         effets.forEach(effet => {
             let stat: StatInterface = partie.statsMonde.find(stat => stat.unite.id === effet.unite.id);
 

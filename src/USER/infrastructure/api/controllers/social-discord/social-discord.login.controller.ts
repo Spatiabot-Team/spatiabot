@@ -27,6 +27,7 @@ export class SocialDiscordLoginController {
     @Get('auth/discord/login')
     @UseGuards(AuthGuard('discord'))
     async discordAuth(@Req() req) {
+
         let user = await this.socialDiscordService.findOrCreateUser(req.user.socialDiscord);
 
         // //@todo réparer cette bidouille pour retourner directement this.userService.generateToken(user);

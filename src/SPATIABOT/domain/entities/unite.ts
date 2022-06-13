@@ -1,4 +1,5 @@
 import {UniteInterface} from "../interfaces/unite.interface";
+import {PorteeEnum} from "../enums/portee.enum";
 
 export class Unite implements UniteInterface {
     id?: string;
@@ -6,4 +7,5 @@ export class Unite implements UniteInterface {
     libelle?: string;
     description?: string;
     mondeId?: string;
+    portee?: PorteeEnum;
 }

@@ -1,6 +1,5 @@
 import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {EffetInterface} from "../../../domain/interfaces/effet.interface";
-import {TypeEffetEnum} from "../../../domain/enums/type-effet.enum";
 import {UniteEntity} from "./unite.entity";
 import {EtapeEntity} from "./etape.entity";
 
@@ -15,9 +14,6 @@ export class EffetEntity implements EffetInterface {
 
     @Column({nullable: true, default: null})
     texte?: string;
-
-    @Column({nullable: true, default: TypeEffetEnum.JOUEUR})
-    type?: string;
 
     @ManyToOne(type => UniteEntity, {
         onDelete: 'CASCADE',

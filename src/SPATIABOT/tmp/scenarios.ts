@@ -1,4 +1,5 @@
 import {ScenarioInterface} from "../domain/interfaces/scenario.interface";
+import {PorteeEnum} from "../domain/enums/portee.enum";
 
 
 export const scenarios : ScenarioInterface[] = [
@@ -192,7 +193,6 @@ export const scenarios : ScenarioInterface[] = [
             "id": "f0d00c9f-ad7d-4a8b-ab1a-0386d2bf10ae",
             "quantite": 4,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "b130e874-d843-4578-821e-ac100b045e46",
               "code": "pv",
@@ -204,7 +204,6 @@ export const scenarios : ScenarioInterface[] = [
             "id": "83e0bb59-1e4a-41cc-a587-491979086b41",
             "quantite": 1,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "9b139315-cc81-41af-9f9b-e18b53a9b14a",
               "code": "pir",
@@ -226,24 +225,23 @@ export const scenarios : ScenarioInterface[] = [
             "id": "0d79ebe6-9a16-4e5d-9fa7-7af7d65117e7",
             "quantite": 1,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "9b139315-cc81-41af-9f9b-e18b53a9b14a",
               "code": "pir",
               "libelle": "pirates",
-              "description": "Pirates présents dans le monde"
+              "description": "Pirates présents dans le monde",
             }
           },
           {
             "id": "655d5bc4-e592-4bbe-ac15-08e0477d782e",
             "quantite": 1,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "6107d7c1-e235-400e-8e2b-0eaf2789bc09",
               "code": "estChe",
               "libelle": "Estime de la Chevalerie",
-              "description": "Estime de l'empire de la Chevalerie envers ce joueur"
+              "description": "Estime de l'empire de la Chevalerie envers ce joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           }
         ]
@@ -260,48 +258,48 @@ export const scenarios : ScenarioInterface[] = [
             "id": "569dcb6b-367c-45f7-b913-809c11783a2f",
             "quantite": -2,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "f906ac5f-ca82-4574-8682-79862d66e3e3",
               "code": "infFam",
               "libelle": "Influence de la Famille",
-              "description": "Influence des Aliens sur le monde"
+              "description": "Influence des Aliens sur le monde",
+                "portee": PorteeEnum.MONDE,
             }
           },
           {
             "id": "f19f0c53-8586-4c01-aae7-0f5da0b3b3cf",
             "quantite": 3,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "9b139315-cc81-41af-9f9b-e18b53a9b14a",
               "code": "pir",
               "libelle": "pirates",
-              "description": "Pirates présents dans le monde"
+              "description": "Pirates présents dans le monde",
+                "portee": PorteeEnum.MONDE,
             }
           },
           {
             "id": "d67ab228-91d6-4545-aac5-9edf7e65bf55",
             "quantite": -1,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "05a81342-b2ca-40f8-ae6e-3d381a2ba4bb",
               "code": "estFam",
               "libelle": "Estime de la Famille",
-              "description": "Estime de l'empire de la Famille envers ce joueur"
+              "description": "Estime de l'empire de la Famille envers ce joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           },
           {
             "id": "ad379a81-fd4b-4395-b18f-3859383b1924",
             "quantite": 2,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "b130e874-d843-4578-821e-ac100b045e46",
               "code": "pv",
               "libelle": "Points de vie",
-              "description": "Points de vie du joueur"
+              "description": "Points de vie du joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           }
         ]
@@ -318,48 +316,48 @@ export const scenarios : ScenarioInterface[] = [
             "id": "96588737-bd8b-4fba-9647-f57b591e0708",
             "quantite": -1,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "9b139315-cc81-41af-9f9b-e18b53a9b14a",
               "code": "pir",
               "libelle": "pirates",
-              "description": "Pirates présents dans le monde"
+              "description": "Pirates présents dans le monde",
+                "portee": PorteeEnum.JOUEUR,
             }
           },
           {
             "id": "6c554892-86f9-45cb-b68a-9f6eee512ca0",
             "quantite": 1,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "05a81342-b2ca-40f8-ae6e-3d381a2ba4bb",
               "code": "estFam",
               "libelle": "Estime de la Famille",
-              "description": "Estime de l'empire de la Famille envers ce joueur"
+              "description": "Estime de l'empire de la Famille envers ce joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           },
           {
             "id": "f7da012f-11da-41ec-ab49-d56ec52c10c7",
             "quantite": 1,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "b130e874-d843-4578-821e-ac100b045e46",
               "code": "pv",
               "libelle": "Points de vie",
-              "description": "Points de vie du joueur"
+              "description": "Points de vie du joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           },
           {
             "id": "26c6e792-a020-40cb-be2d-f8f37da93012",
             "quantite": 2,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "f906ac5f-ca82-4574-8682-79862d66e3e3",
               "code": "infFam",
               "libelle": "Influence de la Famille",
-              "description": "Influence des Aliens sur le monde"
+              "description": "Influence des Aliens sur le monde",
+                "portee": PorteeEnum.JOUEUR,
             }
           }
         ]
@@ -376,48 +374,48 @@ export const scenarios : ScenarioInterface[] = [
             "id": "cd29cfee-9362-457c-83ea-48e04dd749de",
             "quantite": -3,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "b130e874-d843-4578-821e-ac100b045e46",
               "code": "pv",
               "libelle": "Points de vie",
-              "description": "Points de vie du joueur"
+              "description": "Points de vie du joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           },
           {
             "id": "0a06c0c2-742b-4a95-92b3-4ae74e89ca2b",
             "quantite": 2,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "05a81342-b2ca-40f8-ae6e-3d381a2ba4bb",
               "code": "estFam",
               "libelle": "Estime de la Famille",
-              "description": "Estime de l'empire de la Famille envers ce joueur"
+              "description": "Estime de l'empire de la Famille envers ce joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           },
           {
             "id": "75c9401a-5256-4fd3-a8f4-68f832ef2c88",
             "quantite": -3,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "9b139315-cc81-41af-9f9b-e18b53a9b14a",
               "code": "pir",
               "libelle": "pirates",
-              "description": "Pirates présents dans le monde"
+              "description": "Pirates présents dans le monde",
+                "portee": PorteeEnum.MONDE,
             }
           },
           {
             "id": "228c613a-c0a3-4943-804c-2b0e85914a4c",
             "quantite": 3,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "f906ac5f-ca82-4574-8682-79862d66e3e3",
               "code": "infFam",
               "libelle": "Influence de la Famille",
-              "description": "Influence des Aliens sur le monde"
+              "description": "Influence des Aliens sur le monde",
+                "portee": PorteeEnum.MONDE,
             }
           }
         ]
@@ -478,12 +476,12 @@ export const scenarios : ScenarioInterface[] = [
             "id": "d38881ea-ded6-4968-a927-9d1172e2d435",
             "quantite": -2,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "be84059b-386c-4844-80de-41d15c801ea2",
               "code": "estAli",
               "libelle": "Estime des Aliens",
-              "description": "Estime de l'empire des Aliens envers ce joueur"
+              "description": "Estime de l'empire des Aliens envers ce joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           }
         ]
@@ -500,12 +498,12 @@ export const scenarios : ScenarioInterface[] = [
             "id": "83383110-a3a3-49cf-8703-941ce2e4303e",
             "quantite": -2,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "b130e874-d843-4578-821e-ac100b045e46",
               "code": "pv",
               "libelle": "Points de vie",
-              "description": "Points de vie du joueur"
+              "description": "Points de vie du joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           }
         ]
@@ -557,12 +555,12 @@ export const scenarios : ScenarioInterface[] = [
             "id": "1e157669-a062-42af-a519-fe846f042889",
             "quantite": 3,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "f862e81a-37ba-4f46-9868-719b5f1d59e2",
               "code": "infMeg",
               "libelle": "Influence du Mégalo",
-              "description": "Influence du Mégalo sur le monde"
+              "description": "Influence du Mégalo sur le monde",
+                "portee": PorteeEnum.JOUEUR,
             }
           }
         ]
@@ -615,24 +613,24 @@ export const scenarios : ScenarioInterface[] = [
             "id": "dca75167-71d6-4c98-8bec-4a23bee90288",
             "quantite": 3,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "f862e81a-37ba-4f46-9868-719b5f1d59e2",
               "code": "infMeg",
               "libelle": "Influence du Mégalo",
-              "description": "Influence du Mégalo sur le monde"
+              "description": "Influence du Mégalo sur le monde",
+                "portee": PorteeEnum.JOUEUR,
             }
           },
           {
             "id": "5f3a3f37-1283-41e6-8c13-443b7930bf06",
             "quantite": 3,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "b130e874-d843-4578-821e-ac100b045e46",
               "code": "pv",
               "libelle": "Points de vie",
-              "description": "Points de vie du joueur"
+              "description": "Points de vie du joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           }
         ]
@@ -649,24 +647,24 @@ export const scenarios : ScenarioInterface[] = [
             "id": "32c4dd98-9e7a-4aec-85ee-09aee7be6e3b",
             "quantite": -1,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "f862e81a-37ba-4f46-9868-719b5f1d59e2",
               "code": "infMeg",
               "libelle": "Influence du Mégalo",
-              "description": "Influence du Mégalo sur le monde"
+              "description": "Influence du Mégalo sur le monde",
+                "portee": PorteeEnum.JOUEUR,
             }
           },
           {
             "id": "b8cbbdf0-81ee-445f-8de9-269a6f9670a4",
             "quantite": 2,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "cf817cfa-4823-4024-8b53-4cb6f97bdd5b",
               "code": "infChe",
               "libelle": "Influence de la Chevalerie",
-              "description": "Influence de la Chevalerie sur le monde"
+              "description": "Influence de la Chevalerie sur le monde",
+                "portee": PorteeEnum.JOUEUR,
             }
           }
         ]
@@ -683,24 +681,24 @@ export const scenarios : ScenarioInterface[] = [
             "id": "04b05ef8-272c-4b9b-9e69-9eb4e4dad598",
             "quantite": 3,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "f862e81a-37ba-4f46-9868-719b5f1d59e2",
               "code": "infMeg",
               "libelle": "Influence du Mégalo",
-              "description": "Influence du Mégalo sur le monde"
+              "description": "Influence du Mégalo sur le monde",
+                "portee": PorteeEnum.JOUEUR,
             }
           },
           {
             "id": "a49bb09e-7780-4aef-982c-cf9434b39b8a",
             "quantite": -2,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "cf817cfa-4823-4024-8b53-4cb6f97bdd5b",
               "code": "infChe",
               "libelle": "Influence de la Chevalerie",
-              "description": "Influence de la Chevalerie sur le monde"
+              "description": "Influence de la Chevalerie sur le monde",
+                "portee": PorteeEnum.JOUEUR,
             }
           }
         ]
@@ -761,24 +759,24 @@ export const scenarios : ScenarioInterface[] = [
             "id": "77374c1f-e60f-49d0-a80b-dc69f0c783eb",
             "quantite": -1,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "9c86f4a1-df16-4877-9f80-267d5c1009b6",
               "code": "infAmb",
               "libelle": "Influence des Ambrés",
-              "description": "Influence des Ambrés sur le monde"
+              "description": "Influence des Ambrés sur le monde",
+                "portee": PorteeEnum.JOUEUR,
             }
           },
           {
             "id": "06a14e1a-d3b6-41fd-95e8-69cd192ac1ac",
             "quantite": -3,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "4f6b3bfa-9d91-437b-b73a-cd5ce1bc366e",
               "code": "estAmb",
               "libelle": "Estime des Ambrés",
-              "description": "Estime de l'empire des ambrés envers ce joueur"
+              "description": "Estime de l'empire des ambrés envers ce joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           }
         ]
@@ -795,36 +793,36 @@ export const scenarios : ScenarioInterface[] = [
             "id": "af46f2bb-9064-4bac-ae3c-d3aae6c69091",
             "quantite": -1,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "b130e874-d843-4578-821e-ac100b045e46",
               "code": "pv",
               "libelle": "Points de vie",
-              "description": "Points de vie du joueur"
+              "description": "Points de vie du joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           },
           {
             "id": "5f515991-91a9-4f64-89e7-fb4be83e8ba0",
             "quantite": 3,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "4f6b3bfa-9d91-437b-b73a-cd5ce1bc366e",
               "code": "estAmb",
               "libelle": "Estime des Ambrés",
-              "description": "Estime de l'empire des ambrés envers ce joueur"
+              "description": "Estime de l'empire des ambrés envers ce joueur",
+                "portee": PorteeEnum.JOUEUR,
             }
           },
           {
             "id": "32036871-248a-4494-b341-0a6948e0e124",
             "quantite": 2,
             "texte": '',
-            "type": "JOUEUR",
             "unite": {
               "id": "9c86f4a1-df16-4877-9f80-267d5c1009b6",
               "code": "infAmb",
               "libelle": "Influence des Ambrés",
-              "description": "Influence des Ambrés sur le monde"
+              "description": "Influence des Ambrés sur le monde",
+              "portee": PorteeEnum.JOUEUR,
             }
           }
         ]

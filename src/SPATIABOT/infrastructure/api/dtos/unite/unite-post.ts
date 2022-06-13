@@ -1,6 +1,7 @@
 import {ApiProperty} from "@nestjs/swagger";
 import {IsNotEmpty, IsOptional, IsUUID} from "class-validator";
 import {UniteInterface} from "../../../../domain/interfaces/unite.interface";
+import {PorteeEnum} from "../../../../domain/enums/portee.enum";
 
 export class UnitePost implements UniteInterface {
 
@@ -32,5 +33,12 @@ export class UnitePost implements UniteInterface {
     })
     @IsOptional()
     description: string;
+
+    @ApiProperty({
+        description: 'Portée de l\'unité',
+        required: true
+    })
+    @IsOptional()
+    portee: PorteeEnum;
 
 }

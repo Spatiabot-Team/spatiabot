@@ -7,7 +7,6 @@ export class Effet implements EffetInterface {
     id: string;
     quantite: number;
     texte: string;
-    type: string;
     unite: UniteInterface;
 
 }

@@ -22,7 +22,7 @@ export class JoueurRepository extends Repository<JoueurEntity> implements Joueur
     }
 
     /**
-     * Retourne les Joueurs qui ont une étape que l'on doit leur envoyer
+     * Retourne les Joueurs attendent un nouveau scenario
      */
     findAllEnAttenteScenario(): Promise<JoueurInterface[]> {
         return this.createQueryBuilder('joueur')
